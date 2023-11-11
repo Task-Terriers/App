@@ -61,9 +61,6 @@ const convertPropsToMergedStyles = (props: { [kay: string]: any }, map: any, num
       }
     }
 
-    // disabled, activeOpacity 추가 이유 [2022-11-18, Mario]
-    // 여러 <Div />들이 곂쳤을때 이벤트들이 제대로 호출되지 않는 이슈가 있었습니다.
-    // onPress 이벤트가 있을때에만 active 시켜 줌 + activeOpacity 값 추가 (TouchableOpacity Default Value)
     if (propName === 'onPress' && otherProps.disabled !== false && typeof propValue === 'function') {
       otherProps.disabled = false
       otherProps.activeOpacity = 0.2

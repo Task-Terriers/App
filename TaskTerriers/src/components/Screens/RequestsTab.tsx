@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity, StatusBar } from 'react-native'
 import TaskTerriersSafeAreaView from '../Views/TaskTerriersSafeAreaView'
 import { Col, Span } from '../StyleToProps'
+
 
 interface Props { }
 
@@ -50,13 +51,15 @@ const RequestsTab = ({ navigation, route }) => {
     /***********
     * render()
     ***********/
+    const notchHeight = StatusBar.currentHeight?.toString()
 
     return (
-        <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-            <Col bgAlertMinor>
-                <Span> this is the RequestsTab</Span>
-            </Col>
-        </TaskTerriersSafeAreaView>
+        // <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+        <Col bgAlertMinor>
+            <Span> this is the RequestsTab</Span>
+            <Span>{notchHeight}</Span>
+        </Col>
+        // </TaskTerriersSafeAreaView>
     )
 
 }

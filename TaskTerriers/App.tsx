@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { Col, Span } from "./src/components/StyleToProps";
 import * as SplashScreen from "expo-splash-screen";
 import useFonts from "./hooks/useFonts";
-import BottomTabs from "./navigation/BottomTabNavigator";
+import { BottomTabs } from "./navigation/BottomTabNavigator";
 import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
@@ -49,10 +49,10 @@ export default function App() {
 
   return (
     <Col flex onLayout={onLayoutRootView}>
+      <StatusBar style={'dark'} backgroundColor={'white'} />
       <NavigationContainer  >
         <BottomTabs />
       </NavigationContainer >
     </Col>
-
   );
 }
