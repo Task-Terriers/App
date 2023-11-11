@@ -1,9 +1,10 @@
+import React, { useCallback, useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import * as SplashScreen from 'expo-splash-screen';
-import useFonts from './hooks/useFonts';
-
 import { Col, Span } from "./src/components/StyleToProps";
-import { useCallback, useEffect, useState } from "react";
+import * as SplashScreen from "expo-splash-screen";
+import useFonts from "./hooks/useFonts";
+// import BottomTabs from "./navigation/BottomTabNavigator";
+// import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
   const [IsReady, SetIsReady] = useState(false);
@@ -19,7 +20,7 @@ export default function App() {
         await LoadFonts();
         // Artificially delay for two seconds to simulate a slow loading
         // experience. Please remove this if you copy and paste the code!
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 2000));
       } catch (e) {
         console.warn(e);
       } finally {
@@ -54,6 +55,10 @@ export default function App() {
         </Span>
       </Col>
       <StatusBar style="auto" />
+      {/* <NavigationContainer>
+        <BottomTabs />
+      </NavigationContainer> */}
     </Col>
+
   );
 }
