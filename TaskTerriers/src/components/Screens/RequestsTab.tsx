@@ -51,13 +51,13 @@ const RequestsTab = ({ navigation, route }) => {
     /***********
     * render()
     ***********/
-    const notchHeight = StatusBar.currentHeight?.toString()
 
     return (
-        <Col bgAlertMinor>
-            <Span> this is the RequestsTab</Span>
-            <Span>{notchHeight}</Span>
-        </Col>
+        <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+            <Col bgAlertMinor>
+                <Span> this is the RequestsTab</Span>
+            </Col>
+        </TaskTerriersSafeAreaView>
     )
 
 }

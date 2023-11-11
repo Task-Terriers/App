@@ -17,10 +17,11 @@ export const BottomTabs = () => {
     return (
         <Tab.Navigator
             tabBar={props => <CustomTabBarContent {...props} />}
-            screenOptions={({ route }) => {
+            screenOptions={() => {
                 return {
                     tabBarShowIcon: true,
                     tabBarShowLabel: false,
+                    headerShown: false
                 };
             }}
         >

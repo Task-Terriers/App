@@ -53,9 +53,11 @@ const ServicesTab = ({ navigation, route }) => {
     ***********/
 
     return (
-        <Col bgAlertMinor>
-            <Span> this is the ServicesTab</Span>
-        </Col>
+        <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+            <Col bgAlertMinor>
+                <Span> this is the ServicesTab</Span>
+            </Col>
+        </TaskTerriersSafeAreaView>
     )
 
 }
