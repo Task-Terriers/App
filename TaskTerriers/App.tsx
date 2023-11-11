@@ -3,8 +3,8 @@ import { StatusBar } from "expo-status-bar";
 import { Col, Span } from "./src/components/StyleToProps";
 import * as SplashScreen from "expo-splash-screen";
 import useFonts from "./hooks/useFonts";
-// import BottomTabs from "./navigation/BottomTabNavigator";
-// import { NavigationContainer } from '@react-navigation/native';
+import BottomTabs from "./navigation/BottomTabNavigator";
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
   const [IsReady, SetIsReady] = useState(false);
@@ -48,16 +48,10 @@ export default function App() {
   }
 
   return (
-    <Col flex justifyCenter alignCenter onLayout={onLayoutRootView}>
-      <Col>
-        <Span bodyL colorNeutral40>
-          hello
-        </Span>
-      </Col>
-      <StatusBar style="auto" />
-      {/* <NavigationContainer>
+    <Col flex onLayout={onLayoutRootView}>
+      <NavigationContainer  >
         <BottomTabs />
-      </NavigationContainer> */}
+      </NavigationContainer >
     </Col>
 
   );

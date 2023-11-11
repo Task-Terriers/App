@@ -4,16 +4,16 @@ import ServicesTab from "../src/components/Screens/ServicesTab";
 import MessagesTab from "../src/components/Screens/MessagesTab";
 import SettingsTab from "../src/components/Screens/SettingsTab";
 
-const BottomTab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
-const BottomTabs = () => {
+function BottomTabs() {
     return (
-        <BottomTab.Navigator>
-            <BottomTab.Screen name="Requests" component={RequestsTab} />
-            <BottomTab.Screen name="Services" component={ServicesTab} />
-            <BottomTab.Screen name="Messages" component={MessagesTab} />
-            <BottomTab.Screen name="Settings" component={SettingsTab} />
-        </BottomTab.Navigator>
+        <Tab.Navigator>
+            <Tab.Screen name="Requests" component={RequestsTab} />
+            <Tab.Screen name="Services" component={ServicesTab} />
+            <Tab.Screen name="Messages" component={MessagesTab} />
+            <Tab.Screen name="Settings" component={SettingsTab} />
+        </Tab.Navigator>
     )
 }
 

@@ -3,7 +3,7 @@ import { ColorValue, View, StatusBar, StatusBarStyle, ViewStyle } from 'react-na
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { deviceInfo } from '../../utilities/deviceInfo'
+// import { deviceInfo } from '../../utilities/deviceInfo'
 
 import { NeutralColor } from '../../Libs/Colors'
 import { useFocusEffect } from '@react-navigation/native'
@@ -42,7 +42,7 @@ const TaskTerriersSafeAreaView: React.FC<Props> = (props: Props) => {
      *********/
 
     const renderStatusBar = () => {
-        if (deviceInfo.isAndroid) return 'dark-content'
+        // if (deviceInfo.isAndroid) return 'dark-content'
         return statusBar
     }
 
