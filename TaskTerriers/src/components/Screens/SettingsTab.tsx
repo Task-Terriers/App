@@ -53,11 +53,9 @@ const SettingsTab = ({ navigation, route }) => {
     ***********/
 
     return (
-        <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-            <Col bgAlertMinor>
-                <Span> this is the SettingsTab</Span>
-            </Col>
-        </TaskTerriersSafeAreaView>
+        <Col bgAlertMinor>
+            <Span> this is the SettingsTab</Span>
+        </Col>
     )
 
 }
