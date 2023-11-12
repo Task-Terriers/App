@@ -55,7 +55,6 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ title, hasDivider, iconNa
         return <Ionicons name={iconName} size={24} color="#2D2926" />
     }
 
-
     const renderTitle = () => {
         return (
             <Span titleXL ml8>
