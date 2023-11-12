@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity, StatusBar } from 'react-native'
 import TaskTerriersSafeAreaView from '../Views/TaskTerriersSafeAreaView'
-import { BUColor } from '../../Libs/Colors';
-import { Col } from '../StyleToProps/Col';
-import { Span } from '../StyleToProps';
+import { Col, Span } from '../StyleToProps'
+import NavigationBar from '../components/NavigationBar'
+
 
 interface Props { }
 
 
-const MessagesTab = ({ navigation, route }) => {
+const RequestsTab = ({ navigation, route }) => {
 
     /*********
     * recoil
@@ -55,13 +55,13 @@ const MessagesTab = ({ navigation, route }) => {
 
     return (
         <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+            <NavigationBar iconName='help-buoy' title="Requests" />
             <Col bgAlertMinor>
-                <Span> this is the MessagesTab</Span>
+                <Span> this is the RequestsTab</Span>
             </Col>
         </TaskTerriersSafeAreaView>
     )
 
 }
 
-
-export default MessagesTab
+export default RequestsTab

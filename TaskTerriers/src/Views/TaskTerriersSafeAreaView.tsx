@@ -5,9 +5,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 // import { deviceInfo } from '../../utilities/deviceInfo'
 
-import { NeutralColor } from '../../Libs/Colors'
+import { NeutralColor } from '../Libs/Colors'
 import { useFocusEffect } from '@react-navigation/native'
-import { deviceInfo } from '../../utilities/deviceInfo'
+import { deviceInfo } from '../utilities/deviceInfo'
 
 interface Props {
     children: ReactNode | ReactNode[]

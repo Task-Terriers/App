@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { Col, Span } from "./src/components/StyleToProps";
+import { Col, Span } from "./src/StyleToProps";
 import * as SplashScreen from "expo-splash-screen";
 import useFonts from "./hooks/useFonts";
 import { BottomTabs } from "./navigation/BottomTabNavigator";

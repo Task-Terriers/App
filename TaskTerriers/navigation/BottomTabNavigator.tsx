@@ -1,14 +1,14 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import RequestsTab from "../src/components/Screens/RequestsTab";
-import ServicesTab from "../src/components/Screens/ServicesTab";
-import MessagesTab from "../src/components/Screens/MessagesTab";
-import SettingsTab from "../src/components/Screens/SettingsTab";
-import { Col, Row, Span } from "../src/components/StyleToProps";
+import RequestsTab from "../src/Screens/RequestsTab";
+import ServicesTab from "../src/Screens/ServicesTab";
+import MessagesTab from "../src/Screens/MessagesTab";
+import SettingsTab from "../src/Screens/SettingsTab";
+import { Col, Row, Span } from "../src/StyleToProps";
 import { Ionicons } from '@expo/vector-icons';
 import { BUColor, NeutralColor } from "../src/Libs/Colors";
 import { TouchableOpacity } from "react-native";
-import { toStyle } from "../src/components/StyleToProps/withStyleProps";
-import { Style } from "../src/components/StyleToProps/styleProps";
+import { toStyle } from "../src/StyleToProps/withStyleProps";
+import { Style } from "../src/StyleToProps/styleProps";
 import { deviceInfo } from "../src/utilities/deviceInfo";
 
 const Tab = createBottomTabNavigator();
