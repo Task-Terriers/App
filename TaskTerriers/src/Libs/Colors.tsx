@@ -28,6 +28,12 @@ export declare namespace TypographyColorType {
     type Key = 'neutral-10' | 'neutral-40' | 'neutral-60' | 'neutral-100'
 }
 
+export declare namespace BackgroundColorType {
+    type Value =
+        | '#e0e2e7'
+        | '#ff0000'
+}
+
 export declare namespace UniversalColorType {
     type Value =
         | '#cc0000'

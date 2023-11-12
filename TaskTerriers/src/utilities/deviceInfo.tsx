@@ -1,15 +1,10 @@
 import { Platform, Dimensions, StatusBar } from 'react-native'
 
-import DeviceInfo from 'react-native-device-info'
-
-
-type EnvType = 'PROD' | 'REVIEW' | 'STAGING' | 'DEV' | 'DEV-1' | 'DEV-2'
-
-const isIphoneX = Platform.OS === 'ios' && DeviceInfo.hasNotch()
+const isIphoneX = Platform.OS === 'ios' && StatusBar.currentHeight == 44
 
 const getSafeAreaTopSpace = () => {
-    if (Platform.OS === 'ios' && DeviceInfo.hasDynamicIsland()) return 59
-    if (Platform.OS === 'ios' && DeviceInfo.hasNotch()) return 44
+    if (Platform.OS === 'ios' && StatusBar.currentHeight == 59) return 59
+    if (Platform.OS === 'ios' && StatusBar.currentHeight == 44) return 44
     if (Platform.OS === 'android') return 0
     return 20
 }
@@ -47,3 +42,4 @@ export const deviceInfo: {
     },
     buttonBottomSpace: isIphoneX ? 0 : 24,
 }
+
