@@ -3,8 +3,10 @@ import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity, StatusBar } fro
 import TaskTerriersSafeAreaView from '../Views/TaskTerriersSafeAreaView'
 import { Col, Span } from '../StyleToProps'
 import NavigationBar from '../components/NavigationBar'
+import { UniversalButton } from '../components/Buttons'
+import { NeutralColor } from '../Libs'
 
-interface Props {}
+interface Props { }
 
 const RequestsTab = ({ navigation, route }) => {
   /*********
@@ -46,9 +48,44 @@ const RequestsTab = ({ navigation, route }) => {
   // return null
   // }
 
+  // if (isRendering === true) {
+  // return null
+  // }
+
   /***********
-   * render()
-   ***********/
+  * render()
+  ***********/
+
+  return (
+    <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: NeutralColor['neutral-90'] }}>
+      <NavigationBar iconName='help-buoy' title="Requests" />
+      <Col ph16>
+        <Col bgAlertMinor>
+          <Span> this is the RequestsTab</Span>
+        </Col>
+        <UniversalButton
+          text={{ value: "Click me", color: NeutralColor['neutral-0'] }}
+          size='medium'
+          onPress={null}
+        ></UniversalButton>
+
+        <UniversalButton
+          text={{ value: "This is a disabled button" }}
+          size='medium'
+          onPress={null}
+          state='disabled'
+        ></UniversalButton>
+
+        <UniversalButton
+          text={{ value: "This is a disabled button" }}
+          size='medium'
+          onPress={null}
+          isProgress
+        ></UniversalButton>
+      </Col>
+
+    </TaskTerriersSafeAreaView>
+  )
 
   return (
     <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
