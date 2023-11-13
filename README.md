@@ -3,7 +3,7 @@
 ## Git Commit convention
 1. Make a branch before you start working on your code. <br>
 ``` git checkout -b <new branch name> ``` <br>
-⚠️ We are going to be creating branch names with the Jira Issue ID followed by the type of branch prefix (listed in the bottom of this README) <br>
+⚠️ We are going to be creating branch names with the Jira Issue ID followed by the type of branch prefix (see bottom of this README) <br>
 How we should name branches: 
    > ex) ```feature/TAS-26@create-button-component```
 2. After you are done with implementing each issue, create a PR to ```dev```.
