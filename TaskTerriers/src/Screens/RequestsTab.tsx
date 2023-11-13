@@ -6,7 +6,7 @@ import NavigationBar from '../components/NavigationBar'
 import { UniversalButton, WarningButton } from '../components/Buttons'
 import { NeutralColor } from '../Libs'
 
-interface Props { }
+interface Props {}
 
 const RequestsTab = ({ navigation, route }) => {
   /*********
@@ -39,58 +39,38 @@ const RequestsTab = ({ navigation, route }) => {
    ************/
 
   /***********
-  * render()
-  ***********/
+   * render()
+   ***********/
 
   return (
     <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: NeutralColor['neutral-90'] }}>
-      <NavigationBar iconName='help-buoy' title="Requests" />
+      <NavigationBar iconName="help-buoy" title="Requests" />
       <Col ph16>
         <Col bgAlertMinor>
           <Span> this is the RequestsTab</Span>
         </Col>
-        <UniversalButton
-          text={{ value: "Click me", color: NeutralColor['neutral-0'] }}
-          size='medium'
-          onPress={null}
-          margin={{ top: 10 }}
-        />
+        <UniversalButton text={{ value: 'Click me', color: NeutralColor['neutral-0'] }} size="medium" onPress={null} margin={{ top: 10 }} />
 
-        <UniversalButton
-          text={{ value: "This is a disabled button" }}
-          size='medium'
-          onPress={null}
-          state='disabled'
-          margin={{ top: 10 }}
-        />
+        <UniversalButton text={{ value: 'This is a disabled button' }} size="medium" onPress={null} state="disabled" margin={{ top: 10 }} />
 
-        <UniversalButton
-          text={{ value: "This is a disabled button" }}
-          size='medium'
+        <UniversalButton text={{ value: 'This is a disabled button' }} size="medium" onPress={null} isProgress margin={{ top: 10 }} />
+        <WarningButton
+          warningStyle="fill"
+          text={{ value: 'This is a warning button (style :fill)' }}
           onPress={null}
-          isProgress
+          size="medium"
           margin={{ top: 10 }}
         />
         <WarningButton
-          warningStyle='fill'
-          text={{ value: "This is a warning button (style :fill)" }}
+          warningStyle="outline"
+          text={{ value: 'This is a warning button (style:outline)' }}
           onPress={null}
-          size='medium'
+          size="medium"
           margin={{ top: 10 }}
         />
-        <WarningButton
-          warningStyle='outline'
-          text={{ value: "This is a warning button (style:outline)" }}
-          onPress={null}
-          size='medium'
-          margin={{ top: 10 }}
-        />
-
       </Col>
-
     </TaskTerriersSafeAreaView>
   )
-
 }
 
 export default RequestsTab

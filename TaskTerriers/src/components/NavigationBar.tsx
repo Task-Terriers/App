@@ -7,76 +7,75 @@ import { Divider } from './Divider'
 import { UniversalColorType } from '../Libs'
 
 interface NavigationBarProps {
-    title: TypographyType.Value
-    hasDivider?: boolean
-    iconName?: IconName.Value
-    backgroundColor?: UniversalColorType.Value
+  title: TypographyType.Value
+  hasDivider?: boolean
+  iconName?: IconName.Value
+  backgroundColor?: UniversalColorType.Value
 }
 
 const NavigationBar: React.FC<NavigationBarProps> = ({ title, hasDivider, iconName, backgroundColor }) => {
+  /**************************
+   * props, navigation prams
+   **************************/
 
-    /**************************
-     * props, navigation prams
-     **************************/
+  /*************
+   * state, ref
+   *************/
 
-    /*************
-     * state, ref
-     *************/
+  const [isRendering, setIsRendering] = useState<boolean>(true)
 
-    const [isRendering, setIsRendering] = useState<boolean>(true)
+  /**************
+   * life cycles
+   **************/
 
-    /**************
-     * life cycles
-     **************/
+  useEffect(() => {
+    // ComponentDidMount
 
-    useEffect(() => {
-        // ComponentDidMount
-
-        // setIsRendering(false)
-        return () => {
-            // ComponentWillUnmount
-        }
-    }, [])
-
-    /************
-     * functions
-     ************/
-    const getBackgroundColor = () => {
-        if (backgroundColor) return backgroundColor
-        return '#ffffff'
+    // setIsRendering(false)
+    return () => {
+      // ComponentWillUnmount
     }
+  }, [])
 
-    /*********
-     * render
-     *********/
+  /************
+   * functions
+   ************/
+  const getBackgroundColor = () => {
+    if (backgroundColor) return backgroundColor
+    return '#ffffff'
+  }
 
-    const renderIcon = () => {
-        if (!iconName) return null
-        return <Ionicons name={iconName} size={24} color="#2D2926" />
-    }
+  /*********
+   * render
+   *********/
 
-    const renderTitle = () => {
-        return (
-            <Span titleXL ml8>
-                {title.toString()}
-            </Span>
-        )
-    }
+  const renderIcon = () => {
+    if (!iconName) return null
+    return <Ionicons name={iconName} size={24} color="#2D2926" />
+  }
 
-    const getHeight = () => {
-        return 54
-    }
-
-    /***********
-     * render()
-     ***********/
-
+  const renderTitle = () => {
     return (
-        <Row h={getHeight()} ph16 alignCenter style={{ backgroundColor: getBackgroundColor() }}>
-            {renderIcon()}
-            {renderTitle()}
-        </Row>
+      <Span titleXL ml8>
+        {title.toString()}
+      </Span>
     )
+  }
+
+  const getHeight = () => {
+    return 54
+  }
+
+  /***********
+   * render()
+   ***********/
+
+  return (
+    <Row h={getHeight()} ph16 alignCenter style={{ backgroundColor: getBackgroundColor() }}>
+      {renderIcon()}
+      {renderTitle()}
+    </Row>
+  )
 }
 
 export default NavigationBar
