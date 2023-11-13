@@ -1,67 +1,63 @@
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import TaskTerriersSafeAreaView from '../Views/TaskTerriersSafeAreaView'
-import { BUColor } from '../Libs/Colors';
-import { Col } from '../StyleToProps/Col';
-import { Span } from '../StyleToProps';
+import { BUColor } from '../Libs/Colors'
+import { Col } from '../StyleToProps/Col'
+import { Span } from '../StyleToProps'
 
-interface Props { }
-
+interface Props {}
 
 const MessagesTab = ({ navigation, route }) => {
+  /*********
+   * recoil
+   *********/
 
-    /*********
-    * recoil
-    *********/
+  /**************************
+   * props, navigation prams
+   **************************/
 
-    /**************************
-    * props, navigation prams
-    **************************/
+  /*************
+   * state, ref
+   *************/
 
-    /*************
-    * state, ref
-    *************/
+  const [isRendering, setIsRendering] = useState<boolean>(true)
 
-    const [isRendering, setIsRendering] = useState<boolean>(true)
+  /**************
+   * life cycles
+   **************/
 
-    /**************
-    * life cycles
-    **************/
+  useEffect(() => {
+    // ComponentDidMount
 
-    useEffect(() => {
-        // ComponentDidMount
+    // setIsRendering(false)
+    return () => {
+      // ComponentWillUnmount
+    }
+  }, [])
 
-        // setIsRendering(false)
-        return () => {
-            // ComponentWillUnmount
-        }
-    }, [])
+  /************
+   * functions
+   ************/
 
-    /************
-    * functions
-    ************/
+  /*********
+   * render
+   *********/
 
-    /*********
-    * render
-    *********/
+  // if (isRendering === true) {
+  // return null
+  // }
 
-    // if (isRendering === true) {
-    // return null
-    // }
+  /***********
+   * render()
+   ***********/
 
-    /***********
-    * render()
-    ***********/
-
-    return (
-        <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-            <Col bgAlertMinor>
-                <Span> this is the MessagesTab</Span>
-            </Col>
-        </TaskTerriersSafeAreaView>
-    )
-
+  return (
+    <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+      <Col bgAlertMinor>
+        <Span> this is the MessagesTab</Span>
+      </Col>
+    </TaskTerriersSafeAreaView>
+  )
 }
-
 
 export default MessagesTab

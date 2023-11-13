@@ -4,64 +4,60 @@ import TaskTerriersSafeAreaView from '../Views/TaskTerriersSafeAreaView'
 import { Col, Span } from '../StyleToProps'
 import NavigationBar from '../components/NavigationBar'
 
-
-interface Props { }
-
+interface Props {}
 
 const RequestsTab = ({ navigation, route }) => {
+  /*********
+   * recoil
+   *********/
 
-    /*********
-    * recoil
-    *********/
+  /**************************
+   * props, navigation prams
+   **************************/
 
-    /**************************
-    * props, navigation prams
-    **************************/
+  /*************
+   * state, ref
+   *************/
 
-    /*************
-    * state, ref
-    *************/
+  const [isRendering, setIsRendering] = useState<boolean>(true)
 
-    const [isRendering, setIsRendering] = useState<boolean>(true)
+  /**************
+   * life cycles
+   **************/
 
-    /**************
-    * life cycles
-    **************/
+  useEffect(() => {
+    // ComponentDidMount
 
-    useEffect(() => {
-        // ComponentDidMount
+    // setIsRendering(false)
+    return () => {
+      // ComponentWillUnmount
+    }
+  }, [])
 
-        // setIsRendering(false)
-        return () => {
-            // ComponentWillUnmount
-        }
-    }, [])
+  /************
+   * functions
+   ************/
 
-    /************
-    * functions
-    ************/
+  /*********
+   * render
+   *********/
 
-    /*********
-    * render
-    *********/
+  // if (isRendering === true) {
+  // return null
+  // }
 
-    // if (isRendering === true) {
-    // return null
-    // }
+  /***********
+   * render()
+   ***********/
 
-    /***********
-    * render()
-    ***********/
-
-    return (
-        <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-            <NavigationBar iconName='help-buoy' title="Requests" />
-            <Col bgAlertMinor>
-                <Span> this is the RequestsTab</Span>
-            </Col>
-        </TaskTerriersSafeAreaView>
-    )
-
+  return (
+    <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+      <NavigationBar iconName="help-buoy" title="Requests" />
+      <Col bgAlertMinor>
+        <Span> this is the RequestsTab</Span>
+      </Col>
+    </TaskTerriersSafeAreaView>
+  )
 }
 
 export default RequestsTab

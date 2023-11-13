@@ -207,21 +207,96 @@ const mapPropToLayoutStyle = {
 }
 
 const mapPropToTextStyle = {
-  displayL: () => ({ fontSize: 57, letterSpacing: 0, lineHeight: 64, fontFamily: 'Pretendard-Bold' }),
-  displayM: () => ({ fontSize: 45, letterSpacing: 0, lineHeight: 52, fontFamily: 'Pretendard-Bold' }),
-  displayS: () => ({ fontSize: 40, letterSpacing: 0, lineHeight: 44, fontFamily: 'Pretendard-Bold' }),
-  headlineL: () => ({ fontSize: 32, letterSpacing: 0, lineHeight: 40, fontFamily: 'Pretendard-Bold' }),
-  headlineM: () => ({ fontSize: 28, letterSpacing: 0, lineHeight: 36, fontFamily: 'Pretendard-Bold' }),
-  headlineS: () => ({ fontSize: 24, letterSpacing: 0, lineHeight: 32, fontFamily: 'Pretendard-Bold' }),
-  titleXL: () => ({ fontSize: 20, letterSpacing: 0, lineHeight: 28, fontFamily: 'Pretendard-SemiBold' }),
-  titleL: () => ({ fontSize: 17, letterSpacing: 0, lineHeight: 28, fontFamily: 'Pretendard-SemiBold' }),
-  titleM: () => ({ fontSize: 15, letterSpacing: 0.15, lineHeight: 24, fontFamily: 'Pretendard-SemiBold' }),
-  titleS: () => ({ fontSize: 13, letterSpacing: 0.1, lineHeight: 20, fontFamily: 'Pretendard-SemiBold' }),
-  labelL: () => ({ fontSize: 14, letterSpacing: 0.1, lineHeight: 20, fontFamily: 'Pretendard-Bold' }),
-  labelM: () => ({ fontSize: 12, letterSpacing: 0.5, lineHeight: 16, fontFamily: 'Pretendard-Bold' }),
-  labelS: () => ({ fontSize: 10, letterSpacing: 0.5, lineHeight: 16, fontFamily: 'Pretendard-Bold' }),
-  bodyL: () => ({ fontSize: 15, letterSpacing: 0.15, lineHeight: 24, fontFamily: 'Pretendard-Regular' }),
-  bodyM: () => ({ fontSize: 13, letterSpacing: 0.15, lineHeight: 20, fontFamily: 'Pretendard-Regular' }),
+  displayL: () => ({
+    fontSize: 57,
+    letterSpacing: 0,
+    lineHeight: 64,
+    fontFamily: 'Pretendard-Bold',
+  }),
+  displayM: () => ({
+    fontSize: 45,
+    letterSpacing: 0,
+    lineHeight: 52,
+    fontFamily: 'Pretendard-Bold',
+  }),
+  displayS: () => ({
+    fontSize: 40,
+    letterSpacing: 0,
+    lineHeight: 44,
+    fontFamily: 'Pretendard-Bold',
+  }),
+  headlineL: () => ({
+    fontSize: 32,
+    letterSpacing: 0,
+    lineHeight: 40,
+    fontFamily: 'Pretendard-Bold',
+  }),
+  headlineM: () => ({
+    fontSize: 28,
+    letterSpacing: 0,
+    lineHeight: 36,
+    fontFamily: 'Pretendard-Bold',
+  }),
+  headlineS: () => ({
+    fontSize: 24,
+    letterSpacing: 0,
+    lineHeight: 32,
+    fontFamily: 'Pretendard-Bold',
+  }),
+  titleXL: () => ({
+    fontSize: 20,
+    letterSpacing: 0,
+    lineHeight: 28,
+    fontFamily: 'Pretendard-SemiBold',
+  }),
+  titleL: () => ({
+    fontSize: 17,
+    letterSpacing: 0,
+    lineHeight: 28,
+    fontFamily: 'Pretendard-SemiBold',
+  }),
+  titleM: () => ({
+    fontSize: 15,
+    letterSpacing: 0.15,
+    lineHeight: 24,
+    fontFamily: 'Pretendard-SemiBold',
+  }),
+  titleS: () => ({
+    fontSize: 13,
+    letterSpacing: 0.1,
+    lineHeight: 20,
+    fontFamily: 'Pretendard-SemiBold',
+  }),
+  labelL: () => ({
+    fontSize: 14,
+    letterSpacing: 0.1,
+    lineHeight: 20,
+    fontFamily: 'Pretendard-Bold',
+  }),
+  labelM: () => ({
+    fontSize: 12,
+    letterSpacing: 0.5,
+    lineHeight: 16,
+    fontFamily: 'Pretendard-Bold',
+  }),
+  labelS: () => ({
+    fontSize: 10,
+    letterSpacing: 0.5,
+    lineHeight: 16,
+    fontFamily: 'Pretendard-Bold',
+  }),
+  bodyL: () => ({
+    fontSize: 15,
+    letterSpacing: 0.15,
+    lineHeight: 24,
+    fontFamily: 'Pretendard-Regular',
+  }),
+  bodyM: () => ({
+    fontSize: 13,
+    letterSpacing: 0.15,
+    lineHeight: 20,
+    fontFamily: 'Pretendard-Regular',
+  }),
   bold: () => ({ fontFamily: 'Pretendard-Bold' }),
   semiBold: () => ({ fontFamily: 'Pretendard-SemiBold' }),
   color: (v: ColorValue) => ({ color: v }),
@@ -263,10 +338,16 @@ Object.entries(Colors).forEach(([key, colorCode]) => {
   mapPropToLayoutStyle[`bg${key}`] = () => ({ backgroundColor: colorCode })
   mapPropToLayoutStyle[`bg${key}Alpha`] = alpha
   mapPropToLayoutStyle[`border${key}`] = () => ({ borderColor: colorCode })
-  mapPropToLayoutStyle[`borderL${key}`] = () => ({ borderLeftColor: colorCode })
-  mapPropToLayoutStyle[`borderR${key}`] = () => ({ borderRightColor: colorCode })
+  mapPropToLayoutStyle[`borderL${key}`] = () => ({
+    borderLeftColor: colorCode,
+  })
+  mapPropToLayoutStyle[`borderR${key}`] = () => ({
+    borderRightColor: colorCode,
+  })
   mapPropToLayoutStyle[`borderT${key}`] = () => ({ borderTopColor: colorCode })
-  mapPropToLayoutStyle[`borderB${key}`] = () => ({ borderBottomColor: colorCode })
+  mapPropToLayoutStyle[`borderB${key}`] = () => ({
+    borderBottomColor: colorCode,
+  })
   // text
   mapPropToTextStyle[`color${key}`] = () => ({ color: colorCode })
 })
@@ -282,11 +363,15 @@ type LayoutColorProps =
 export type LayoutColorType = { [key in LayoutColorProps]?: true }
 type LayoutTemplateLiteral = `${string & keyof typeof mapPropNumberToLayoutStyle}${number}`
 type LayoutNumberType = { [key in LayoutTemplateLiteral]?: boolean }
-type LayoutPropType = { [key in keyof typeof mapPropToLayoutStyle]?: numOrStrOrBool }
+type LayoutPropType = {
+  [key in keyof typeof mapPropToLayoutStyle]?: numOrStrOrBool
+}
 
 type TextColorProps = `color${string & keyof typeof Colors}`
 type TextColorType = { [key in TextColorProps]?: true }
-type TextPropType = { [key in keyof typeof mapPropToTextStyle]?: numOrStrOrBool }
+type TextPropType = {
+  [key in keyof typeof mapPropToTextStyle]?: numOrStrOrBool
+}
 
 type SingleOrArray<T> = T | T[]
 export type StyleComp = SingleOrArray<React.ReactElement | boolean>

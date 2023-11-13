@@ -5,78 +5,74 @@ import { Col, Row, Span } from '../StyleToProps'
 import { Ionicons } from '@expo/vector-icons'
 
 interface NavigationBarProps {
-    title: TypographyType.Value
-    hasDivider?: boolean
-    iconName?: IconName.Value
+  title: TypographyType.Value
+  hasDivider?: boolean
+  iconName?: IconName.Value
 }
 
 const NavigationBar: React.FC<NavigationBarProps> = ({ title, hasDivider, iconName }) => {
+  /*********
+   * recoil
+   *********/
 
-    /*********
-    * recoil
-    *********/
+  /**************************
+   * props, navigation prams
+   **************************/
 
-    /**************************
-    * props, navigation prams
-    **************************/
+  /*************
+   * state, ref
+   *************/
 
-    /*************
-    * state, ref
-    *************/
+  const [isRendering, setIsRendering] = useState<boolean>(true)
 
-    const [isRendering, setIsRendering] = useState<boolean>(true)
+  /**************
+   * life cycles
+   **************/
 
-    /**************
-    * life cycles
-    **************/
+  useEffect(() => {
+    // ComponentDidMount
 
-    useEffect(() => {
-        // ComponentDidMount
-
-        // setIsRendering(false)
-        return () => {
-            // ComponentWillUnmount
-        }
-    }, [])
-
-    /************
-    * functions
-    ************/
-
-    /*********
-    * render
-    *********/
-
-    const renderIcon = () => {
-        if (!iconName) return null
-        return (
-            <Ionicons name={iconName} size={24} color="#2D2926" />
-
-        )
+    // setIsRendering(false)
+    return () => {
+      // ComponentWillUnmount
     }
+  }, [])
 
-    const renderTitle = () => {
-        return (
-            <Span titleXL ml8>{title.toString()}</Span>
-        )
-    }
+  /************
+   * functions
+   ************/
 
-    const getHeight = () => {
-        return 54
-    }
+  /*********
+   * render
+   *********/
 
-    /***********
-    * render()
-    ***********/
+  const renderIcon = () => {
+    if (!iconName) return null
+    return <Ionicons name={iconName} size={24} color="#2D2926" />
+  }
 
+  const renderTitle = () => {
     return (
-        <Row h={getHeight()} ph16 alignCenter>
-            {renderIcon()}
-            {renderTitle()}
-        </Row>
+      <Span titleXL ml8>
+        {title.toString()}
+      </Span>
     )
+  }
 
+  const getHeight = () => {
+    return 54
+  }
+
+  /***********
+   * render()
+   ***********/
+
+  return (
+    <Row h={getHeight()} ph16 alignCenter>
+      {renderIcon()}
+      {renderTitle()}
+    </Row>
+  )
 }
-
 
 export default NavigationBar

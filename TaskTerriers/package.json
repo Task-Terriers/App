@@ -6,7 +6,9 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "prettier:check": "prettier --check .",
+    "prettier:write": "prettier --write ."
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
@@ -14,9 +16,11 @@
     "@react-navigation/core": "^6.4.10",
     "@react-navigation/native": "^6.1.9",
     "@types/react": "~18.2.14",
+    "eslint-config-prettier": "^9.0.0",
     "expo": "~49.0.15",
     "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
+    "prettier": "^3.1.0",
     "react": "18.2.0",
     "react-native": "0.72.5",
     "react-native-gesture-handler": "~2.12.0",

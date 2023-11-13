@@ -18,7 +18,10 @@ const extractStylesFromComponent = (compOrArray: StyleComp, map: any, numberMap?
 
 const convertPropsToMergedStyles = (props: { [kay: string]: any }, map: any, numberMap?: any): [ViewStyle, TouchableOpacityProps] => {
   let mergedStyles: ViewStyle = {}
-  const otherProps: TouchableOpacityProps = { activeOpacity: 1, disabled: true }
+  const otherProps: TouchableOpacityProps = {
+    activeOpacity: 1,
+    disabled: true,
+  }
   for (const propName in props) {
     const propValue = props[propName]
 
