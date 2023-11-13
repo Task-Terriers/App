@@ -3,7 +3,7 @@ import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity, StatusBar } fro
 import TaskTerriersSafeAreaView from '../Views/TaskTerriersSafeAreaView'
 import { Col, Span } from '../StyleToProps'
 import NavigationBar from '../components/NavigationBar'
-import { UniversalButton } from '../components/Buttons'
+import { UniversalButton, WarningButton } from '../components/Buttons'
 import { NeutralColor } from '../Libs'
 
 interface Props { }
@@ -67,21 +67,39 @@ const RequestsTab = ({ navigation, route }) => {
           text={{ value: "Click me", color: NeutralColor['neutral-0'] }}
           size='medium'
           onPress={null}
-        ></UniversalButton>
+          margin={{ top: 10 }}
+        />
 
         <UniversalButton
           text={{ value: "This is a disabled button" }}
           size='medium'
           onPress={null}
           state='disabled'
-        ></UniversalButton>
+          margin={{ top: 10 }}
+        />
 
         <UniversalButton
           text={{ value: "This is a disabled button" }}
           size='medium'
           onPress={null}
           isProgress
-        ></UniversalButton>
+          margin={{ top: 10 }}
+        />
+        <WarningButton
+          warningStyle='fill'
+          text={{ value: "This is a warning button (style :fill)" }}
+          onPress={null}
+          size='medium'
+          margin={{ top: 10 }}
+        />
+        <WarningButton
+          warningStyle='outline'
+          text={{ value: "This is a warning button (style:outline)" }}
+          onPress={null}
+          size='medium'
+          margin={{ top: 10 }}
+        />
+
       </Col>
 
     </TaskTerriersSafeAreaView>

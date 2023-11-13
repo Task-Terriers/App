@@ -1,4 +1,5 @@
 export * from './UniversalButton'
+export * from './WarningButton'
 
 import { BackgroundColorType, UniversalColorType } from '../../Libs/Colors'
 import { IconType, SpaceStyle, TypographyType } from '../types'
@@ -27,5 +28,4 @@ export declare namespace ButtonStyle {
     type Theme = 'light' | 'dark'
     type Size = (typeof ButtonSize)[keyof typeof ButtonSize]
     type State = 'enabled' | 'disabled'
-    type Warning = 'outlined' | 'filled'
 }

@@ -1,7 +1,6 @@
 import React from 'react'
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native'
 import { Image } from 'expo-image';
-// import NewTouchableScale from '@components/NewClassumDesign/Buttons/NewTouchableScale'
 import { ButtonComponentProps } from '.'
 import { extractMargin, NeutralColor, TypographyColorType } from '../../Libs'
 import { TypographyType } from '../types'
