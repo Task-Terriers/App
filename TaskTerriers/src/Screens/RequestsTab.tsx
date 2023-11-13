@@ -21,8 +21,6 @@ const RequestsTab = ({ navigation, route }) => {
    * state, ref
    *************/
 
-  const [isRendering, setIsRendering] = useState<boolean>(true)
-
   /**************
    * life cycles
    **************/
@@ -39,18 +37,6 @@ const RequestsTab = ({ navigation, route }) => {
   /************
    * functions
    ************/
-
-  /*********
-   * render
-   *********/
-
-  // if (isRendering === true) {
-  // return null
-  // }
-
-  // if (isRendering === true) {
-  // return null
-  // }
 
   /***********
   * render()
@@ -105,14 +91,6 @@ const RequestsTab = ({ navigation, route }) => {
     </TaskTerriersSafeAreaView>
   )
 
-  return (
-    <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-      <NavigationBar iconName="help-buoy" title="Requests" />
-      <Col bgAlertMinor>
-        <Span> this is the RequestsTab</Span>
-      </Col>
-    </TaskTerriersSafeAreaView>
-  )
 }
 
 export default RequestsTab

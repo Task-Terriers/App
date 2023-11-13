@@ -41,6 +41,10 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ title, hasDivider, iconNa
     /************
      * functions
      ************/
+    const getBackgroundColor = () => {
+        if (backgroundColor) return backgroundColor
+        return '#ffffff'
+    }
 
     /*********
      * render
@@ -50,6 +54,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ title, hasDivider, iconNa
         if (!iconName) return null
         return <Ionicons name={iconName} size={24} color="#2D2926" />
     }
+
 
     const renderTitle = () => {
         return (
@@ -68,7 +73,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ title, hasDivider, iconNa
      ***********/
 
     return (
-        <Row h={getHeight()} ph16 alignCenter>
+        <Row h={getHeight()} ph16 alignCenter style={{ backgroundColor: getBackgroundColor() }}>
             {renderIcon()}
             {renderTitle()}
         </Row>
