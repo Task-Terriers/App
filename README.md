@@ -34,7 +34,12 @@ How we should name branches:
    2.  If there are no conflicts the person who created the PR will merge to dev. <br><br>
    ⚠️ MERGING SHOULD BE DONE BY THE PERSON WHO IMPLEMENTED THE CODE!
 
-8. After each SPRINT I will merge ```dev``` to ```main```.
+   ❗ Prettier(a tool that checks code format) is implemented in our Github action. <br>
+   This will check your code if the code style matches out prettier config.
+   1. If prettier fails, run ```yarn prettier:write``` in your local.
+   2. Then push again to see if it passes.
+
+9. After each SPRINT I will merge ```dev``` to ```main```.
    > ⭐ Remember to pull before starting any work!!
 
 
@@ -50,6 +55,9 @@ How we should name branches:
    2. Pull from dev. ```git pull```
    3. Switch back to you current working branch. ```git switch <your branch name>```
    4. Rebase dev to your branch. ```git rebase dev```
+   5. If there are conflicts, resolve them.
+   6. After resolving, force push your changes again.
+      > ```git push -f```
 
    > all of your local branches with ```git branch```  <br>
    > update your local like the remote with ```git remote update```  <br>
