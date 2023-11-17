@@ -24,6 +24,7 @@ export const IconNames = {
   MessageOutline: 'chatbox-ellipses-outline',
   Setting: 'settings-sharp',
   SettingOutline: 'settings-outline',
+  Return: 'chevron-back'
 } as const
 
 declare namespace IconName {
@@ -149,7 +150,7 @@ const ListItemPaddingVerticalMap: Record<ComponentStyle.Size, number> = {
   xxlarge: 0,
   xxxlarge: 0,
 } as const
-declare namespace ListItemType {}
+declare namespace ListItemType { }
 
 declare namespace TabBarType {
   type Value = Attr | string

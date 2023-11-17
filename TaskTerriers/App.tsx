@@ -3,8 +3,10 @@ import { StatusBar } from 'expo-status-bar'
 import { Col, Span } from './src/StyleToProps'
 import * as SplashScreen from 'expo-splash-screen'
 import useFonts from './hooks/useFonts'
-import { BottomTabs } from './navigation/BottomTabNavigator'
+import { BottomTabNavigation } from './src/navigation/BottomTabNavigator'
 import { NavigationContainer } from '@react-navigation/native'
+import RootStack from './src/navigation/RootStack'
+import { TaskTerriersNavigationRef } from './src/navigation/NavigationModule'
 
 export default function App() {
   const [IsReady, SetIsReady] = useState(false)
@@ -50,8 +52,8 @@ export default function App() {
   return (
     <Col flex onLayout={onLayoutRootView} bgNeutral100>
       <StatusBar style={'dark'} backgroundColor={'white'} />
-      <NavigationContainer>
-        <BottomTabs />
+      <NavigationContainer ref={TaskTerriersNavigationRef}>
+        <RootStack />
       </NavigationContainer>
     </Col>
   )

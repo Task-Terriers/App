@@ -5,10 +5,13 @@ import { Col } from '../StyleToProps/Col'
 import { Span } from '../StyleToProps'
 import NavigationBar from '../components/NavigationBar'
 import { IconNames } from '../components/types'
+import { UniversalButton } from '../components/Buttons'
+import { TaskTerriersNavigationModule } from '../navigation/NavigationModule'
+import { Root } from '../navigation/type'
 
-interface Props {}
+interface Props { }
 
-const ServicesTab = ({ navigation, route }) => {
+const ServicesTab = ({ route }) => {
   /*********
    * recoil
    *********/
@@ -40,24 +43,36 @@ const ServicesTab = ({ navigation, route }) => {
    * functions
    ************/
 
+  const onPressButton = () => {
+    return (
+      TaskTerriersNavigationModule.navigate('ServiceDetailScreen')
+    )
+  }
+
   /*********
    * render
    *********/
 
-  // if (isRendering === true) {
-  // return null
-  // }
+  const renderNavigationBar = () => {
+    return <NavigationBar iconName={IconNames['Service']} title={route.name} />
+  }
+
+  const renderButton = () => {
+    console.log('Clicked button')
+    return <UniversalButton size='medium' text={{ value: 'Go to Detail Screen' }} onPress={onPressButton} />
+  }
 
   /***********
    * render()
    ***********/
 
   return (
-    <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-      <NavigationBar iconName={IconNames['Service']} title={route.name} />
-      <Col bgAlertMinor>
-        <Span> this is the ServicesTab</Span>
+    <TaskTerriersSafeAreaView style={{ flex: 1 }}>
+      {renderNavigationBar()}
+      <Col p16>
+        {renderButton()}
       </Col>
+
     </TaskTerriersSafeAreaView>
   )
 }

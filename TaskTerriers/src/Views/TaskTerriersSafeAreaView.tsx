@@ -63,7 +63,7 @@ const TaskTerriersSafeAreaView: React.FC<Props> = (props: Props) => {
         style={[
           {
             flex: 1,
-            backgroundColor: props?.backgroundColor || NeutralColor['neutral-100'],
+            backgroundColor: props?.backgroundColor || NeutralColor['neutral-80'],
             paddingBottom: props.hasBottomSpace ? bottom : undefined,
           },
           props.style,
