@@ -50,7 +50,7 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, date, 
    *********/
 
   const renderName = () => {
-    ; <Row>
+    ;<Row>
       <Span labelL>
         {firstName} • {lastName}
       </Span>
@@ -58,7 +58,7 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, date, 
   }
 
   const renderDate = () => {
-    ; <Row>
+    ;<Row>
       <Span labelM colorNeutral70>
         {date.getDate()}
       </Span>
