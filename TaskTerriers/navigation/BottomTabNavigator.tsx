@@ -24,7 +24,7 @@ export const BottomTabs = () => {
           headerShown: false,
         }
       }}>
-      <Tab.Screen name="Requests" component={RequestsTab} />
+      {/* <Tab.Screen name="Requests" component={RequestsTab} /> */}
       <Tab.Screen name="Services" component={ServicesTab} />
       <Tab.Screen name="Messages" component={MessagesTab} />
       <Tab.Screen name="Settings" component={SettingsTab} />

@@ -3,6 +3,8 @@ import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity } from 'react-na
 import TaskTerriersSafeAreaView from '../Views/TaskTerriersSafeAreaView'
 import { Col } from '../StyleToProps/Col'
 import { Span } from '../StyleToProps'
+import NavigationBar from '../components/NavigationBar'
+import { IconNames } from '../components/types'
 
 interface Props {}
 
@@ -52,6 +54,7 @@ const SettingsTab = ({ navigation, route }) => {
 
   return (
     <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+      <NavigationBar iconName={IconNames['Setting']} title={route.name} />
       <Col bgAlertMinor>
         <Span> this is the SettingsTab</Span>
       </Col>

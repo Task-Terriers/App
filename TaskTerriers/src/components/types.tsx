@@ -15,7 +15,7 @@ const Size = {
   XXX_LARGE: 'xxxlarge',
 } as const
 
-const IconNames = {
+export const IconNames = {
   RequestOutline: 'help-buoy-outline',
   Request: 'help-buoy',
   SeviceOutline: 'construct-outline',
