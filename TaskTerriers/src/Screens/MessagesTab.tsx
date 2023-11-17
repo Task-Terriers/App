@@ -4,8 +4,10 @@ import TaskTerriersSafeAreaView from '../Views/TaskTerriersSafeAreaView'
 import { BUColor } from '../Libs/Colors'
 import { Col } from '../StyleToProps/Col'
 import { Span } from '../StyleToProps'
+import NavigationBar from '../components/NavigationBar'
+import { IconNames } from '../components/types'
 
-interface Props {}
+interface Props { }
 
 const MessagesTab = ({ navigation, route }) => {
   /*********
@@ -53,6 +55,7 @@ const MessagesTab = ({ navigation, route }) => {
 
   return (
     <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+      <NavigationBar iconName={IconNames['Message']} title={route.name} />
       <Col bgAlertMinor>
         <Span> this is the MessagesTab</Span>
       </Col>
