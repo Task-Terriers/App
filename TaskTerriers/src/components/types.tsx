@@ -149,7 +149,7 @@ const ListItemPaddingVerticalMap: Record<ComponentStyle.Size, number> = {
   xxlarge: 0,
   xxxlarge: 0,
 } as const
-declare namespace ListItemType { }
+declare namespace ListItemType {}
 
 declare namespace TabBarType {
   type Value = Attr | string

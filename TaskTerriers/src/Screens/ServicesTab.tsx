@@ -6,7 +6,7 @@ import { Span } from '../StyleToProps'
 import NavigationBar from '../components/NavigationBar'
 import { IconNames } from '../components/types'
 
-interface Props { }
+interface Props {}
 
 const ServicesTab = ({ navigation, route }) => {
   /*********
