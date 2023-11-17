@@ -48,7 +48,7 @@ export default function App() {
   }
 
   return (
-    <Col flex onLayout={onLayoutRootView}>
+    <Col flex onLayout={onLayoutRootView} bgNeutral100>
       <StatusBar style={'dark'} backgroundColor={'white'} />
       <NavigationContainer>
         <BottomTabs />

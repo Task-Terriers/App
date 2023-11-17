@@ -50,5 +50,6 @@ export declare namespace UniversalColorType {
     | '#ffffff'
     | '#ff0000'
     | '#ffb800'
+    | '#04eb04'
     | 'transparent'
 }

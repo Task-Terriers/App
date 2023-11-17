@@ -3,18 +3,17 @@ import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity } from 'react-na
 import { IconName, TypographyType } from './types'
 import { Col, Row, Span } from '../StyleToProps'
 import { Ionicons } from '@expo/vector-icons'
+import { Divider } from './Divider'
+import { UniversalColorType } from '../Libs'
 
 interface NavigationBarProps {
   title: TypographyType.Value
   hasDivider?: boolean
   iconName?: IconName.Value
+  backgroundColor?: UniversalColorType.Value
 }
 
-const NavigationBar: React.FC<NavigationBarProps> = ({ title, hasDivider, iconName }) => {
-  /*********
-   * recoil
-   *********/
-
+const NavigationBar: React.FC<NavigationBarProps> = ({ title, hasDivider, iconName, backgroundColor }) => {
   /**************************
    * props, navigation prams
    **************************/
@@ -41,6 +40,10 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ title, hasDivider, iconNa
   /************
    * functions
    ************/
+  const getBackgroundColor = () => {
+    if (backgroundColor) return backgroundColor
+    return '#ffffff'
+  }
 
   /*********
    * render
@@ -68,7 +71,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ title, hasDivider, iconNa
    ***********/
 
   return (
-    <Row h={getHeight()} ph16 alignCenter>
+    <Row h={getHeight()} ph16 alignCenter style={{ backgroundColor: getBackgroundColor() }}>
       {renderIcon()}
       {renderTitle()}
     </Row>
