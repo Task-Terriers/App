@@ -14,7 +14,7 @@ const Divider: React.FC<DividerComponentProps> = ({ color, margin }) => {
     return { marginLeft: 16, marginRight: 16 }
   }
 
-  return <View style={[{ height: 1, backgroundColor: color || NeutralColor['neutral-90'] }, getMargin()]} />
+  return <View style={[{ height: 1, backgroundColor: color || NeutralColor['neutral-70'] }, getMargin()]} />
 }
 
 export { Divider }

@@ -10,10 +10,11 @@ interface NavigationBarProps {
   title: TypographyType.Value
   hasDivider?: boolean
   iconName?: IconName.Value
+  iconAction?: () => void
   backgroundColor?: UniversalColorType.Value
 }
 
-const NavigationBar: React.FC<NavigationBarProps> = ({ title, hasDivider, iconName, backgroundColor }) => {
+const NavigationBar: React.FC<NavigationBarProps> = ({ title, hasDivider, iconName, backgroundColor, iconAction }) => {
   /**************************
    * props, navigation prams
    **************************/
@@ -44,6 +45,9 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ title, hasDivider, iconNa
     if (backgroundColor) return backgroundColor
     return '#ffffff'
   }
+  const getHeight = () => {
+    return 54
+  }
 
   /*********
    * render
@@ -51,7 +55,16 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ title, hasDivider, iconNa
 
   const renderIcon = () => {
     if (!iconName) return null
-    return <Ionicons name={iconName} size={24} color="#2D2926" />
+    if (iconAction) {
+      return (
+        <Col onPress={iconAction}>
+          <Ionicons name={iconName} size={24} color="#2D2926" />
+        </Col>
+      )
+
+    } else {
+      return <Ionicons name={iconName} size={24} color="#2D2926" />
+    }
   }
 
   const renderTitle = () => {
@@ -62,8 +75,8 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ title, hasDivider, iconNa
     )
   }
 
-  const getHeight = () => {
-    return 54
+  const renderDivider = () => {
+    if (hasDivider) return <Divider margin={{ left: -16, right: -16 }} />
   }
 
   /***********
@@ -71,10 +84,13 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ title, hasDivider, iconNa
    ***********/
 
   return (
-    <Row h={getHeight()} ph16 alignCenter style={{ backgroundColor: getBackgroundColor() }}>
-      {renderIcon()}
-      {renderTitle()}
-    </Row>
+    <>
+      <Row h={getHeight()} ph16 alignCenter style={{ backgroundColor: getBackgroundColor() }}>
+        {renderIcon()}
+        {renderTitle()}
+      </Row>
+      {renderDivider()}
+    </>
   )
 }
 
