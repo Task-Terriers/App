@@ -2,11 +2,10 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { Col, Span } from './src/StyleToProps'
 import * as SplashScreen from 'expo-splash-screen'
-import useFonts from './hooks/useFonts'
-import { BottomTabNavigation } from './src/navigation/BottomTabNavigator'
+import useFonts from './src/hooks/useFonts'
 import { NavigationContainer } from '@react-navigation/native'
 import RootStack from './src/navigation/RootStack'
-import { TaskTerriersNavigationRef } from './src/navigation/NavigationModule'
+import { TaskTerriersNavigationRef } from './src/modules/NavigationModule'
 
 export default function App() {
   const [IsReady, SetIsReady] = useState(false)

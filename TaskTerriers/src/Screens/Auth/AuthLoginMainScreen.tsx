@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity } from 'react-native'
-import NavigationBar from '../components/NavigationBar'
-import { IconNames } from '../components/types'
-import { TaskTerriersNavigationModule } from '../modules/NavigationModule'
+import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native'
+import TaskTerriersSafeAreaView from '../../Views/TaskTerriersSafeAreaView'
 
 interface Props { }
 
 
-const ServiceDetailScreen = ({ navigation, route }) => {
+const AuthLoginMainScreen = () => {
 
     /*********
     * recoil
@@ -40,16 +38,14 @@ const ServiceDetailScreen = ({ navigation, route }) => {
     * functions
     ************/
 
-    const onPressReturn = () => {
-        TaskTerriersNavigationModule.goBack()
-    }
-
     /*********
     * render
     *********/
 
-    const renderNavBar = () => {
-        return <NavigationBar title={'detail page'} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
+    const renderLogo = () => {
+        return (
+            <Image source={require('../../assets/images/logo/TaskTerriersLogoRed.svg')} />
+        )
     }
 
     /***********
@@ -57,11 +53,11 @@ const ServiceDetailScreen = ({ navigation, route }) => {
     ***********/
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-            {renderNavBar()}
-        </SafeAreaView>
+        <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+
+        </TaskTerriersSafeAreaView>
     )
 
 }
 
-export default ServiceDetailScreen
+export default AuthLoginMainScreen

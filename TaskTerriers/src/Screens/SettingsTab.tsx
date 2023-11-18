@@ -5,8 +5,9 @@ import { Col } from '../StyleToProps/Col'
 import { Span } from '../StyleToProps'
 import NavigationBar from '../components/NavigationBar'
 import { IconNames } from '../components/types'
+import AuthLoginMainScreen from './Auth/AuthLoginMainScreen'
 
-interface Props {}
+interface Props { }
 
 const SettingsTab = ({ navigation, route }) => {
   /*********
