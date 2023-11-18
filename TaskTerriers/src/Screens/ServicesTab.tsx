@@ -58,7 +58,6 @@ const ServicesTab = ({ route }) => {
   }
 
   const renderButton = () => {
-    console.log('Clicked button')
     return <UniversalButton size='medium' text={{ value: 'Go to Detail Screen' }} onPress={onPressButton} />
   }
 

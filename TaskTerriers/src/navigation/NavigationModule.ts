@@ -7,7 +7,6 @@ import { RootStackParamList } from './type'
 export const TaskTerriersNavigationRef: React.RefObject<NavigationContainerRef<RootStackParamList>> | undefined = React.createRef()
 
 export function navigate(screenName: string, params?: any) {
-  console.log(' TaskTerriersNavigationRef: ', TaskTerriersNavigationRef)
   // @ts-ignore
   TaskTerriersNavigationRef.current?.navigate(screenName, params)
 }
