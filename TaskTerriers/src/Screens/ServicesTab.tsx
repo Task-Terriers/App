@@ -8,6 +8,7 @@ import { IconNames } from '../components/types'
 import { UniversalButton } from '../components/Buttons'
 import { TaskTerriersNavigationModule } from '../modules/NavigationModule'
 import { Auth, Root } from '../navigation/type'
+import AsyncStorageModule from '../modules/AsyncStorageModule'
 
 interface Props { }
 
@@ -48,9 +49,10 @@ const ServicesTab = ({ route }) => {
       TaskTerriersNavigationModule.navigate(Root.ServiceDetailScreen)
     )
   }
-  const onPressToAddProfile = () => {
+  const onPressToAddProfile = async () => {
+    const userData = await AsyncStorageModule.GET_asyncStorage('USER_DATA')
     return (
-      TaskTerriersNavigationModule.navigate('AuthAddProfileScreen')
+      TaskTerriersNavigationModule.navigate('AuthAddProfileScreen', JSON.parse(userData))
     )
   }
 

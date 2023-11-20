@@ -30,18 +30,31 @@ const Navigation = () => {
     * life cycles
     **************/
 
-    useEffect(() => {
-        // ComponentDidMount
 
-        // setIsRendering(false)
-        return () => {
-            // ComponentWillUnmount
+    useEffect(() => {
+
+        if (currentUser) {
+            const userData = {
+                firstName: parseName().firstName,
+                lastName: parseName().lastName,
+                email: currentUser.email,
+                photoURL: currentUser.photoURL,
+            }
+            AsyncStorageModule.SET_asyncStorage('USER_DATA', JSON.stringify(userData))
         }
+
     }, [])
 
     /************
     * functions
     ************/
+
+    const parseName = () => {
+        if (currentUser) {
+            const displayName = currentUser?.displayName.split(' ')
+            return { firstName: displayName[0], lastName: displayName[1] }
+        }
+    }
 
 
 

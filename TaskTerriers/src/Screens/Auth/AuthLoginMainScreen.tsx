@@ -7,6 +7,7 @@ import { Col } from '../../StyleToProps'
 import { Image } from 'expo-image'
 import { TaskTerriersNavigationModule } from '../../modules/NavigationModule';
 import { Root } from '../../navigation/type';
+import AsyncStorageModule from '../../modules/AsyncStorageModule';
 
 interface Props { }
 
@@ -49,7 +50,16 @@ const AuthLoginMainScreen = () => {
     *************/
 
     useEffect(() => {
-        if (currentUser) TaskTerriersNavigationModule.navigate(Root.BottomTabNavigation)
+        if (currentUser) {
+            const userData = {
+                firstName: parseName().firstName,
+                lastName: parseName().lastName,
+                email: currentUser.email,
+                photoURL: currentUser.photoURL,
+            }
+            AsyncStorageModule.SET_asyncStorage('USER_DATA', JSON.stringify(userData))
+            TaskTerriersNavigationModule.navigate(Root.BottomTabNavigation)
+        }
     }, [user])
 
     /*************
@@ -86,6 +96,13 @@ const AuthLoginMainScreen = () => {
         setUser(user);
         console.log(user)
         if (initializing) setInitializing(false);
+    }
+
+    const parseName = () => {
+        if (currentUser) {
+            const displayName = currentUser?.displayName.split(' ')
+            return { firstName: displayName[0], lastName: displayName[1] }
+        }
     }
 
     /*********

@@ -1,5 +1,5 @@
-import { TypographyColorType } from './Libs'
-import { ButtonStyle } from '@newClassumDesign/Buttons'
+import { TypographyColorType } from "../Libs";
+import { ButtonStyle } from './Buttons';
 
 declare namespace SpaceStyle {
   type Margin = number | Inset
