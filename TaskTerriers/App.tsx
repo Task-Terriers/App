@@ -9,19 +9,11 @@ import { Col, Span } from './src/StyleToProps'
 import useFonts from './src/hooks/useFonts'
 import RootStack from './src/navigation/RootStack'
 import { TaskTerriersNavigationRef } from './src/modules/NavigationModule'
+import { firebaseAppOptions } from './src/utilities/firebase';
+import Navigation from './src/navigation';
 
 export default function App() {
   const [IsReady, SetIsReady] = useState(false)
-  const firebaseAppOptions = {
-    appId: '1:643644211099:android:f8d9e5f05b58c8d9d12b3e',
-    projectId: 'taskterriers-39683',
-    apiKey: 'AIzaSyCLM2NpY1Dag47wlzJuT1Y_TWrTVK8AETM',
-    databaseURL: 'taskterriers-39683.firebaseio.com',
-    messagingSenderId: '643644211099',
-    storageBucket: 'taskterriers-39683.storage.firebase.com'
-  }
-
-
 
   const LoadFonts = async () => {
     await useFonts()
@@ -65,9 +57,7 @@ export default function App() {
   return (
     <Col flex onLayout={onLayoutRootView} bgNeutral100>
       <StatusBar style={'dark'} backgroundColor={'white'} />
-      <NavigationContainer ref={TaskTerriersNavigationRef}>
-        <RootStack />
-      </NavigationContainer>
+      <Navigation />
     </Col>
   )
 }

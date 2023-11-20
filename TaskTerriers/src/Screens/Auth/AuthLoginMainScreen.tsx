@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
-import initializeApp from "@react-native-firebase/app";
-import auth, { firebase } from '@react-native-firebase/auth';
+import Auth from '@react-native-firebase/auth';
 
 import TaskTerriersSafeAreaView from '../../Views/TaskTerriersSafeAreaView'
 import { Col } from '../../StyleToProps'
 import { Image } from 'expo-image'
+import { TaskTerriersNavigationModule } from '../../modules/NavigationModule';
+import { Root } from '../../navigation/type';
 
 interface Props { }
 
 
 const AuthLoginMainScreen = () => {
+    const { currentUser } = Auth()
 
     /**************************
     * props, navigation prams
@@ -20,7 +22,8 @@ const AuthLoginMainScreen = () => {
     * state, ref
     *************/
 
-    const [userInfo, setUserInfo] = useState(null)
+    const [initializing, setInitializing] = useState(true);
+    const [user, setUser] = useState();
 
     GoogleSignin.configure({
         webClientId: process.env.EXPO_PUBLIC_WEB_CLIENT_ID,
@@ -36,10 +39,18 @@ const AuthLoginMainScreen = () => {
     * life cycles
     *************/
 
+    useEffect(() => {
+        const subscriber = Auth().onAuthStateChanged(onAuthStateChanged);
+        return subscriber; // unsubscribe on unmount
+    }, []);
+
+    /*************
+    * life cycles
+    *************/
 
     useEffect(() => {
-
-    }, [])
+        if (currentUser) TaskTerriersNavigationModule.navigate(Root.BottomTabNavigation)
+    }, [user])
 
     /*************
     * life cycles
@@ -55,33 +66,27 @@ const AuthLoginMainScreen = () => {
             // Get the users ID token
             const userInfo = await GoogleSignin.signIn();
             // setUserInfo(userInfo)
-            const googleCredential = auth.GoogleAuthProvider.credential(userInfo.idToken);
+            const googleCredential = Auth.GoogleAuthProvider.credential(userInfo.idToken);
             // console.log(userInfo)
             // console.log(googleCredential)
 
-            auth().signInWithCredential(googleCredential)
-            const { currentUser } = auth()
+            Auth().signInWithCredential(googleCredential)
+            const { currentUser } = Auth()
             console.log('currentUser:', currentUser)
         } catch (error) {
-            console.log("Thisss: ", error)
+            console.log(error)
             await GoogleSignin.signOut()
         } finally {
 
         }
-
-        // Create a Google credential with the token
-        // const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-        // // Sign-in the user with the credential
-        // // return auth().signInWithCredential(googleCredential);
-        // const userSignIn = auth().signInWithCredential(googleCredential)
-        // userSignIn.then((user) => {
-        //     console.log(user)
-        // }).catch((error) => {
-        //     console.log(error)
-        // })
     }
 
+    // Handle user state changes
+    const onAuthStateChanged = (user) => {
+        setUser(user);
+        console.log(user)
+        if (initializing) setInitializing(false);
+    }
 
     /*********
     * render
