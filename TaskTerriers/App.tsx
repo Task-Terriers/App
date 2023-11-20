@@ -1,14 +1,27 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { StatusBar } from 'expo-status-bar'
-import { Col, Span } from './src/StyleToProps'
 import * as SplashScreen from 'expo-splash-screen'
-import useFonts from './src/hooks/useFonts'
+import { StatusBar } from 'expo-status-bar'
 import { NavigationContainer } from '@react-navigation/native'
+import initializeApp from "@react-native-firebase/app";
+import auth, { firebase } from '@react-native-firebase/auth';
+
+import { Col, Span } from './src/StyleToProps'
+import useFonts from './src/hooks/useFonts'
 import RootStack from './src/navigation/RootStack'
 import { TaskTerriersNavigationRef } from './src/modules/NavigationModule'
 
 export default function App() {
   const [IsReady, SetIsReady] = useState(false)
+  const firebaseAppOptions = {
+    appId: '1:643644211099:android:f8d9e5f05b58c8d9d12b3e',
+    projectId: 'taskterriers-39683',
+    apiKey: 'AIzaSyCLM2NpY1Dag47wlzJuT1Y_TWrTVK8AETM',
+    databaseURL: 'taskterriers-39683.firebaseio.com',
+    messagingSenderId: '643644211099',
+    storageBucket: 'taskterriers-39683.storage.firebase.com'
+  }
+
+
 
   const LoadFonts = async () => {
     await useFonts()
@@ -29,6 +42,9 @@ export default function App() {
     }
 
     prepare()
+    firebase.initializeApp(firebaseAppOptions);
+    const { currentUser } = auth()
+    if (currentUser) console.log(currentUser)
   }, [])
 
   const onLayoutRootView = useCallback(async () => {
