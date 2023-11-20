@@ -7,7 +7,7 @@ import NavigationBar from '../components/NavigationBar'
 import { IconNames } from '../components/types'
 import { UniversalButton } from '../components/Buttons'
 import { TaskTerriersNavigationModule } from '../modules/NavigationModule'
-import { Root } from '../navigation/type'
+import { Auth, Root } from '../navigation/type'
 
 interface Props { }
 
@@ -45,12 +45,12 @@ const ServicesTab = ({ route }) => {
 
   const onPressButton = () => {
     return (
-      TaskTerriersNavigationModule.navigate('ServiceDetailScreen')
+      TaskTerriersNavigationModule.navigate(Root.ServiceDetailScreen)
     )
   }
-  const onPressToLogin = () => {
+  const onPressToAddProfile = () => {
     return (
-      TaskTerriersNavigationModule.navigate('AuthLoginMainScreen')
+      TaskTerriersNavigationModule.navigate('AuthAddProfileScreen')
     )
   }
 
@@ -75,7 +75,7 @@ const ServicesTab = ({ route }) => {
       {renderNavigationBar()}
       <Col p16>
         {renderButton()}
-        <UniversalButton size='medium' text={{ value: 'Go to Login Screen' }} onPress={onPressToLogin} />
+        <UniversalButton size='medium' text={{ value: 'Go to Add profile Screen' }} onPress={onPressToAddProfile} />
       </Col>
 
     </TaskTerriersSafeAreaView>

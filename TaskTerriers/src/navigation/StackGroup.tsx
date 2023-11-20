@@ -4,6 +4,7 @@ import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
 import ServiceDetailScreen from '../Screens/ServiceDetailScreen';
 import AuthLoginMainScreen from '../Screens/Auth/AuthLoginMainScreen';
+import AuthAddProfileScreen from '../Screens/Auth/AuthAddProfileScreen';
 
 
 const Stack = createStackNavigator<RootStackParamList>()
@@ -13,7 +14,7 @@ const StackGroup = () => {
             screenOptions={{ headerShown: false }}>
             {/* Services Tab */}
             <Stack.Screen name="ServiceDetailScreen" component={ServiceDetailScreen} />
-            <Stack.Screen name='AuthLoginMainScreen' component={AuthLoginMainScreen} />
+
         </Stack.Group>
     )
 }

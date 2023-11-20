@@ -4,6 +4,8 @@ import { RootStackParamList } from './type';
 import NavigationBar from '../components/NavigationBar';
 import { BottomTabNavigation } from './BottomTabNavigator';
 import StackGroup from './StackGroup';
+import AuthLoginMainScreen from '../Screens/Auth/AuthLoginMainScreen';
+import AuthAddProfileScreen from '../Screens/Auth/AuthAddProfileScreen';
 
 const Stack = createStackNavigator<RootStackParamList>()
 
@@ -19,6 +21,8 @@ const RootStack = () => {
             }}>
             <Stack.Screen name="BottomTabNavigation" component={BottomTabNavigation} />
             {StackGroup()}
+            <Stack.Screen name='AuthLoginMainScreen' component={AuthLoginMainScreen} />
+            <Stack.Screen name='AuthAddProfileScreen' component={AuthAddProfileScreen} />
 
         </Stack.Navigator>
     )

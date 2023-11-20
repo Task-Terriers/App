@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity } from 'react-native'
-import NavigationBar from '../components/NavigationBar'
-import { IconNames } from '../components/types'
-import { TaskTerriersNavigationModule } from '../modules/NavigationModule'
-import TaskTerriersSafeAreaView from '../Views/TaskTerriersSafeAreaView'
+import TaskTerriersSafeAreaView from '../../Views/TaskTerriersSafeAreaView'
+import NavigationBar from '../../components/NavigationBar'
 
 interface Props { }
 
 
-const ServiceDetailScreen = ({ navigation, route }) => {
+const AuthAddProfileScreen = ({ navigation, route }) => {
 
     /*********
     * recoil
@@ -41,28 +39,24 @@ const ServiceDetailScreen = ({ navigation, route }) => {
     * functions
     ************/
 
-    const onPressReturn = () => {
-        TaskTerriersNavigationModule.goBack()
-    }
-
     /*********
     * render
     *********/
 
-    const renderNavBar = () => {
-        return <NavigationBar title={'detail page'} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
-    }
+    const renderNavigationBar = () => {
+        return <NavigationBar title={"Add Profile"} />
 
+    }
     /***********
     * render()
     ***********/
 
     return (
         <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-            {renderNavBar()}
+            {renderNavigationBar()}
         </TaskTerriersSafeAreaView>
     )
 
 }
 
-export default ServiceDetailScreen
+export default AuthAddProfileScreen

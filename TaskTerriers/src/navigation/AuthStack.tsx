@@ -1,9 +1,9 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
-import { RootStackParamList } from './type';
 import AuthLoginMainScreen from '../Screens/Auth/AuthLoginMainScreen';
+import AuthAddProfileScreen from '../Screens/Auth/AuthAddProfileScreen';
 
-const Stack = createStackNavigator<RootStackParamList>()
+const Stack = createStackNavigator()
 
 const AuthStack = () => {
     return (
@@ -15,7 +15,8 @@ const AuthStack = () => {
                 gestureDirection: 'horizontal',
                 gestureEnabled: true
             }}>
-            <Stack.Screen name="AuthLoginMainScreen" component={AuthLoginMainScreen} />
+            {/* <Stack.Screen name="AuthLoginMainScreen" component={AuthLoginMainScreen} />
+            <Stack.Screen name="AuthAddProfileScreen" component={AuthAddProfileScreen} /> */}
         </Stack.Navigator>
     )
 }
