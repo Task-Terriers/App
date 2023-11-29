@@ -1,8 +1,10 @@
 {
   "expo": {
     "name": "TaskTerriers",
-    "slug": "TaskTerriers",
-    "plugins": ["@react-native-google-signin/google-signin"],
+    "slug": "taskterriers",
+    "plugins": [
+      "@react-native-google-signin/google-signin"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
@@ -12,10 +14,13 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.TaskTerriers"
+      "bundleIdentifier": "com.anonymous.TaskTerriers",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
@@ -31,12 +36,13 @@
     "scheme": "com.anonymous.TaskTerriers",
     "extra": {
       "eas": {
-        "projectId": "0efc0fad-bddf-4974-bbba-376ec337e332"
+        "projectId": "da48cbd6-0a77-46ab-ad70-c128c096fb2d"
       }
     },
     "runtimeVersion": "1.0.0",
     "updates": {
       "url": "https://u.expo.dev/0efc0fad-bddf-4974-bbba-376ec337e332"
-    }
+    },
+    "owner": "taskterriers"
   }
 }

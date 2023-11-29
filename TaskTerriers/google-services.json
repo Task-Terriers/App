@@ -14,19 +14,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "643644211099-bg45fak52j39erl3f121143kh9aiq1q2.apps.googleusercontent.com",
+          "client_id": "643644211099-8vn1gik2d2n4hksrc5o0h7celtmbldhm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.anonymous.TaskTerriers",
-            "certificate_hash": "f990cbd6ef62bbf03d9f00e4b4d9053786ab9cc7"
+            "certificate_hash": "1c100e47deef9dc3e5a4b61580b1851fa699cd68"
           }
         },
         {
-          "client_id": "643644211099-too1r0f59t8jpv5snc1q4mk05mjau9j4.apps.googleusercontent.com",
+          "client_id": "643644211099-cc4fthfqhv0mfn9ofh56tgql5ro2g25a.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.anonymous.TaskTerriers",
-            "certificate_hash": "4cd3d68e5b6ed90f9855dfaeb2ce18b5a34e2dab"
+            "certificate_hash": "448260d82654a16c4cb41783a13c0cbc67251eb9"
           }
         },
         {
@@ -45,6 +45,13 @@
             {
               "client_id": "643644211099-vg52psbjkj7dbj99bms49r3tpsa4ffl1.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "643644211099-tv4g7jou8dp2h8t3mk0glgmdc4sts1kj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.anonymous.TaskTerriers"
+              }
             }
           ]
         }

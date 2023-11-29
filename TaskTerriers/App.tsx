@@ -34,7 +34,9 @@ export default function App() {
     }
 
     prepare()
-    firebase.initializeApp(firebaseAppOptions);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseAppOptions);
+    }
     const { currentUser } = auth()
     if (currentUser) console.log(currentUser)
   }, [])

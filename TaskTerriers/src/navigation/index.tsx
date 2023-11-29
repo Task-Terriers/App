@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import Auth from '@react-native-firebase/auth'
 import AsyncStorageModule from '../modules/AsyncStorageModule'
 import RootStack from './RootStack'
