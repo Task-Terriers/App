@@ -54,17 +54,27 @@ const MessagesTab = ({ navigation, route }) => {
    * render()
    ***********/
 
-  const profilePicture: any = require('../assets/images/profile/aleks.png');
+  const profilePicture: any = require('../assets/images/profile/aleks.png')
 
   return (
-    <TaskTerriersSafeAreaView style={{ flex: 1}}>
+    <TaskTerriersSafeAreaView style={{ flex: 1 }}>
       <NavigationBar iconName={IconNames['Message']} title={route.name} />
       <Col p16>
-      <MessagesCard firstName='Anabelle' lastName ='Brodsky' messagePreview='Hey, I heard you were interested in...' profilePicture={profilePicture}/>
-      <MessagesCard firstName='Olivia' lastName ='Provonsil' messagePreview='Hi!' profilePicture={profilePicture}/>
-      <MessagesCard firstName='Alim' lastName ='Kura' messagePreview='Hello, I am interested in getting a pedicure' profilePicture={profilePicture}/>
-      <MessagesCard firstName='Aleks' lastName ='Sekulovski' messagePreview='I need help to learn how to swim' profilePicture={profilePicture}/>
-      <MessagesCard firstName='Youngjin' lastName ='Shin' messagePreview='Hey, I would like to schedule a haircut' profilePicture={profilePicture}/>
+        <MessagesCard
+          firstName="Anabelle"
+          lastName="Brodsky"
+          messagePreview="Hey, I heard you were interested in..."
+          profilePicture={profilePicture}
+        />
+        <MessagesCard firstName="Olivia" lastName="Provonsil" messagePreview="Hi!" profilePicture={profilePicture} />
+        <MessagesCard
+          firstName="Alim"
+          lastName="Kura"
+          messagePreview="Hello, I am interested in getting a pedicure"
+          profilePicture={profilePicture}
+        />
+        <MessagesCard firstName="Aleks" lastName="Sekulovski" messagePreview="I need help to learn how to swim" profilePicture={profilePicture} />
+        <MessagesCard firstName="Youngjin" lastName="Shin" messagePreview="Hey, I would like to schedule a haircut" profilePicture={profilePicture} />
       </Col>
     </TaskTerriersSafeAreaView>
   )

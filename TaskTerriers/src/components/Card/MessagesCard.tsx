@@ -9,7 +9,7 @@ interface RequestsCardProps {
   firstName: string
   lastName: string
   messagePreview: string
-  profilePicture: string 
+  profilePicture: string
 }
 
 const MessagesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, messagePreview, profilePicture }) => {
@@ -50,33 +50,31 @@ const MessagesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, messag
 
   const renderName = () => {
     return (
-    <Row>
-      <Span labelL>
-        {firstName} • {lastName}
-      </Span>
-    </Row>
+      <Row>
+        <Span labelL>
+          {firstName} • {lastName}
+        </Span>
+      </Row>
     )
   }
 
-    const renderMessagePreview = () => {
-        return(
-            <Row>
+  const renderMessagePreview = () => {
+    return (
+      <Row>
         <Span labelM colorNeutral70>
-            {messagePreview}
+          {messagePreview}
         </Span>
-        </Row>
-        )
-    }
+      </Row>
+    )
+  }
 
-    const renderProfilePicture = () => {
-        return (
-          <Col alignCenter radius100 mr10  overflow='hidden'>
-            <Image contentFit="fill" source={profilePicture} style={{ width: 40, height: 50 }} />
-          </Col>
-        )
-      }
-
-
+  const renderProfilePicture = () => {
+    return (
+      <Col alignCenter radius100 mr10 overflow="hidden">
+        <Image contentFit="fill" source={profilePicture} style={{ width: 40, height: 50 }} />
+      </Col>
+    )
+  }
 
   /***********
    * render()
@@ -84,11 +82,11 @@ const MessagesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, messag
 
   return (
     <Col bgNeutral100 h100 radius12 p12 mb10>
-        <Row alignCenter mb10>
+      <Row alignCenter mb10>
         {renderProfilePicture()}
         {renderName()}
-        </Row>
-        {renderMessagePreview()}
+      </Row>
+      {renderMessagePreview()}
     </Col>
   )
 }
