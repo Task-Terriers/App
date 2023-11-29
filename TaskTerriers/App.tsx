@@ -11,7 +11,7 @@ import { LogBox } from 'react-native'
 
 export default function App() {
   const [IsReady, SetIsReady] = useState(false)
-  LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs()
   const LoadFonts = async () => {
     await useFonts()
   }
