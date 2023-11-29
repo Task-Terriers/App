@@ -3,7 +3,7 @@ import { Col, Row, Span } from '../../StyleToProps'
 import { Image } from 'expo-image'
 import { Ionicons } from '@expo/vector-icons'
 
-interface RequestsCardProps {
+export interface RequestsCardProps {
   // datasource: {} this should come from the backend.
   // will use different props for now to show example.
   firstName: string

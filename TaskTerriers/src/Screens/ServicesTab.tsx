@@ -9,10 +9,10 @@ import { UniversalButton } from '../components/Buttons'
 import { TaskTerriersNavigationModule } from '../modules/NavigationModule'
 import { Auth, Root } from '../navigation/type'
 import AsyncStorageModule from '../modules/AsyncStorageModule'
-import { SerivcesCard } from '../components/Card'
+import { RequestsCardProps, SerivcesCard } from '../components/Card'
 import { BottomTabBarHeightContext } from '@react-navigation/bottom-tabs'
 
-interface Props {}
+interface Props { }
 
 const ServicesTab = ({ route }) => {
   /*********
@@ -167,8 +167,8 @@ const ServicesTab = ({ route }) => {
    * functions
    ************/
 
-  const onPressCard = () => {
-    return TaskTerriersNavigationModule.navigate(Root.ServiceDetailScreen)
+  const onPressCard = (name: string) => {
+    return TaskTerriersNavigationModule.navigate(Root.ServiceDetailScreen, { title: name })
   }
   const onPressToAddProfile = async () => {
     const userData = await AsyncStorageModule.GET_asyncStorage('USER_DATA')
@@ -183,8 +183,22 @@ const ServicesTab = ({ route }) => {
     return <NavigationBar iconName={IconNames['Service']} title={route.name} />
   }
 
-  const renderButton = () => {
-    return <UniversalButton size="medium" text={{ value: 'Go to Detail Screen' }} onPress={onPressCard} />
+
+
+  const renderItem = (item: RequestsCardProps) => {
+    return (
+      <SerivcesCard
+        firstName={item.firstName}
+        lastName={item.lastName}
+        postPreview={item.postPreview}
+        profilePicPath={item?.profilePicPath}
+        major={item.major}
+        onPress={() => onPressCard(item.firstName)}
+        numOfReview={item.numOfReview}
+        reviewRate={item.reviewRate}
+        serviceRate={item.serviceRate}
+      />
+    )
   }
 
   /***********
@@ -197,7 +211,7 @@ const ServicesTab = ({ route }) => {
       <Col mb35>
         <FlatList
           data={mockRequestsCardData}
-          renderItem={({ item }) => <SerivcesCard {...item} />}
+          renderItem={({ item }) => renderItem(item)}
           keyExtractor={(item, index) => index.toString()}
           contentContainerStyle={{ padding: 16 }}
         />

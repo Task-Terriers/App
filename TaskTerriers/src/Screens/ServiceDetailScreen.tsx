@@ -5,16 +5,14 @@ import { IconNames } from '../components/types'
 import { TaskTerriersNavigationModule } from '../modules/NavigationModule'
 import TaskTerriersSafeAreaView from '../Views/TaskTerriersSafeAreaView'
 
-interface Props {}
+interface Props { }
 
 const ServiceDetailScreen = ({ navigation, route }) => {
-  /*********
-   * recoil
-   *********/
 
   /**************************
    * props, navigation prams
    **************************/
+  const headerTitle = route.params.title
 
   /*************
    * state, ref
@@ -43,12 +41,18 @@ const ServiceDetailScreen = ({ navigation, route }) => {
     TaskTerriersNavigationModule.goBack()
   }
 
+  const title = () => {
+    return (
+      `${headerTitle}'s detail page`
+    )
+  }
+
   /*********
    * render
    *********/
 
   const renderNavBar = () => {
-    return <NavigationBar title={'detail page'} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
+    return <NavigationBar title={title()} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
   }
 
   /***********
