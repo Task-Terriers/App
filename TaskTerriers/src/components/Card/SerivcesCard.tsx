@@ -12,14 +12,24 @@ interface RequestsCardProps {
   hideKebabMenu?: boolean
   profilePicPath?: string
   major: string
-  numOfReview: number,
-  reviewRate: number,
+  numOfReview: number
+  reviewRate: number
   serviceRate: number
   onPress?: () => void
 }
 
-const SerivcesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, postPreview, hideKebabMenu, profilePicPath, major, numOfReview, reviewRate, serviceRate, onPress }) => {
-
+const SerivcesCard: React.FC<RequestsCardProps> = ({
+  firstName,
+  lastName,
+  postPreview,
+  hideKebabMenu,
+  profilePicPath,
+  major,
+  numOfReview,
+  reviewRate,
+  serviceRate,
+  onPress,
+}) => {
   /**************************
    * props, navigation prams
    **************************/
@@ -55,29 +65,32 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, postPr
   const renderProfilePic = () => {
     return (
       <Col alignCenter mr16 radius100 overflow={'hidden'}>
-        {!profilePicPath ? <Image contentFit="fill" source={require('../../assets/images/defaultProfile.jpeg')} style={{ width: 56, height: 56 }} /> :
-          <Image contentFit="fill" source={profilePicPath} style={{ width: 56, height: 56 }} />}
+        {!profilePicPath ? (
+          <Image contentFit="fill" source={require('../../assets/images/defaultProfile.jpeg')} style={{ width: 56, height: 56 }} />
+        ) : (
+          <Image contentFit="fill" source={profilePicPath} style={{ width: 56, height: 56 }} />
+        )}
       </Col>
     )
   }
 
   const renderMajor = () => {
-    return (
-      <Span titleS>
-        Major : {major}
-      </Span>
-    )
+    return <Span titleS>Major : {major}</Span>
   }
 
   const renderDescriptionPreview = () => {
     return (
-      <Span bodyM colorNeutral40 mb6 numberOfLines={1}>{postPreview}</Span>
+      <Span bodyM colorNeutral40 mb6 numberOfLines={1}>
+        {postPreview}
+      </Span>
     )
   }
 
   const renderServiceRate = () => {
     return (
-      <Span headlineL colorBURed>$ {serviceRate}</Span>
+      <Span headlineL colorBURed>
+        $ {serviceRate}
+      </Span>
     )
   }
 
@@ -93,12 +106,15 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, postPr
     return (
       <Row alignCenter>
         <Ionicons name={'star'} size={20} color="#FFB800" />
-        <Span bodyM ml5>{reviewRate}</Span>
-        <Span bodyM ml5>• {numOfReview} {numOfReview > 1 ? 'Reviews' : 'Review'}</Span>
+        <Span bodyM ml5>
+          {reviewRate}
+        </Span>
+        <Span bodyM ml5>
+          • {numOfReview} {numOfReview > 1 ? 'Reviews' : 'Review'}
+        </Span>
       </Row>
     )
   }
-
 
   /***********
    * render()
@@ -123,6 +139,5 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, postPr
     </Col>
   )
 }
-
 
 export { SerivcesCard }
