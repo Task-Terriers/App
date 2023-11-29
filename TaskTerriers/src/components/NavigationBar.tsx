@@ -61,7 +61,6 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ title, hasDivider, iconNa
           <Ionicons name={iconName} size={24} color="#2D2926" />
         </Col>
       )
-
     } else {
       return <Ionicons name={iconName} size={24} color="#2D2926" />
     }

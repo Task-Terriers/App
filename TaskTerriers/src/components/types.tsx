@@ -1,5 +1,5 @@
-import { TypographyColorType } from "../Libs";
-import { ButtonStyle } from './Buttons';
+import { TypographyColorType } from '../Libs'
+import { ButtonStyle } from './Buttons'
 
 declare namespace SpaceStyle {
   type Margin = number | Inset
@@ -24,7 +24,7 @@ export const IconNames = {
   MessageOutline: 'chatbox-ellipses-outline',
   Setting: 'settings-sharp',
   SettingOutline: 'settings-outline',
-  Return: 'chevron-back'
+  Return: 'chevron-back',
 } as const
 
 declare namespace IconName {
@@ -150,7 +150,7 @@ const ListItemPaddingVerticalMap: Record<ComponentStyle.Size, number> = {
   xxlarge: 0,
   xxxlarge: 0,
 } as const
-declare namespace ListItemType { }
+declare namespace ListItemType {}
 
 declare namespace TabBarType {
   type Value = Attr | string

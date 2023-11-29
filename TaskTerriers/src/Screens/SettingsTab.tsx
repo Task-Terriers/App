@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity } from 'react-native'
-import auth from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth'
 
 import TaskTerriersSafeAreaView from '../Views/TaskTerriersSafeAreaView'
 import NavigationBar from '../components/NavigationBar'
 import { IconNames } from '../components/types'
 import { WarningButton } from '../components/Buttons'
-import { TaskTerriersNavigationModule } from '../modules/NavigationModule';
-import { Root } from '../navigation/type';
+import { TaskTerriersNavigationModule } from '../modules/NavigationModule'
+import { Root } from '../navigation/type'
 
-interface Props { }
+interface Props {}
 
 const SettingsTab = ({ navigation, route }) => {
   /*********
@@ -44,10 +44,11 @@ const SettingsTab = ({ navigation, route }) => {
    ************/
 
   const onPressSignOut = () => {
-    return (
-      auth().signOut().then(() => { TaskTerriersNavigationModule.navigate(Root.AuthLoginMainScreen), console.log('User signed out!') })
-
-    )
+    return auth()
+      .signOut()
+      .then(() => {
+        TaskTerriersNavigationModule.navigate(Root.AuthLoginMainScreen), console.log('User signed out!')
+      })
   }
 
   /*********
@@ -65,7 +66,7 @@ const SettingsTab = ({ navigation, route }) => {
   return (
     <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <NavigationBar iconName={IconNames['Setting']} title={route.name} />
-      <WarningButton size='medium' text={{ value: 'Sign out' }} onPress={onPressSignOut} warningStyle='fill' />
+      <WarningButton size="medium" text={{ value: 'Sign out' }} onPress={onPressSignOut} warningStyle="fill" />
     </TaskTerriersSafeAreaView>
   )
 }

@@ -2,15 +2,15 @@ import React, { useCallback, useEffect, useState } from 'react'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import { NavigationContainer } from '@react-navigation/native'
-import initializeApp from "@react-native-firebase/app";
-import auth, { firebase } from '@react-native-firebase/auth';
+import initializeApp from '@react-native-firebase/app'
+import auth, { firebase } from '@react-native-firebase/auth'
 
 import { Col, Span } from './src/StyleToProps'
 import useFonts from './src/hooks/useFonts'
 import RootStack from './src/navigation/RootStack'
 import { TaskTerriersNavigationRef } from './src/modules/NavigationModule'
-import { firebaseAppOptions } from './src/utilities/firebase';
-import Navigation from './src/navigation';
+import { firebaseAppOptions } from './src/utilities/firebase'
+import Navigation from './src/navigation'
 
 export default function App() {
   const [IsReady, SetIsReady] = useState(false)
@@ -35,7 +35,7 @@ export default function App() {
 
     prepare()
     if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseAppOptions);
+      firebase.initializeApp(firebaseAppOptions)
     }
     const { currentUser } = auth()
     if (currentUser) console.log(currentUser)

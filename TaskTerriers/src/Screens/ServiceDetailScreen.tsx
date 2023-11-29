@@ -5,64 +5,57 @@ import { IconNames } from '../components/types'
 import { TaskTerriersNavigationModule } from '../modules/NavigationModule'
 import TaskTerriersSafeAreaView from '../Views/TaskTerriersSafeAreaView'
 
-interface Props { }
-
+interface Props {}
 
 const ServiceDetailScreen = ({ navigation, route }) => {
+  /*********
+   * recoil
+   *********/
 
-    /*********
-    * recoil
-    *********/
+  /**************************
+   * props, navigation prams
+   **************************/
 
-    /**************************
-    * props, navigation prams
-    **************************/
+  /*************
+   * state, ref
+   *************/
 
-    /*************
-    * state, ref
-    *************/
+  const [isRendering, setIsRendering] = useState<boolean>(true)
 
-    const [isRendering, setIsRendering] = useState<boolean>(true)
+  /**************
+   * life cycles
+   **************/
 
-    /**************
-    * life cycles
-    **************/
+  useEffect(() => {
+    // ComponentDidMount
 
-    useEffect(() => {
-        // ComponentDidMount
-
-        // setIsRendering(false)
-        return () => {
-            // ComponentWillUnmount
-        }
-    }, [])
-
-    /************
-    * functions
-    ************/
-
-    const onPressReturn = () => {
-        TaskTerriersNavigationModule.goBack()
+    // setIsRendering(false)
+    return () => {
+      // ComponentWillUnmount
     }
+  }, [])
 
-    /*********
-    * render
-    *********/
+  /************
+   * functions
+   ************/
 
-    const renderNavBar = () => {
-        return <NavigationBar title={'detail page'} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
-    }
+  const onPressReturn = () => {
+    TaskTerriersNavigationModule.goBack()
+  }
 
-    /***********
-    * render()
-    ***********/
+  /*********
+   * render
+   *********/
 
-    return (
-        <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-            {renderNavBar()}
-        </TaskTerriersSafeAreaView>
-    )
+  const renderNavBar = () => {
+    return <NavigationBar title={'detail page'} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
+  }
 
+  /***********
+   * render()
+   ***********/
+
+  return <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>{renderNavBar()}</TaskTerriersSafeAreaView>
 }
 
 export default ServiceDetailScreen

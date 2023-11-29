@@ -6,74 +6,64 @@ import AuthStack from './AuthStack'
 import { NavigationContainer } from '@react-navigation/native'
 import { TaskTerriersNavigationRef } from '../modules/NavigationModule'
 
-interface Props { }
+interface Props {}
 
 const Navigation = () => {
-    const { currentUser } = Auth()
+  const { currentUser } = Auth()
 
-    /*********
-    * recoil
-    *********/
+  /*********
+   * recoil
+   *********/
 
-    /**************************
-    * props, navigation prams
-    **************************/
+  /**************************
+   * props, navigation prams
+   **************************/
 
-    /*************
-    * state, ref
-    *************/
+  /*************
+   * state, ref
+   *************/
 
-    const [isRendering, setIsRendering] = useState<boolean>(true)
+  const [isRendering, setIsRendering] = useState<boolean>(true)
 
-    /**************
-    * life cycles
-    **************/
+  /**************
+   * life cycles
+   **************/
 
-
-    useEffect(() => {
-
-        if (currentUser) {
-            const userData = {
-                firstName: parseName().firstName,
-                lastName: parseName().lastName,
-                email: currentUser.email,
-                photoURL: currentUser.photoURL,
-            }
-            AsyncStorageModule.SET_asyncStorage('USER_DATA', JSON.stringify(userData))
-        }
-
-    }, [])
-
-    /************
-    * functions
-    ************/
-
-    const parseName = () => {
-        if (currentUser) {
-            const displayName = currentUser?.displayName.split(' ')
-            return { firstName: displayName[0], lastName: displayName[1] }
-        }
+  useEffect(() => {
+    if (currentUser) {
+      const userData = {
+        firstName: parseName().firstName,
+        lastName: parseName().lastName,
+        email: currentUser.email,
+        photoURL: currentUser.photoURL,
+      }
+      AsyncStorageModule.SET_asyncStorage('USER_DATA', JSON.stringify(userData))
     }
+  }, [])
 
+  /************
+   * functions
+   ************/
 
+  const parseName = () => {
+    if (currentUser) {
+      const displayName = currentUser?.displayName.split(' ')
+      return { firstName: displayName[0], lastName: displayName[1] }
+    }
+  }
 
-    /*********
-    * render
-    *********/
+  /*********
+   * render
+   *********/
 
-    // if (isRendering === true) {
-    // return null
-    // }
+  // if (isRendering === true) {
+  // return null
+  // }
 
-    /***********
-    * render()
-    ***********/
+  /***********
+   * render()
+   ***********/
 
-    return (
-        <NavigationContainer ref={TaskTerriersNavigationRef}>
-            {currentUser ? <RootStack /> : <AuthStack />}
-        </NavigationContainer>
-    )
-
+  return <NavigationContainer ref={TaskTerriersNavigationRef}>{currentUser ? <RootStack /> : <AuthStack />}</NavigationContainer>
 }
 export default Navigation
