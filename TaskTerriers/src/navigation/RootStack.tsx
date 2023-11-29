@@ -19,9 +19,9 @@ const RootStack = () => {
         gestureDirection: 'horizontal',
         gestureEnabled: true,
       }}>
+      <Stack.Screen name="AuthLoginMainScreen" component={AuthLoginMainScreen} />
       <Stack.Screen name="BottomTabNavigation" component={BottomTabNavigation} />
       {StackGroup()}
-      <Stack.Screen name="AuthLoginMainScreen" component={AuthLoginMainScreen} />
       <Stack.Screen name="AuthAddProfileScreen" component={AuthAddProfileScreen} />
     </Stack.Navigator>
   )
