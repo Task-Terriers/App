@@ -30,10 +30,10 @@ export default function App() {
       }
     }
 
-    prepare()
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseAppOptions)
     }
+    prepare()
     const { currentUser } = auth()
     if (currentUser) console.log(currentUser)
   }, [])
