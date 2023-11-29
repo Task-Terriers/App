@@ -9,7 +9,7 @@ interface RequestsCardProps {
   firstName: string
   lastName: string
   messagePreview: string
-  profilePicture: string
+  profilePicture: string 
 }
 
 const MessagesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, messagePreview, profilePicture }) => {
@@ -70,8 +70,8 @@ const MessagesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, messag
 
     const renderProfilePicture = () => {
         return (
-          <Col alignCenter bgAlertCritical radius100 mr10>
-            <Image contentFit="contain" source={profilePicture} style={{ width: 40, height: 40 }} />
+          <Col alignCenter radius100 mr10  overflow='hidden'>
+            <Image contentFit="fill" source={profilePicture} style={{ width: 40, height: 50 }} />
           </Col>
         )
       }
