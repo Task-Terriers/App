@@ -50,7 +50,7 @@ const ServicesTab = ({ route }) => {
       numOfReview: 8,
       reviewRate: 4.3,
       serviceRate: 120,
-      onPress: () => onPressCard
+      onPress: () => onPressCard()
     },
     {
       firstName: "Alice",
@@ -61,7 +61,8 @@ const ServicesTab = ({ route }) => {
       major: "Physics",
       numOfReview: 15,
       reviewRate: 4.9,
-      serviceRate: 200
+      serviceRate: 200,
+      onPress: () => onPressCard()
     },
     {
       firstName: "Bob",
@@ -72,7 +73,8 @@ const ServicesTab = ({ route }) => {
       major: "Architecture",
       numOfReview: 5,
       reviewRate: 4.0,
-      serviceRate: 95
+      serviceRate: 95,
+      onPress: () => onPressCard()
     },
     {
       firstName: "Carol",
@@ -83,7 +85,8 @@ const ServicesTab = ({ route }) => {
       major: "History",
       numOfReview: 20,
       reviewRate: 4.8,
-      serviceRate: 180
+      serviceRate: 180,
+      onPress: () => onPressCard()
     },
     {
       firstName: "David",
@@ -94,7 +97,8 @@ const ServicesTab = ({ route }) => {
       major: "Computer Science",
       numOfReview: 10,
       reviewRate: 4.2,
-      serviceRate: 110
+      serviceRate: 110,
+      onPress: () => onPressCard()
     },
     {
       firstName: "Eva",
@@ -105,7 +109,8 @@ const ServicesTab = ({ route }) => {
       major: "Economics",
       numOfReview: 7,
       reviewRate: 4.1,
-      serviceRate: 100
+      serviceRate: 100,
+      onPress: () => onPressCard()
     },
     {
       firstName: "Frank",
@@ -115,7 +120,8 @@ const ServicesTab = ({ route }) => {
       major: "Chemistry",
       numOfReview: 13,
       reviewRate: 4.6,
-      serviceRate: 140
+      serviceRate: 140,
+      onPress: () => onPressCard()
     },
     {
       firstName: "Grace",
@@ -125,7 +131,8 @@ const ServicesTab = ({ route }) => {
       major: "Engineering",
       numOfReview: 9,
       reviewRate: 4.4,
-      serviceRate: 130
+      serviceRate: 130,
+      onPress: () => onPressCard()
     },
     {
       firstName: "Henry",
@@ -136,7 +143,8 @@ const ServicesTab = ({ route }) => {
       major: "Political Science",
       numOfReview: 11,
       reviewRate: 4.5,
-      serviceRate: 125
+      serviceRate: 125,
+      onPress: () => onPressCard()
     }
   ];
 
@@ -187,15 +195,12 @@ const ServicesTab = ({ route }) => {
   return (
     <TaskTerriersSafeAreaView style={{ flex: 1 }}>
       {renderNavigationBar()}
-      <Col p16 mb100>
-        {renderButton()}
-        <Col mb20>
-        </Col>
+      <Col mb35>
         <FlatList
           data={mockRequestsCardData}
           renderItem={({ item }) => <SerivcesCard {...item} />}
           keyExtractor={(item, index) => index.toString()}
-          contentContainerStyle={{}}
+          contentContainerStyle={{ padding: 16, }}
         />
       </Col>
     </TaskTerriersSafeAreaView>

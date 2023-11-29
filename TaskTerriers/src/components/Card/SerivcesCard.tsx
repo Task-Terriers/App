@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Col, Row, Span } from '../../StyleToProps'
 import { Image } from 'expo-image'
+import { Ionicons } from '@expo/vector-icons'
 
 interface RequestsCardProps {
   // datasource: {} this should come from the backend.
@@ -70,7 +71,7 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, postPr
 
   const renderDescriptionPreview = () => {
     return (
-      <Span bodyM colorNeutral40>{postPreview}</Span>
+      <Span bodyM colorNeutral40 mb6 numberOfLines={1}>{postPreview}</Span>
     )
   }
 
@@ -88,13 +89,23 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, postPr
     )
   }
 
+  const renderReview = () => {
+    return (
+      <Row alignCenter>
+        <Ionicons name={'star'} size={20} color="#FFB800" />
+        <Span bodyM ml5>{reviewRate}</Span>
+        <Span bodyM ml5>• {numOfReview} {numOfReview > 1 ? 'Reviews' : 'Review'}</Span>
+      </Row>
+    )
+  }
+
 
   /***********
    * render()
    ***********/
 
   return (
-    <Col bgNeutral100 h150 radius12 ph12 pv14 mb12 onPress={onPress}>
+    <Col bgNeutral100 h150 radius12 pv14 ph16 mb12 onPress={onPress}>
       <Row mb12 justifyBetween>
         <Row>
           {renderProfilePic()}
@@ -107,6 +118,7 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, postPr
       </Row>
       <Col>
         {renderDescriptionPreview()}
+        {renderReview()}
       </Col>
     </Col>
   )
