@@ -1,23 +1,35 @@
 import React, { useState, useEffect } from 'react'
-import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity } from 'react-native'
-import { Row, Span } from '../../StyleToProps'
+import { Col, Row, Span } from '../../StyleToProps'
+import { Image } from 'expo-image'
+import { Ionicons } from '@expo/vector-icons'
 
 interface RequestsCardProps {
   // datasource: {} this should come from the backend.
   // will use different props for now to show example.
   firstName: string
   lastName: string
-  date: Date
-  numberOfComments?: number
   postPreview?: string
   hideKebabMenu?: boolean
+  profilePicPath?: string
+  major: string
+  numOfReview: number
+  reviewRate: number
+  serviceRate: number
+  onPress?: () => void
 }
 
-const SerivcesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, date, numberOfComments, postPreview, hideKebabMenu }) => {
-  /*********
-   * recoil
-   *********/
-
+const SerivcesCard: React.FC<RequestsCardProps> = ({
+  firstName,
+  lastName,
+  postPreview,
+  hideKebabMenu,
+  profilePicPath,
+  major,
+  numOfReview,
+  reviewRate,
+  serviceRate,
+  onPress,
+}) => {
   /**************************
    * props, navigation prams
    **************************/
@@ -27,6 +39,8 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, date, 
    *************/
 
   const [isRendering, setIsRendering] = useState<boolean>(true)
+  const blurhash =
+    '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj['
 
   /**************
    * life cycles
@@ -48,30 +62,82 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, date, 
   /*********
    * render
    *********/
-
-  const renderName = () => {
-    ;<Row>
-      <Span labelL>
-        {firstName} • {lastName}
-      </Span>
-    </Row>
+  const renderProfilePic = () => {
+    return (
+      <Col alignCenter mr16 radius100 overflow={'hidden'}>
+        {!profilePicPath ? (
+          <Image contentFit="fill" source={require('../../assets/images/defaultProfile.jpeg')} style={{ width: 56, height: 56 }} />
+        ) : (
+          <Image contentFit="fill" source={profilePicPath} style={{ width: 56, height: 56 }} />
+        )}
+      </Col>
+    )
   }
 
-  const renderDate = () => {
-    ;<Row>
-      <Span labelM colorNeutral70>
-        {date.getDate()}
+  const renderMajor = () => {
+    return <Span titleS>Major : {major}</Span>
+  }
+
+  const renderDescriptionPreview = () => {
+    return (
+      <Span bodyM colorNeutral40 mb6 numberOfLines={1}>
+        {postPreview}
       </Span>
-    </Row>
+    )
+  }
+
+  const renderServiceRate = () => {
+    return (
+      <Span headlineL colorBURed>
+        $ {serviceRate}
+      </Span>
+    )
+  }
+
+  const renderName = () => {
+    return (
+      <Span labelL mb6>
+        {firstName} • {lastName}
+      </Span>
+    )
+  }
+
+  const renderReview = () => {
+    return (
+      <Row alignCenter>
+        <Ionicons name={'star'} size={20} color="#FFB800" />
+        <Span bodyM ml5>
+          {reviewRate}
+        </Span>
+        <Span bodyM ml5>
+          • {numOfReview} {numOfReview > 1 ? 'Reviews' : 'Review'}
+        </Span>
+      </Row>
+    )
   }
 
   /***********
    * render()
    ***********/
 
-  return <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}></SafeAreaView>
+  return (
+    <Col bgNeutral100 h150 radius12 pv14 ph16 mb12 onPress={onPress}>
+      <Row mb12 justifyBetween>
+        <Row>
+          {renderProfilePic()}
+          <Col>
+            {renderName()}
+            {renderMajor()}
+          </Col>
+        </Row>
+        {renderServiceRate()}
+      </Row>
+      <Col>
+        {renderDescriptionPreview()}
+        {renderReview()}
+      </Col>
+    </Col>
+  )
 }
-
-const styles = StyleSheet.create({})
 
 export { SerivcesCard }

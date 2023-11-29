@@ -16,7 +16,7 @@ const AuthStack = () => {
         gestureEnabled: true,
       }}>
       <Stack.Screen name="AuthLoginMainScreen" component={AuthLoginMainScreen} />
-      <Stack.Screen name="AuthAddProfileScreen" component={AuthAddProfileScreen} />
+      {/* <Stack.Screen name="AuthAddProfileScreen" component={AuthAddProfileScreen} /> */}
     </Stack.Navigator>
   )
 }

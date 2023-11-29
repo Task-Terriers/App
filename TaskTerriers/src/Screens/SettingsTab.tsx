@@ -47,7 +47,7 @@ const SettingsTab = ({ navigation, route }) => {
     return auth()
       .signOut()
       .then(() => {
-        TaskTerriersNavigationModule.navigate(Root.AuthLoginMainScreen), console.log('User signed out!')
+        TaskTerriersNavigationModule.navigate('AuthLoginMainScreen'), console.log('User signed out!')
       })
   }
 
