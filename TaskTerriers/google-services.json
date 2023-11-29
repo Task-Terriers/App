@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "643644211099",
+    "project_id": "taskterriers-39683",
+    "storage_bucket": "taskterriers-39683.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643644211099:android:f8d9e5f05b58c8d9d12b3e",
+        "android_client_info": {
+          "package_name": "com.anonymous.TaskTerriers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643644211099-8vn1gik2d2n4hksrc5o0h7celtmbldhm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anonymous.TaskTerriers",
+            "certificate_hash": "1c100e47deef9dc3e5a4b61580b1851fa699cd68"
+          }
+        },
+        {
+          "client_id": "643644211099-cc4fthfqhv0mfn9ofh56tgql5ro2g25a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anonymous.TaskTerriers",
+            "certificate_hash": "448260d82654a16c4cb41783a13c0cbc67251eb9"
+          }
+        },
+        {
+          "client_id": "643644211099-vg52psbjkj7dbj99bms49r3tpsa4ffl1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLM2NpY1Dag47wlzJuT1Y_TWrTVK8AETM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643644211099-vg52psbjkj7dbj99bms49r3tpsa4ffl1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "643644211099-tv4g7jou8dp2h8t3mk0glgmdc4sts1kj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.anonymous.TaskTerriers"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

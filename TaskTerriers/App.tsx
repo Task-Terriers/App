@@ -1,12 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { StatusBar } from 'expo-status-bar'
-import { Col, Span } from './src/StyleToProps'
 import * as SplashScreen from 'expo-splash-screen'
-import useFonts from './hooks/useFonts'
-import { BottomTabNavigation } from './src/navigation/BottomTabNavigator'
+import { StatusBar } from 'expo-status-bar'
 import { NavigationContainer } from '@react-navigation/native'
+import initializeApp from '@react-native-firebase/app'
+import auth, { firebase } from '@react-native-firebase/auth'
+
+import { Col, Span } from './src/StyleToProps'
+import useFonts from './src/hooks/useFonts'
 import RootStack from './src/navigation/RootStack'
-import { TaskTerriersNavigationRef } from './src/navigation/NavigationModule'
+import { TaskTerriersNavigationRef } from './src/modules/NavigationModule'
+import { firebaseAppOptions } from './src/utilities/firebase'
+import Navigation from './src/navigation'
 
 export default function App() {
   const [IsReady, SetIsReady] = useState(false)
@@ -18,7 +22,6 @@ export default function App() {
   useEffect(() => {
     async function prepare() {
       try {
-        // Pre-load fonts, make any API calls you need to do here
         await LoadFonts()
         // Artificially delay for two seconds to simulate a slow loading
         // experience. Please remove this if you copy and paste the code!
@@ -26,12 +29,16 @@ export default function App() {
       } catch (e) {
         console.warn(e)
       } finally {
-        // Tell the application to render
         SetIsReady(true)
       }
     }
 
     prepare()
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseAppOptions)
+    }
+    const { currentUser } = auth()
+    if (currentUser) console.log(currentUser)
   }, [])
 
   const onLayoutRootView = useCallback(async () => {
@@ -52,9 +59,7 @@ export default function App() {
   return (
     <Col flex onLayout={onLayoutRootView} bgNeutral100>
       <StatusBar style={'dark'} backgroundColor={'white'} />
-      <NavigationContainer ref={TaskTerriersNavigationRef}>
-        <RootStack />
-      </NavigationContainer>
+      <Navigation />
     </Col>
   )
 }

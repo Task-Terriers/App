@@ -2,12 +2,11 @@ import React from 'react'
 
 import { NavigationContainerRef, StackActions } from '@react-navigation/native'
 import { NavigationState, PartialState } from '@react-navigation/native'
-import { RootStackParamList } from './type'
+import { RootStackParamList } from '../navigation/type'
 
 export const TaskTerriersNavigationRef: React.RefObject<NavigationContainerRef<RootStackParamList>> | undefined = React.createRef()
 
 export function navigate(screenName: string, params?: any) {
-  console.log(' TaskTerriersNavigationRef: ', TaskTerriersNavigationRef)
   // @ts-ignore
   TaskTerriersNavigationRef.current?.navigate(screenName, params)
 }

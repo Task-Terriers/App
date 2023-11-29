@@ -6,10 +6,11 @@ import { Span } from '../StyleToProps'
 import NavigationBar from '../components/NavigationBar'
 import { IconNames } from '../components/types'
 import { UniversalButton } from '../components/Buttons'
-import { TaskTerriersNavigationModule } from '../navigation/NavigationModule'
-import { Root } from '../navigation/type'
+import { TaskTerriersNavigationModule } from '../modules/NavigationModule'
+import { Auth, Root } from '../navigation/type'
+import AsyncStorageModule from '../modules/AsyncStorageModule'
 
-interface Props { }
+interface Props {}
 
 const ServicesTab = ({ route }) => {
   /*********
@@ -44,9 +45,11 @@ const ServicesTab = ({ route }) => {
    ************/
 
   const onPressButton = () => {
-    return (
-      TaskTerriersNavigationModule.navigate('ServiceDetailScreen')
-    )
+    return TaskTerriersNavigationModule.navigate(Root.ServiceDetailScreen)
+  }
+  const onPressToAddProfile = async () => {
+    const userData = await AsyncStorageModule.GET_asyncStorage('USER_DATA')
+    return TaskTerriersNavigationModule.navigate('AuthAddProfileScreen', JSON.parse(userData))
   }
 
   /*********
@@ -58,8 +61,7 @@ const ServicesTab = ({ route }) => {
   }
 
   const renderButton = () => {
-    console.log('Clicked button')
-    return <UniversalButton size='medium' text={{ value: 'Go to Detail Screen' }} onPress={onPressButton} />
+    return <UniversalButton size="medium" text={{ value: 'Go to Detail Screen' }} onPress={onPressButton} />
   }
 
   /***********
@@ -71,8 +73,8 @@ const ServicesTab = ({ route }) => {
       {renderNavigationBar()}
       <Col p16>
         {renderButton()}
+        <UniversalButton size="medium" text={{ value: 'Go to Add profile Screen' }} onPress={onPressToAddProfile} />
       </Col>
-
     </TaskTerriersSafeAreaView>
   )
 }
