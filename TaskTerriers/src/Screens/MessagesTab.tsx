@@ -91,57 +91,34 @@ const MessagesTab = ({ navigation, route }) => {
    * render
    *********/
 
-  // if (isRendering === true) {
-  // return null
-  // }
-
   const renderNavigationBar = () => {
-    return <NavigationBar iconName={IconNames['Messages']} title={route.name} />
+    return <NavigationBar iconName={IconNames['Message']} title={route.name} />
   }
 
   const renderButton = () => {
     return <UniversalButton size="medium" text={{ value: 'Go to Chats' }} onPress={onPressCard} />
   }
 
+  const renderFlatList = () => {
+    return (
+      <FlatList
+        data={mockMessagesCardData}
+        renderItem={({ item }) => <MessagesCard {...item} />}
+        keyExtractor={(item, index) => index.toString()}
+        contentContainerStyle={{ padding: 16 }}
+      />
+    )
+  }
+
   /***********
    * render()
    ***********/
-
-  // const profilePicture: any = require('../assets/images/profile/aleks.png')
-
-  // return (
-  //   <TaskTerriersSafeAreaView style={{ flex: 1 }}>
-  //     <NavigationBar iconName={IconNames['Message']} title={route.name} />
-  //     <Col p16>
-  //       <MessagesCard
-  //         firstName="Anabelle"
-  //         lastName="Brodsky"
-  //         messagePreview="Hey, I heard you were interested in..."
-  //         profilePicture={profilePicture}
-  //       />
-  //       <MessagesCard firstName="Olivia" lastName="Provonsil" messagePreview="Hi!" profilePicture={profilePicture} />
-  //       <MessagesCard
-  //         firstName="Alim"
-  //         lastName="Kura"
-  //         messagePreview="Hello, I am interested in getting a pedicure"
-  //         profilePicture={profilePicture}
-  //       />
-  //       <MessagesCard firstName="Aleks" lastName="Sekulovski" messagePreview="I need help to learn how to swim" profilePicture={profilePicture} />
-  //       <MessagesCard firstName="Youngjin" lastName="Shin" messagePreview="Hey, I would like to schedule a haircut" profilePicture={profilePicture} />
-  //     </Col>
-  //   </TaskTerriersSafeAreaView>
-  // )
 
   return (
     <TaskTerriersSafeAreaView style={{ flex: 1 }}>
       {renderNavigationBar()}
       <Col mb35>
-        <FlatList
-          data={mockMessagesCardData}
-          renderItem={({ item }) => <MessagesCard {...item} />}
-          keyExtractor={(item, index) => index.toString()}
-          contentContainerStyle={{ padding: 16 }}
-        />
+        {renderFlatList()}
       </Col>
     </TaskTerriersSafeAreaView>
   )
