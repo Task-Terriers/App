@@ -22,7 +22,7 @@ const RootStack = () => {
       <Stack.Screen name="AuthLoginMainScreen" component={AuthLoginMainScreen} />
       <Stack.Screen name="BottomTabNavigation" component={BottomTabNavigation} />
       {StackGroup()}
-      <Stack.Screen name="AuthAddProfileScreen" component={AuthAddProfileScreen} />
+      {/* <Stack.Screen name="AuthAddProfileScreen" component={AuthAddProfileScreen} /> */}
     </Stack.Navigator>
   )
 }
