@@ -117,9 +117,7 @@ const MessagesTab = ({ navigation, route }) => {
   return (
     <TaskTerriersSafeAreaView style={{ flex: 1 }}>
       {renderNavigationBar()}
-      <Col mb35>
-        {renderFlatList()}
-      </Col>
+      <Col mb35>{renderFlatList()}</Col>
     </TaskTerriersSafeAreaView>
   )
 }
