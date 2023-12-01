@@ -7,12 +7,12 @@ import NavigationBar from '../components/NavigationBar'
 import { IconNames } from '../components/types'
 import { UniversalButton } from '../components/Buttons'
 import { TaskTerriersNavigationModule } from '../modules/NavigationModule'
-import { Auth, Root } from '../navigation/type'
+import { Root } from '../navigation/type'
 import AsyncStorageModule from '../modules/AsyncStorageModule'
 import { SerivcesCard } from '../components/Card'
 import { BottomTabBarHeightContext } from '@react-navigation/bottom-tabs'
 
-interface Props {}
+interface Props { }
 
 const ServicesTab = ({ route }) => {
   /*********
