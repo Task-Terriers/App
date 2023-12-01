@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import ServiceDetailScreen from '../Screens/ServiceDetailScreen'
 import AuthLoginMainScreen from '../Screens/Auth/AuthLoginMainScreen'
 import AuthAddProfileScreen from '../Screens/Auth/AuthAddProfileScreen'
+import MessagesDetailScreen from '../Screens/MessagesDetailScreen'
 
 const Stack = createStackNavigator<RootStackParamList>()
 const StackGroup = () => {
@@ -12,6 +13,7 @@ const StackGroup = () => {
     <Stack.Group screenOptions={{ headerShown: false }}>
       {/* Services Tab */}
       <Stack.Screen name="ServiceDetailScreen" component={ServiceDetailScreen} />
+      <Stack.Screen name="MessagesDetailScreen" component={MessagesDetailScreen} />
     </Stack.Group>
   )
 }

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { Col, Row, Span } from '../../StyleToProps'
 import { Image } from 'expo-image'
+import { TaskTerriersNavigationModule } from '../../modules/NavigationModule'
+import { Root } from '../../navigation/type'
 
 interface RequestsCardProps {
   // datasource: {} this should come from the backend.
@@ -10,9 +12,10 @@ interface RequestsCardProps {
   lastName: string
   messagePreview: string
   profilePicture: string
+  onPress: () => void
 }
 
-const MessagesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, messagePreview, profilePicture }) => {
+const MessagesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, messagePreview, profilePicture, onPress }) => {
   /*********
    * recoil
    *********/
@@ -81,7 +84,7 @@ const MessagesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, messag
    ***********/
 
   return (
-    <Col bgNeutral100 h100 radius12 p12 mb10>
+    <Col bgNeutral100 h100 radius12 p12 mb10 onPress={onPress}>
       <Row alignCenter mb10>
         {renderProfilePicture()}
         {renderName()}
