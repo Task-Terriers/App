@@ -14,20 +14,32 @@ import { LayoutChangeEvent } from 'react-native'
 import { UniversalButton } from '../components/Buttons'
 
 interface ServiceDetailScreenProps {
-  profilePicture?: string,
-  serviceName?: string,
-  shortServiceDescription: string,
+  profilePicture?: string
+  serviceName?: string
+  shortServiceDescription: string
   aboutServiceProvider: string
-  coursesTaken?: string[],
-  major?: string,
-  minor?: string,
+  coursesTaken?: string[]
+  major?: string
+  minor?: string
   displayMajor: boolean
-  firstName: string,
-  lastName: string,
+  firstName: string
+  lastName: string
   serviceId: number
 }
 
-const ServiceDetailScreen: React.FC<ServiceDetailScreenProps> = ({ profilePicture, serviceName, serviceId, shortServiceDescription, aboutServiceProvider, coursesTaken, major, minor, displayMajor, firstName, lastName }) => {
+const ServiceDetailScreen: React.FC<ServiceDetailScreenProps> = ({
+  profilePicture,
+  serviceName,
+  serviceId,
+  shortServiceDescription,
+  aboutServiceProvider,
+  coursesTaken,
+  major,
+  minor,
+  displayMajor,
+  firstName,
+  lastName,
+}) => {
   //later, we will only get the service ID from route.params and use it to get the info using API calls.
 
   const loremIpsum = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales.\n
@@ -48,7 +60,7 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
     longitude: -122.4324,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
-  });
+  })
 
   /**************
    * life cycles
@@ -92,12 +104,14 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
     return (
       <Col mb20>
         <Row>
-          <Col radius100 overflowHidden >
+          <Col radius100 overflowHidden>
             <Image contentFit="fill" source={require('../assets/images/defaultProfile.jpeg')} style={{ width: 80, height: 80 }} />
           </Col>
           <Col ml10>
             <Span titleXL>Youngjin Shin</Span>
-            <Span bodyL numberOfLines={1}>Great CS tutor</Span>
+            <Span bodyL numberOfLines={1}>
+              Great CS tutor
+            </Span>
             <Span bodyL>Boston, MA</Span>
           </Col>
         </Row>
@@ -108,13 +122,17 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
   //render description about the person/service
   const renderInfo = () => {
     return (
-
       <Col mt20>
         <Span titleXL>About</Span>
-        {!expanded ?
-          <Span bodyM numberOfLines={10}>{loremIpsum}</Span> : <Span bodyM>{loremIpsum}</Span>}
+        {!expanded ? (
+          <Span bodyM numberOfLines={10}>
+            {loremIpsum}
+          </Span>
+        ) : (
+          <Span bodyM>{loremIpsum}</Span>
+        )}
         <Col alignEnd mt10>
-          <UniversalButton size='small' text={{ value: buttonText }} onPress={onPressButton} />
+          <UniversalButton size="small" text={{ value: buttonText }} onPress={onPressButton} />
         </Col>
       </Col>
     )
@@ -132,12 +150,11 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
     )
   }
 
-
   /***********
    * render()
    ***********/
 
-  //floating button not yet implemented. will need FAB implemented first. 
+  //floating button not yet implemented. will need FAB implemented first.
   return (
     <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: NeutralColor['neutral-100'] }}>
       {renderNavBar()}
@@ -149,7 +166,6 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
       </Col>
     </TaskTerriersSafeAreaView>
   )
-
 }
 
 export default ServiceDetailScreen

@@ -12,7 +12,7 @@ import AsyncStorageModule from '../modules/AsyncStorageModule'
 import { SerivcesCard } from '../components/Card'
 import { BottomTabBarHeightContext } from '@react-navigation/bottom-tabs'
 
-interface Props { }
+interface Props {}
 
 const ServicesTab = ({ route }) => {
   /*********
