@@ -34,7 +34,6 @@ const MessagesTab = ({ navigation, route }) => {
       messagePreview: 'Message Preview',
       profilePicture: profilePicture,
       onPress: () => onPressCard(),
-
     },
     {
       firstName: 'Olivia',
@@ -108,7 +107,7 @@ const MessagesTab = ({ navigation, route }) => {
    * render()
    ***********/
 
- // const profilePicture: any = require('../assets/images/profile/aleks.png')
+  // const profilePicture: any = require('../assets/images/profile/aleks.png')
 
   // return (
   //   <TaskTerriersSafeAreaView style={{ flex: 1 }}>

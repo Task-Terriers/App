@@ -24,7 +24,6 @@ const MessagesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, messag
    * props, navigation prams
    **************************/
 
-
   /*************
    * state, ref
    *************/
@@ -47,7 +46,6 @@ const MessagesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, messag
   /************
    * functions
    ************/
-
 
   /*********
    * render
