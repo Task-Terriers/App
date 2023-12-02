@@ -25,7 +25,8 @@
     "sourceMap": true,
     "removeComments": true,
     "allowJs": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "checkJs": true
   },
   "extends": "expo/tsconfig.base",
   "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"],
