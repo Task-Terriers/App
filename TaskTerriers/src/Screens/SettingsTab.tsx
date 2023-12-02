@@ -2,10 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity, FlatList, ListRenderItemInfo } from 'react-native'
 import auth from '@react-native-firebase/auth'
 
-import TaskTerriersSafeAreaView from '../Views/TaskTerriersSafeAreaView'
-import NavigationBar from '../components/NavigationBar'
-import { IconNames } from '../components/types'
-import { WarningButton } from '../components/Buttons'
 import { TaskTerriersNavigationModule } from '../modules/NavigationModule'
 import { Root } from '../navigation/type'
 import MajorTags from '../components/Tags/MajorTags'
@@ -13,6 +9,9 @@ import { Col } from '../StyleToProps'
 import { Menu, MenuComponentProps } from '../components/Menu'
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { Divider } from '../components/Divider'
+import TaskTerriersSafeAreaView from '../Views/TaskTerriersSafeAreaView'
+import NavigationBar from '../components/NavigationBar'
+import { IconNames } from '../components/types'
 
 interface Props { }
 
@@ -28,31 +27,40 @@ const SettingsTab = ({ navigation, route }) => {
   const SettingItems: MenuComponentProps[] = [
     {
       title: 'Email',
-      iconElement: <MaterialIcons name='email' color={'black'} size={20} />
+      leftIconElement: <MaterialIcons name='email' color={'black'} size={20} />
     },
     {
       title: 'Name',
-      iconElement: <Ionicons name='person' color={'black'} size={20} />,
+      leftIconElement: <Ionicons name='person' color={'black'} size={20} />,
     },
+    //needs change for rightDetail. get it from db
     {
       title: 'Major',
-      iconElement: <Ionicons name='briefcase' color={'black'} size={20} />,
+      leftIconElement: <Ionicons name='briefcase' color={'black'} size={20} />,
+      rightIconElement: <Ionicons name='chevron-forward' color={'black'} size={20} />,
+      rightDetail: 'ComputerScience',
       onPress: null,
     },
+    //needs change for rightDetail. get it from db
     {
       title: 'Minor',
-      iconElement: <Ionicons name='book' color={'black'} size={20} />,
+      leftIconElement: <Ionicons name='book' color={'black'} size={20} />,
+      rightIconElement: <Ionicons name='chevron-forward' color={'black'} size={20} />,
+      rightDetail: 'Visual Arts',
       onPress: null,
     },
     {
       title: 'Classes',
-      iconElement: <MaterialIcons name='class' color={'black'} size={20} />,
+      leftIconElement: <MaterialIcons name='class' color={'black'} size={20} />,
+      rightIconElement: <Ionicons name='chevron-forward' color={'black'} size={20} />,
       onPress: null,
     },
     {
       title: 'Sign Out',
-      iconElement: <Ionicons name='log-out' color={'black'} size={20} />,
-      onPress: () => onPressSignOut()
+      leftIconElement: <Ionicons name='log-out' color={'black'} size={20} />,
+      onPress: () => onPressSignOut(),
+      size: 'small',
+      button: { size: 'small', onPress: null, hasBorder: true, text: { value: 'Sign Out' }, buttonType: 'warning' }
     },
   ]
 
@@ -105,7 +113,7 @@ const SettingsTab = ({ navigation, route }) => {
     return (
       <FlatList
         scrollEnabled={false}
-        contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 16, paddingTop: 16 }}
+        contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 16, paddingVertical: 16 }}
         data={SettingItems}
         keyExtractor={(item, index) => `setting-menu-${index}`}
         renderItem={renderItem}
@@ -120,7 +128,7 @@ const SettingsTab = ({ navigation, route }) => {
   return (
     <TaskTerriersSafeAreaView style={{ flex: 1, }}>
       <NavigationBar iconName={IconNames['Setting']} title={route.name} />
-      <Col bgNeutral100 m16 radius12 p16>
+      <Col bgNeutral100 m16 radius12 >
         {renderMenuList()}
       </Col>
     </TaskTerriersSafeAreaView>

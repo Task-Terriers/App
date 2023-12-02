@@ -17,7 +17,7 @@ export interface ButtonComponentProps {
   backgroundColor?: BackgroundColorType.Value
   overwriteColor?: UniversalColorType.Value
   overwriteBackgroundColor?: UniversalColorType.Value
-  hasBorder: boolean
+  hasBorder?: boolean
 }
 
 const ButtonSize = {

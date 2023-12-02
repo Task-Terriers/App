@@ -1,7 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { ComponentStyle, IconType, TypographyType } from '../types'
-import { ButtonComponentProps, UniversalButton } from '../Buttons'
+import { ButtonComponentProps, UniversalButton, WarningButton } from '../Buttons'
 import { NeutralColor, UniversalColorType } from '../../Libs'
 import { Col, Row, Span } from '../../StyleToProps'
 
@@ -13,9 +13,9 @@ export interface MenuComponentProps {
     subTitle?: string | TypographyType.Attr
     description?: string | TypographyType.Attr
     subDescription?: string | TypographyType.Attr
-
-    icon?: IconType.Attr
-    iconElement?: React.ReactElement
+    leftIconElement?: React.ReactElement
+    rightIconElement?: React.ReactElement
+    rightDetail?: string
     state?: ComponentStyle.State
 
     onPress?: () => void
@@ -24,12 +24,10 @@ export interface MenuComponentProps {
     button?: MenuButtonProps
     disable?: boolean
     disableOnlyEffect?: boolean
-    hasNewBadge?: boolean
 }
 
 interface MenuButtonProps extends ButtonComponentProps {
-    overwriteColor?: UniversalColorType.Value
-    overwriteBackgroundColor?: UniversalColorType.Value
+    buttonType: 'warning' | 'universal'
 }
 
 const Menu: React.FC<MenuComponentProps> = ({
@@ -38,8 +36,8 @@ const Menu: React.FC<MenuComponentProps> = ({
     subTitle,
     description,
     subDescription,
-    icon,
-    iconElement,
+    leftIconElement,
+    rightIconElement,
     state,
     onPress,
     onLongPress,
@@ -47,7 +45,7 @@ const Menu: React.FC<MenuComponentProps> = ({
     button,
     disable,
     disableOnlyEffect,
-    hasNewBadge,
+    rightDetail,
 }) => {
     /************
      * function
@@ -63,51 +61,68 @@ const Menu: React.FC<MenuComponentProps> = ({
      * render
      *********/
 
-    const renderIcon = () => {
-        if (icon?.src) {
-            return (
-                <Col>
-                    {/* <CImage src={icon.src} size={icon?.size || { width: 24, height: 24 }} /> */}
-                </Col>
-            )
-        } else if (iconElement) return iconElement
+    const renderLeftIcon = () => {
+        if (leftIconElement) return leftIconElement
+        return null
+    }
+
+    const renderRightIcon = () => {
+        if (rightIconElement) return rightIconElement
         return null
     }
 
     const renderLeftSide = () => {
         return (
-            <View style={{ flexDirection: 'row', flexShrink: 1, alignItems: 'center', marginRight: 8 }}>
-                <View>{(!icon?.position || icon?.position === 'left') && renderIcon()}</View>
+            <Row flexShrink alignCenter mr8>
+                <Col>{(leftIconElement) && renderLeftIcon()}</Col>
                 {renderTitleAndSubTitle()}
-            </View>
+            </Row >
+        )
+    }
+
+    const renderRightDetail = () => {
+        if (rightDetail) {
+            return (
+                <Col mr={rightIconElement ? 12 : 0} justifyCenter>
+                    <Span labelL numberOfLines={1} colorNeutral40 bold>{rightDetail.toString()}</Span>
+                </Col>
+            )
+        }
+    }
+
+    const renderRightSide = () => {
+        return (
+            <Row flexShrink alignCenter mr8>
+                <Col flexShrink>
+                    {renderRightDetail()}
+                </Col>
+                {rightIconElement && renderRightIcon()}
+            </Row >
         )
     }
 
     const renderTitleAndSubTitle = () => {
         return (
-            <View
-                style={{
-                    marginLeft: icon?.src && icon?.position !== 'right' ? 12 : 0,
-                    flexShrink: 1,
-                    flex: 1,
-                    justifyContent: 'center',
-                }}>
+            <Col
+                ml={leftIconElement ? 12 : 0}
+                flexShrink
+                flex
+                justifyCenter
+            >
                 <Span labelL numberOfLines={1} color={disable ? 'neutral-40' : 'neutral-10'} bold>{title.toString()}</Span>
                 {subTitle && (
                     <Span bodyM colorNeutral40>{subTitle.toString()}</Span>
                 )}
-            </View>
+            </Col>
         )
     }
 
     const renderButton = () => {
         if (children) return children
-        if (icon?.position === 'right') return renderIcon()
-
         if (!button) return null
 
-        return (
-            <View>
+        if (button?.buttonType == 'universal') {
+            return (
                 <UniversalButton
                     size="small"
                     icon={button?.icon}
@@ -118,8 +133,21 @@ const Menu: React.FC<MenuComponentProps> = ({
                     overwriteBackgroundColor={button?.overwriteBackgroundColor}
                     state={button?.state}
                 />
-            </View>
-        )
+            )
+        } else {
+            return (
+                <WarningButton
+                    size='small'
+                    icon={button?.icon}
+                    text={button?.text}
+                    onPress={button?.onPress}
+                    warningStyle='fill'
+                />
+            )
+
+        }
+
+
     }
 
     const renderDescription = () => {
@@ -158,7 +186,7 @@ const Menu: React.FC<MenuComponentProps> = ({
         >
             <Row h={getMinHeight()} justifyBetween alignCenter>
                 {renderLeftSide()}
-                {renderButton()}
+                {rightIconElement || rightDetail ? renderRightSide() : renderButton()}
             </Row>
             {renderDescription()}
         </TouchableOpacity>

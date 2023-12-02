@@ -45,7 +45,7 @@ const UniversalButton: React.FC<ButtonComponentProps> = ({
 
   const getText = (): ReturnType<() => TypographyType.Attr> => {
     if (typeof text === 'string') return { value: `${text}`, bold: 'bold' }
-    else if (typeof text === 'object') return { value: `${text.value}`, bold: text.bold || 'bold' }
+    else if (typeof text === 'object') return { value: `${text?.value}`, bold: text?.bold || 'bold' }
   }
 
   const getHeight = () => {
@@ -81,12 +81,12 @@ const UniversalButton: React.FC<ButtonComponentProps> = ({
     if (size === 'medium')
       return (
         <Span labelL color={getTextColor()} numberOfLines={1}>
-          {getText().value}
+          {getText()?.value}
         </Span>
       )
     return (
       <Span labelM color={getTextColor()} numberOfLines={1}>
-        {getText().value}
+        {getText()?.value}
       </Span>
     )
   }
