@@ -16,6 +16,7 @@ const UniversalButton: React.FC<ButtonComponentProps> = ({
   margin,
   onPress,
   backgroundColor,
+  hasBorder
 }) => {
   /************
    * function
@@ -28,8 +29,11 @@ const UniversalButton: React.FC<ButtonComponentProps> = ({
   }
 
   const getBorderColor = () => {
+    if (hasBorder) {
+      return NeutralColor['neutral-10']
+    }
     if (state === 'disabled') return NeutralColor['neutral-30']
-    return NeutralColor['neutral-10']
+    return 'transparent'
   }
 
   const getTextColor = (): TypographyColorType.Key => {
@@ -47,6 +51,21 @@ const UniversalButton: React.FC<ButtonComponentProps> = ({
   const getHeight = () => {
     if (size === 'medium') return 40
     return 32
+  }
+
+  const getPaddingObj = () => {
+    if (isProgress || (!text && icon)) {
+      if (size === 'medium') return { padding: 8 }
+      return { padding: 7 }
+    }
+    if (text && icon) {
+      if (size === 'medium') return { paddingLeft: 16, paddingRight: 24 }
+      return { paddingLeft: 12, paddingRight: 16 }
+    }
+    if (text && !icon) {
+      if (size === 'medium') return { paddingHorizontal: 24 }
+      return { paddingHorizontal: 16 }
+    }
   }
 
   /*********
@@ -72,20 +91,7 @@ const UniversalButton: React.FC<ButtonComponentProps> = ({
     )
   }
 
-  const getPaddingObj = () => {
-    if (isProgress || (!text && icon)) {
-      if (size === 'medium') return { padding: 8 }
-      return { padding: 7 }
-    }
-    if (text && icon) {
-      if (size === 'medium') return { paddingLeft: 16, paddingRight: 24 }
-      return { paddingLeft: 12, paddingRight: 16 }
-    }
-    if (text && !icon) {
-      if (size === 'medium') return { paddingHorizontal: 24 }
-      return { paddingHorizontal: 16 }
-    }
-  }
+
 
   const renderContent = () => {
     if (isProgress) {
