@@ -4,60 +4,61 @@ import { NeutralColor, extractMargin } from '../../Libs'
 import { Col, Row, Span } from '../../StyleToProps'
 import { Octicons } from '@expo/vector-icons'
 
-
 export type chipState = 'typing' | 'enabled' | 'pressed' | 'selected' | 'disabled' | 'loading'
 
 interface ChipMediumProps {
-    hasHashTag?: boolean
-    isEditing?: boolean
-    type: chipState
-    title: TypographyType.Value
-    margin?: SpaceStyle.Margin
-    onPressChip?: () => void
-    onPressClose?: () => void
-    onChangeText?: (value: string) => void
+  hasHashTag?: boolean
+  isEditing?: boolean
+  type: chipState
+  title: TypographyType.Value
+  margin?: SpaceStyle.Margin
+  onPressChip?: () => void
+  onPressClose?: () => void
+  onChangeText?: (value: string) => void
 }
 
 const ChipMedium: React.FC<ChipMediumProps> = ({ hasHashTag, isEditing, type, title, margin, onPressChip, onPressClose, onChangeText }) => {
-    /************
-     * function
-     ************/
+  /************
+   * function
+   ************/
 
-    const getBackgroundColor = () => {
-        if (type === 'pressed') return NeutralColor['neutral-80']
-        return NeutralColor['neutral-90']
-    }
+  const getBackgroundColor = () => {
+    if (type === 'pressed') return NeutralColor['neutral-80']
+    return NeutralColor['neutral-90']
+  }
 
-    /*********
-     * render
-     *********/
+  /*********
+   * render
+   *********/
 
-    /*********
-     * render()
-     *********/
+  /*********
+   * render()
+   *********/
 
-    const _margin = extractMargin(margin)
+  const _margin = extractMargin(margin)
 
-    return (
-        <Row
-            bg={getBackgroundColor()}
-            maxW120
-            h32
-            ph8
-            radius12
-            alignCenter
-            justifyCenter
-            mr={_margin.marginRight}
-            mb={_margin.marginBottom}
-            ml={_margin.marginLeft}
-            mt={_margin.marginTop}
-            onPress={onPressChip}>
-            <Span labelM ml6>{title.toString()}</Span>
-            <Col ml7 _isVisible={isEditing} onPress={onPressClose}>
-                <Octicons name="x-circle" color={NeutralColor['neutral-50']} size={16} />
-            </Col>
-        </Row>
-    )
+  return (
+    <Row
+      bg={getBackgroundColor()}
+      maxW120
+      h32
+      ph8
+      radius12
+      alignCenter
+      justifyCenter
+      mr={_margin.marginRight}
+      mb={_margin.marginBottom}
+      ml={_margin.marginLeft}
+      mt={_margin.marginTop}
+      onPress={onPressChip}>
+      <Span labelM ml6>
+        {title.toString()}
+      </Span>
+      <Col ml7 _isVisible={isEditing} onPress={onPressClose}>
+        <Octicons name="x-circle" color={NeutralColor['neutral-50']} size={16} />
+      </Col>
+    </Row>
+  )
 }
 
 export default ChipMedium

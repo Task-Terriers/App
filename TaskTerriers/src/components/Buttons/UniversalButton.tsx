@@ -16,7 +16,7 @@ const UniversalButton: React.FC<ButtonComponentProps> = ({
   margin,
   onPress,
   backgroundColor,
-  hasBorder
+  hasBorder,
 }) => {
   /************
    * function
@@ -90,8 +90,6 @@ const UniversalButton: React.FC<ButtonComponentProps> = ({
       </Span>
     )
   }
-
-
 
   const renderContent = () => {
     if (isProgress) {

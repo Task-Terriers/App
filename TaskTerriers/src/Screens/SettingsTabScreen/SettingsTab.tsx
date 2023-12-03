@@ -16,12 +16,11 @@ import { Image } from 'expo-image'
 import { NeutralColor } from '../../Libs'
 import { UniversalButton } from '../../components/Buttons'
 
-
 type userData = {
   firstName: string
-  lastName: string,
-  email: string,
-  photoURL: string,
+  lastName: string
+  email: string
+  photoURL: string
 }
 
 const SettingsTab = ({ navigation, route }) => {
@@ -43,34 +42,34 @@ const SettingsTab = ({ navigation, route }) => {
   const SettingItems: MenuComponentProps[] = [
     {
       title: 'Email',
-      leftIconElement: <MaterialIcons name='email' color={'black'} size={20} />,
-      rightDetail: userData?.email
+      leftIconElement: <MaterialIcons name="email" color={'black'} size={20} />,
+      rightDetail: userData?.email,
     },
     {
       title: 'Name',
-      leftIconElement: <Ionicons name='person' color={'black'} size={20} />,
-      rightDetail: `${userData?.firstName} ${userData?.lastName}`
+      leftIconElement: <Ionicons name="person" color={'black'} size={20} />,
+      rightDetail: `${userData?.firstName} ${userData?.lastName}`,
     },
     //needs change for rightDetail. get it from db
     {
       title: 'Major/Minor',
-      leftIconElement: <Ionicons name='briefcase' color={'black'} size={20} />,
-      rightIconElement: <Ionicons name='chevron-forward' color={'black'} size={20} />,
+      leftIconElement: <Ionicons name="briefcase" color={'black'} size={20} />,
+      rightIconElement: <Ionicons name="chevron-forward" color={'black'} size={20} />,
       rightDetail: 'ComputerScience',
       onPress: () => TaskTerriersNavigationModule.navigate(Root.SettingsTabMajorScreen),
     },
     {
       title: 'Classes',
-      leftIconElement: <MaterialIcons name='class' color={'black'} size={20} />,
-      rightIconElement: <Ionicons name='chevron-forward' color={'black'} size={20} />,
+      leftIconElement: <MaterialIcons name="class" color={'black'} size={20} />,
+      rightIconElement: <Ionicons name="chevron-forward" color={'black'} size={20} />,
       onPress: () => TaskTerriersNavigationModule.navigate(Root.SettingsTabClassesScreen),
     },
     {
       title: 'Sign Out',
-      leftIconElement: <Ionicons name='log-out' color={'black'} size={20} />,
+      leftIconElement: <Ionicons name="log-out" color={'black'} size={20} />,
       onPress: () => onPressSignOut(),
       size: 'small',
-      button: { size: 'small', onPress: null, hasBorder: true, text: { value: 'Sign Out' }, buttonType: 'warning' }
+      button: { size: 'small', onPress: null, hasBorder: true, text: { value: 'Sign Out' }, buttonType: 'warning' },
     },
   ]
 
@@ -114,8 +113,8 @@ const SettingsTab = ({ navigation, route }) => {
           <Image contentFit="fill" source={require('../../assets/images/defaultProfile.jpeg')} style={{ width: 100, height: 100 }} />
         </Col>
         <Row justifyBetween w200 alignSelfCenter mt20>
-          <UniversalButton size='small' text={{ value: 'Edit' }} onPress={null} hasBorder backgroundColor={NeutralColor['neutral-100']} />
-          <UniversalButton size='small' text={{ value: 'Remove' }} onPress={null} hasBorder backgroundColor={NeutralColor['neutral-100']} />
+          <UniversalButton size="small" text={{ value: 'Edit' }} onPress={null} hasBorder backgroundColor={NeutralColor['neutral-100']} />
+          <UniversalButton size="small" text={{ value: 'Remove' }} onPress={null} hasBorder backgroundColor={NeutralColor['neutral-100']} />
         </Row>
       </>
     )
@@ -147,18 +146,16 @@ const SettingsTab = ({ navigation, route }) => {
    ***********/
 
   return (
-    <TaskTerriersSafeAreaView style={{ flex: 1, }}>
+    <TaskTerriersSafeAreaView style={{ flex: 1 }}>
       <NavigationBar iconName={IconNames['Setting']} title={route.name} />
-      {isRendering &&
+      {isRendering && (
         <>
-          <Col mt20>
-            {renderProfileSection()}
-          </Col>
-          <Col bgNeutral100 m16 radius12 >
+          <Col mt20>{renderProfileSection()}</Col>
+          <Col bgNeutral100 m16 radius12>
             {renderMenuList()}
           </Col>
         </>
-      }
+      )}
     </TaskTerriersSafeAreaView>
   )
 }

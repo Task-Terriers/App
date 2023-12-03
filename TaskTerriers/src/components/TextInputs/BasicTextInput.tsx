@@ -176,9 +176,9 @@ const BasicTextInput: React.FC<TextInputsProps> = (props, ref) => {
           props.style,
           props.multiline && maxCharacter
             ? {
-              height: isFocused ? 100 : 126,
-              marginBottom: isFocused ? 40 : 14,
-            }
+                height: isFocused ? 100 : 126,
+                marginBottom: isFocused ? 40 : 14,
+              }
             : undefined,
         ]}
       />
@@ -266,20 +266,8 @@ const BasicTextInput: React.FC<TextInputsProps> = (props, ref) => {
   }
 
   return (
-    <Col
-      borderW4
-      mv10
-      borderColor={getOuterBorderColor()}
-      radius={props.borderRadius ? borderRadius + 4 : 16}
-      style={[
-        extractMargin(margin),
-      ]}>
-      <Col
-        radius={props.borderRadius ? borderRadius : 12}
-        borderColor={getInnerBorderColor()}
-        borderW={isFocused ? 2 : 1}
-        overflowHidden
-      >
+    <Col borderW4 mv10 borderColor={getOuterBorderColor()} radius={props.borderRadius ? borderRadius + 4 : 16} style={[extractMargin(margin)]}>
+      <Col radius={props.borderRadius ? borderRadius : 12} borderColor={getInnerBorderColor()} borderW={isFocused ? 2 : 1} overflowHidden>
         <Row alignCenter>
           {renderTextInput()}
           {renderCharacterLimit()}

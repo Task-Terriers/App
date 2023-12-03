@@ -7,110 +7,107 @@ import { BasicTextInput } from '../../components/TextInputs'
 import { Col, Span } from '../../StyleToProps'
 import { UniversalButton } from '../../components/Buttons'
 
-interface Props { }
-
+interface Props {}
 
 const SettingsTabMajorScreen = ({ navigation, route }) => {
+  /*********
+   * recoil
+   *********/
 
-    /*********
-    * recoil
-    *********/
+  /**************************
+   * props, navigation prams
+   **************************/
 
-    /**************************
-    * props, navigation prams
-    **************************/
+  /*************
+   * state, ref
+   *************/
 
-    /*************
-    * state, ref
-    *************/
+  const [isEditing, setIsEditing] = useState<boolean>(false)
+  //need to set from what is from the db.
+  const [majorInputText, setMajorInputText] = useState<string>('')
+  const [minorInputText, setMinorInputText] = useState<string>('')
 
-    const [isEditing, setIsEditing] = useState<boolean>(false)
-    //need to set from what is from the db.
-    const [majorInputText, setMajorInputText] = useState<string>('')
-    const [minorInputText, setMinorInputText] = useState<string>('')
+  /**************
+   * life cycles
+   **************/
 
-    /**************
-    * life cycles
-    **************/
+  useEffect(() => {
+    // ComponentDidMount
 
-    useEffect(() => {
-        // ComponentDidMount
-
-        // setIsRendering(false)
-        return () => {
-            // ComponentWillUnmount
-        }
-    }, [])
-
-    /************
-    * functions
-    ************/
-    const onPressReturn = () => {
-        TaskTerriersNavigationModule.goBack()
+    // setIsRendering(false)
+    return () => {
+      // ComponentWillUnmount
     }
+  }, [])
 
-    /*********
-    * render
-    *********/
+  /************
+   * functions
+   ************/
+  const onPressReturn = () => {
+    TaskTerriersNavigationModule.goBack()
+  }
 
-    const renderNavBar = () => {
-        return <NavigationBar title={'Major/Minor'} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
-    }
+  /*********
+   * render
+   *********/
 
-    const renderEditButton = () => {
-        return (
-            <UniversalButton text={{ value: !isEditing ? 'Edit' : 'Done' }} size='small' onPress={() => setIsEditing(!isEditing)} hasBorder />
-        )
-    }
+  const renderNavBar = () => {
+    return <NavigationBar title={'Major/Minor'} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
+  }
 
-    const renderMajorInput = () => {
-        return (
-            <Col mb20>
-                <Span titleM mb10>Major</Span>
-                <BasicTextInput
-                    editable={isEditing}
-                    maxCharacter={50}
-                    size="small"
-                    placeholder={'ex: Computer Science'}
-                    onChangeText={(text: string) => setMajorInputText(text)}
-                    value={majorInputText}
-                />
-            </Col>
-        )
-    }
+  const renderEditButton = () => {
+    return <UniversalButton text={{ value: !isEditing ? 'Edit' : 'Done' }} size="small" onPress={() => setIsEditing(!isEditing)} hasBorder />
+  }
 
-    const renderMinorInput = () => {
-        return (
-            <Col>
-                <Span titleM mb10>Minor</Span>
-                <BasicTextInput
-                    editable={isEditing}
-                    maxCharacter={30}
-                    size="small"
-                    placeholder={'ex: Data Science'}
-                    onChangeText={(text: string) => setMinorInputText(text)}
-                    value={minorInputText}
-                />
-            </Col>
-        )
-    }
-
-    /***********
-    * render()
-    ***********/
-
+  const renderMajorInput = () => {
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-            {renderNavBar()}
-            <Col p16>
-                <Col alignSelfEnd>
-                    {renderEditButton()}
-                </Col>
-                {renderMajorInput()}
-                {renderMinorInput()}
-            </Col>
-        </SafeAreaView>
+      <Col mb20>
+        <Span titleM mb10>
+          Major
+        </Span>
+        <BasicTextInput
+          editable={isEditing}
+          maxCharacter={50}
+          size="small"
+          placeholder={'ex: Computer Science'}
+          onChangeText={(text: string) => setMajorInputText(text)}
+          value={majorInputText}
+        />
+      </Col>
     )
+  }
 
+  const renderMinorInput = () => {
+    return (
+      <Col>
+        <Span titleM mb10>
+          Minor
+        </Span>
+        <BasicTextInput
+          editable={isEditing}
+          maxCharacter={30}
+          size="small"
+          placeholder={'ex: Data Science'}
+          onChangeText={(text: string) => setMinorInputText(text)}
+          value={minorInputText}
+        />
+      </Col>
+    )
+  }
+
+  /***********
+   * render()
+   ***********/
+
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+      {renderNavBar()}
+      <Col p16>
+        <Col alignSelfEnd>{renderEditButton()}</Col>
+        {renderMajorInput()}
+        {renderMinorInput()}
+      </Col>
+    </SafeAreaView>
+  )
 }
 export default SettingsTabMajorScreen
