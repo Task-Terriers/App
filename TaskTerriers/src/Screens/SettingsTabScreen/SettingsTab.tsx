@@ -3,7 +3,7 @@ import { FlatList, ListRenderItemInfo } from 'react-native'
 import auth from '@react-native-firebase/auth'
 
 import { TaskTerriersNavigationModule } from '../../modules/NavigationModule'
-import { Col } from '../../StyleToProps'
+import { Col, Row } from '../../StyleToProps'
 import { Menu, MenuComponentProps } from '../../components/Menu'
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { Divider } from '../../components/Divider'
@@ -12,6 +12,9 @@ import NavigationBar from '../../components/NavigationBar'
 import { IconNames } from '../../components/types'
 import AsyncStorageModule from '../../modules/AsyncStorageModule'
 import { Root } from '../../navigation/type'
+import { Image } from 'expo-image'
+import { NeutralColor } from '../../Libs'
+import { UniversalButton } from '../../components/Buttons'
 
 
 type userData = {
@@ -102,6 +105,22 @@ const SettingsTab = ({ navigation, route }) => {
    * render
    *********/
 
+  //need to add case : when default profile disable remove button
+  //need to add image picker
+  const renderProfileSection = () => {
+    return (
+      <>
+        <Col alignSelfCenter radius100 mr10 overflow="hidden" borderColor={NeutralColor['neutral-50']} borderW2>
+          <Image contentFit="fill" source={require('../../assets/images/defaultProfile.jpeg')} style={{ width: 100, height: 100 }} />
+        </Col>
+        <Row justifyBetween w200 alignSelfCenter mt20>
+          <UniversalButton size='small' text={{ value: 'Edit' }} onPress={null} hasBorder backgroundColor={NeutralColor['neutral-100']} />
+          <UniversalButton size='small' text={{ value: 'Remove' }} onPress={null} hasBorder backgroundColor={NeutralColor['neutral-100']} />
+        </Row>
+      </>
+    )
+  }
+
   const renderItem = ({ item }: ListRenderItemInfo<MenuComponentProps>) => {
     return (
       <Col mb2>
@@ -131,9 +150,14 @@ const SettingsTab = ({ navigation, route }) => {
     <TaskTerriersSafeAreaView style={{ flex: 1, }}>
       <NavigationBar iconName={IconNames['Setting']} title={route.name} />
       {isRendering &&
-        <Col bgNeutral100 m16 radius12 >
-          {renderMenuList()}
-        </Col>
+        <>
+          <Col mt20>
+            {renderProfileSection()}
+          </Col>
+          <Col bgNeutral100 m16 radius12 >
+            {renderMenuList()}
+          </Col>
+        </>
       }
     </TaskTerriersSafeAreaView>
   )
