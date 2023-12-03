@@ -6,6 +6,7 @@ import ServiceDetailScreen from '../Screens/ServiceDetailScreen'
 import AuthLoginMainScreen from '../Screens/Auth/AuthLoginMainScreen'
 import AuthAddProfileScreen from '../Screens/Auth/AuthAddProfileScreen'
 import MessagesDetailScreen from '../Screens/MessagesDetailScreen'
+import SettingsTabClassesScreen from '../Screens/SettingsTabScreen/SettingsTabClassesScreen'
 
 const Stack = createStackNavigator<RootStackParamList>()
 const StackGroup = () => {
@@ -14,6 +15,7 @@ const StackGroup = () => {
       {/* Services Tab */}
       <Stack.Screen name="ServiceDetailScreen" component={ServiceDetailScreen} />
       <Stack.Screen name="MessagesDetailScreen" component={MessagesDetailScreen} />
+      <Stack.Screen name="SettingsTabClassesScreen" component={SettingsTabClassesScreen} />
     </Stack.Group>
   )
 }

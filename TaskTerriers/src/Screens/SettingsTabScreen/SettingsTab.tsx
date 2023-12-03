@@ -1,19 +1,25 @@
 import React, { useState, useEffect } from 'react'
-import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity, FlatList, ListRenderItemInfo } from 'react-native'
+import { FlatList, ListRenderItemInfo } from 'react-native'
 import auth from '@react-native-firebase/auth'
 
-import { TaskTerriersNavigationModule } from '../modules/NavigationModule'
-import { Root } from '../navigation/type'
-import MajorTags from '../components/Tags/MajorTags'
-import { Col } from '../StyleToProps'
-import { Menu, MenuComponentProps } from '../components/Menu'
+import { TaskTerriersNavigationModule } from '../../modules/NavigationModule'
+import { Col } from '../../StyleToProps'
+import { Menu, MenuComponentProps } from '../../components/Menu'
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
-import { Divider } from '../components/Divider'
-import TaskTerriersSafeAreaView from '../Views/TaskTerriersSafeAreaView'
-import NavigationBar from '../components/NavigationBar'
-import { IconNames } from '../components/types'
+import { Divider } from '../../components/Divider'
+import TaskTerriersSafeAreaView from '../../Views/TaskTerriersSafeAreaView'
+import NavigationBar from '../../components/NavigationBar'
+import { IconNames } from '../../components/types'
+import AsyncStorageModule from '../../modules/AsyncStorageModule'
+import { Root } from '../../navigation/type'
 
-interface Props { }
+
+type userData = {
+  firstName: string
+  lastName: string,
+  email: string,
+  photoURL: string,
+}
 
 const SettingsTab = ({ navigation, route }) => {
   /*********
@@ -24,14 +30,23 @@ const SettingsTab = ({ navigation, route }) => {
    * const, props, navigation prams
    **************************/
 
+  /*************
+   * state, ref
+   *************/
+
+  const [isRendering, setIsRendering] = useState<boolean>(true)
+  const [userData, setUserData] = useState<userData>()
+
   const SettingItems: MenuComponentProps[] = [
     {
       title: 'Email',
-      leftIconElement: <MaterialIcons name='email' color={'black'} size={20} />
+      leftIconElement: <MaterialIcons name='email' color={'black'} size={20} />,
+      rightDetail: userData?.email
     },
     {
       title: 'Name',
       leftIconElement: <Ionicons name='person' color={'black'} size={20} />,
+      rightDetail: `${userData?.firstName} ${userData?.lastName}`
     },
     //needs change for rightDetail. get it from db
     {
@@ -53,7 +68,7 @@ const SettingsTab = ({ navigation, route }) => {
       title: 'Classes',
       leftIconElement: <MaterialIcons name='class' color={'black'} size={20} />,
       rightIconElement: <Ionicons name='chevron-forward' color={'black'} size={20} />,
-      onPress: null,
+      onPress: () => TaskTerriersNavigationModule.navigate(Root.SettingsTabClassesScreen),
     },
     {
       title: 'Sign Out',
@@ -64,24 +79,13 @@ const SettingsTab = ({ navigation, route }) => {
     },
   ]
 
-
-  /*************
-   * state, ref
-   *************/
-
-  const [isRendering, setIsRendering] = useState<boolean>(true)
-
   /**************
    * life cycles
    **************/
 
   useEffect(() => {
-    // ComponentDidMount
-
-    // setIsRendering(false)
-    return () => {
-      // ComponentWillUnmount
-    }
+    getUserData()
+    console.log(userData)
   }, [])
 
   /************
@@ -96,6 +100,12 @@ const SettingsTab = ({ navigation, route }) => {
       })
   }
 
+  const getUserData = async () => {
+    const userData = await AsyncStorageModule.GET_asyncStorage('USER_DATA')
+    setUserData(userData)
+    setIsRendering(true)
+  }
+
   /*********
    * render
    *********/
@@ -104,7 +114,7 @@ const SettingsTab = ({ navigation, route }) => {
     return (
       <Col mb2>
         <Menu state={'enabled'} {...item} />
-        <Divider />
+        {item.title != 'Sign Out' && <Divider />}
       </Col>
     )
   }
@@ -128,9 +138,11 @@ const SettingsTab = ({ navigation, route }) => {
   return (
     <TaskTerriersSafeAreaView style={{ flex: 1, }}>
       <NavigationBar iconName={IconNames['Setting']} title={route.name} />
-      <Col bgNeutral100 m16 radius12 >
-        {renderMenuList()}
-      </Col>
+      {isRendering &&
+        <Col bgNeutral100 m16 radius12 >
+          {renderMenuList()}
+        </Col>
+      }
     </TaskTerriersSafeAreaView>
   )
 }

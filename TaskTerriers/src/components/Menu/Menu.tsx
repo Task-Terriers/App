@@ -92,8 +92,8 @@ const Menu: React.FC<MenuComponentProps> = ({
 
     const renderRightSide = () => {
         return (
-            <Row flexShrink alignCenter mr8>
-                <Col flexShrink>
+            <Row flexShrink={rightIconElement ? 1 : 0} alignCenter mr8>
+                <Col flexShrink={rightDetail?.length > 50 && !rightIconElement ? 0 : 1}>
                     {renderRightDetail()}
                 </Col>
                 {rightIconElement && renderRightIcon()}
