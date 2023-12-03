@@ -11,6 +11,7 @@ import { BasicTextInput } from '../../components/TextInputs'
 import { NeutralColor } from '../../Libs'
 import { Divider } from '../../components/Divider'
 import { Ionicons } from '@expo/vector-icons'
+import Toast from '../../components/Toast/Toast'
 
 interface Props { }
 
@@ -32,7 +33,9 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
     const [isRendering, setIsRendering] = useState<boolean>(true)
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const [inputText, setInputText] = useState<string>('')
-    const [classes, setClasses] = useState<string[]>()
+    const [classes, setClasses] = useState<string[]>([])
+    const [isDuplicated, setIsDuplicated] = useState<boolean>(false)
+    const [isNotValid, setIsNotValid] = useState<boolean>(false)
 
     /**************
     * life cycles
@@ -55,7 +58,24 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
     }
 
     const onPressAddButton = () => {
+        if (classes?.includes(inputText)) {
+            setIsDuplicated(true)
+            return
+        }
+        if (inputText.length != 9) {
+            setIsNotValid(true)
+            return
+        }
+        setInputText('')
+        setClasses([...classes, inputText])
+        setIsDuplicated(false)
+        setIsNotValid(false)
 
+    }
+
+    const onPressDelete = (item) => {
+        const filterClasses = classes.filter((c) => c !== item);
+        setClasses(filterClasses)
     }
 
     /*********
@@ -75,22 +95,19 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
     const renderAddButton = () => {
         return (
             <Col mt10 alignSelfEnd>
-                <UniversalButton text={{ value: 'Add' }} size='small' onPress={null} hasBorder />
+                <UniversalButton text={{ value: 'Add' }} size='small' onPress={onPressAddButton} hasBorder state={inputText == '' ? 'disabled' : 'enabled'} />
             </Col>
         )
     }
 
-    const renderItem = () => {
+    const renderItem = ({ item }) => {
         return (
-            <Col>
-                <Row bgNeutral100 ph12 pv10 radius12 justifyBetween>
-                    <Span titleM>CAS CS412</Span>
-                    <TouchableOpacity>
-                        {isEditing && <Ionicons name='trash-outline' color='#ff0000' size={20} />}
-                    </TouchableOpacity>
-                </Row>
-                <Divider />
-            </Col>
+            <Row bgNeutral100 ph12 pv10 radius12 justifyBetween>
+                <Span titleM>{item}</Span>
+                <TouchableOpacity onPress={() => onPressDelete(item)}>
+                    {isEditing && <Ionicons name='trash-outline' color='#ff0000' size={20} />}
+                </TouchableOpacity>
+            </Row>
         )
 
     }
@@ -100,23 +117,33 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
         return (
             <BasicTextInput
                 autoFocus
-                maxCharacter={8}
+                maxCharacter={9}
                 size="small"
                 placeholder={'ex: CAS CS101'}
-                onChangeText={(text: string) => setInputText(text)}
+                onChangeText={(text: string) => [setInputText(text), setIsDuplicated(false), setIsNotValid(false)]}
+                value={inputText}
             />
         )
     }
 
     const renderClasses = () => {
+        if (classes.length === 0) return null
         return (
-            <FlatList
-                data={classes}
-                renderItem={renderItem}
-                keyExtractor={item => item}
-
-            />
+            <Col bgNeutral100 radius12 p10>
+                <FlatList
+                    data={classes}
+                    renderItem={renderItem}
+                    keyExtractor={item => item}
+                    ItemSeparatorComponent={() => <Divider />}
+                />
+            </Col>
         )
+    }
+
+    const renderWarningMessage = () => {
+        if (isDuplicated) return <Span colorAlertCritical bodyM>{`${inputText} is already in the list.`}</Span>
+        if (isNotValid) return <Span colorAlertCritical bodyM>{`${inputText} is not a valid course name.`}</Span>
+
     }
 
     /***********
@@ -127,14 +154,19 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
         <TaskTerriersSafeAreaView style={{ flex: 1 }}>
             {renderNavBar()}
             <Col p16>
-                <Col alignEnd >
+                <Row justifyBetween alignCenter mb20>
+                    <Col opacity={isDuplicated || isNotValid ? 100 : 0} >
+                        {renderWarningMessage()}
+                    </Col>
                     {renderEditButton()}
-                </Col>
-                <Col bgNeutral100 p12 radius12 mt20>
+                </Row>
+                {isEditing && <Col bgNeutral100 p12 radius12 mb20>
                     {renderTextInput()}
                     {renderAddButton()}
-                </Col>
-                {renderItem()}
+                </Col>}
+
+                {renderClasses()}
+
             </Col>
         </TaskTerriersSafeAreaView>
     )

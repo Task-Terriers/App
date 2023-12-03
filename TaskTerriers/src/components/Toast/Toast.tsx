@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, ViewStyle, StyleSheet, BackHandler, TouchableOpacity, NativeEventSubscription, TouchableWithoutFeedback } from 'react-native'
+import React, { useState, useEffect, useRef } from 'react'
+import { View, Text, ViewStyle, StyleSheet, BackHandler, TouchableOpacity, NativeEventSubscription, TouchableWithoutFeedback, Animated } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 
-import { deviceInfo } from '../utilities/deviceInfo'
-import { AlertColor, BUColor } from '../Libs'
-import { Col, Row, Span } from '../StyleToProps'
+import { deviceInfo } from '../../utilities/deviceInfo'
+import { AlertColor, BUColor } from '../../Libs'
+import { Col, Row, Span } from '../../StyleToProps'
 
 export type ToastType = 'normal' | 'warning' | 'complete' | 'error'
 export interface NewToastAlertProps {
@@ -35,6 +34,7 @@ const Toast: React.FC<NewToastAlertProps> = (props: NewToastAlertProps) => {
     const [isVisible, setIsVisible] = useState<boolean>(true)
     const [duration, setDuration] = useState<number>(props.duration ? props.duration : 2000)
     const [animationType, setAnimationType] = useState<'fadeIn' | 'fadeOut'>('fadeIn')
+    const opacity = useRef(new Animated.Value(0)).current
 
     /*************
      * life cycles
@@ -68,6 +68,22 @@ const Toast: React.FC<NewToastAlertProps> = (props: NewToastAlertProps) => {
     /*************
      * function
      *************/
+
+    const FadeIn = () => {
+        Animated.timing(opacity, {
+            toValue: 1,
+            duration: duration,
+            useNativeDriver: true,
+        }).start();
+    }
+
+    const FadeOut = () => {
+        Animated.timing(opacity, {
+            toValue: 0,
+            duration: duration,
+            useNativeDriver: true,
+        }).start();
+    }
 
     const closeToastAlert = () => {
         setIsVisible(false)
@@ -165,8 +181,7 @@ const Toast: React.FC<NewToastAlertProps> = (props: NewToastAlertProps) => {
         <Col w={deviceInfo.size.width} h={deviceInfo.size.height} bg={'transparent'} absolute justifyEnd
             onPress={closeToastAlert}>
             <Animated.View
-                entering={FadeIn}
-                exiting={FadeOut}>
+                style={{ opacity }}>
                 {renderContents()}
             </Animated.View>
         </Col>
