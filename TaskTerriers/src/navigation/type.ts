@@ -11,6 +11,7 @@ export const Root = {
   ServiceDetailScreen: 'ServiceDetailScreen',
   MessagesDetailScreen: 'MessagesDetailScreen',
   SettingsTabClassesScreen: 'SettingsTabClassesScreen',
+  SettingsTabMajorScreen: 'SettingsTabMajorScreen',
 } as const
 
 export type Root = Union<typeof Root>
@@ -20,4 +21,5 @@ export type RootStackParamList = {
   [Root.ServiceDetailScreen]: object
   [Root.MessagesDetailScreen]: object
   [Root.SettingsTabClassesScreen]: object
+  [Root.SettingsTabMajorScreen]: object
 }

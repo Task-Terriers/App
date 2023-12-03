@@ -88,7 +88,7 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
 
     const renderEditButton = () => {
         return (
-            <UniversalButton text={{ value: isEditing ? 'Done' : 'Edit' }} size='small' onPress={() => setIsEditing(!isEditing)} hasBorder />
+            <UniversalButton text={{ value: !isEditing ? classes.length === 0 ? 'Add' : 'Edit' : 'Done' }} size='small' onPress={() => setIsEditing(!isEditing)} hasBorder />
         )
     }
 
@@ -113,7 +113,7 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
     }
 
     const renderTextInput = () => {
-        // if (!isEditing) return null
+        if (!isEditing) return null
         return (
             <BasicTextInput
                 autoFocus

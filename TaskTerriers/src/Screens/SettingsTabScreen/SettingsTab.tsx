@@ -50,19 +50,11 @@ const SettingsTab = ({ navigation, route }) => {
     },
     //needs change for rightDetail. get it from db
     {
-      title: 'Major',
+      title: 'Major/Minor',
       leftIconElement: <Ionicons name='briefcase' color={'black'} size={20} />,
       rightIconElement: <Ionicons name='chevron-forward' color={'black'} size={20} />,
       rightDetail: 'ComputerScience',
-      onPress: null,
-    },
-    //needs change for rightDetail. get it from db
-    {
-      title: 'Minor',
-      leftIconElement: <Ionicons name='book' color={'black'} size={20} />,
-      rightIconElement: <Ionicons name='chevron-forward' color={'black'} size={20} />,
-      rightDetail: 'Visual Arts',
-      onPress: null,
+      onPress: () => TaskTerriersNavigationModule.navigate(Root.SettingsTabMajorScreen),
     },
     {
       title: 'Classes',
