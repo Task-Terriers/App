@@ -4,7 +4,7 @@ import { Image } from 'expo-image'
 import { ButtonComponentProps } from '.'
 import { extractMargin, NeutralColor, TypographyColorType } from '../../Libs'
 import { TypographyType } from '../types'
-import { Span } from '../../StyleToProps'
+import { Col, Span } from '../../StyleToProps'
 
 const UniversalButton: React.FC<ButtonComponentProps> = ({
   isFullWithBtn,
@@ -29,10 +29,10 @@ const UniversalButton: React.FC<ButtonComponentProps> = ({
   }
 
   const getBorderColor = () => {
+    if (state === 'disabled') return NeutralColor['neutral-30']
     if (hasBorder) {
       return NeutralColor['neutral-10']
     }
-    if (state === 'disabled') return NeutralColor['neutral-30']
     return 'transparent'
   }
 
@@ -72,10 +72,10 @@ const UniversalButton: React.FC<ButtonComponentProps> = ({
    * render
    *********/
 
-  // const renderIcon = () => {
-  //     if (!icon?.src) return null
-  //     return <Image source={icon.src} size={icon.size} state={state} padding={{ right: text ? 8 : 0 }} />
-  // }
+  const renderIcon = () => {
+    if (!icon) return null
+    return <Col pr={text ? 8 : 0}>{icon}</Col>
+  }
 
   const renderTitle = () => {
     if (size === 'medium')
@@ -101,7 +101,7 @@ const UniversalButton: React.FC<ButtonComponentProps> = ({
     } else {
       return (
         <View style={{ width: isFullWithBtn ? '100%' : undefined, alignItems: 'center', flexDirection: 'row', justifyContent: 'center' }}>
-          {/* {renderIcon()} */}
+          {renderIcon()}
           {renderTitle()}
         </View>
       )

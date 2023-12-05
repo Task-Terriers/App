@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity, ListRenderItemInfo } from 'react-native'
 import NavigationBar from '../components/NavigationBar'
 import { IconNames } from '../components/types'
 import { TaskTerriersNavigationModule } from '../modules/NavigationModule'
 import TaskTerriersSafeAreaView from '../Views/TaskTerriersSafeAreaView'
-import { DocumentData, addDoc, collection, onSnapshot, serverTimestamp } from 'firebase/firestore'
+import { DocumentData, addDoc, collection, doc, onSnapshot, orderBy, query, serverTimestamp } from 'firebase/firestore'
 import { FIRESTORE_DB } from '../utilities/firebase'
 import AsyncStorageModule from '../modules/AsyncStorageModule'
 import { userData } from '../navigation'
@@ -12,7 +12,9 @@ import { Col, Row, Span } from '../StyleToProps'
 import { BUColor, NeutralColor } from '../Libs'
 import { BasicTextInput, TextInputWithHeightChange } from '../components/TextInputs'
 import { UniversalButton } from '../components/Buttons'
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons, Octicons } from '@expo/vector-icons'
+import { FlatList } from 'react-native-gesture-handler'
+import { deviceInfo } from '../utilities/deviceInfo'
 
 interface Props { }
 
@@ -26,7 +28,7 @@ const MessagesDetailScreen = ({ navigation, route }) => {
    * props, navigation prams
    **************************/
 
-  const { chatId } = route?.params?.chatId
+  const { chatRoom } = route?.params
 
   /*************
    * state, ref
@@ -34,7 +36,7 @@ const MessagesDetailScreen = ({ navigation, route }) => {
 
   const [isRendering, setIsRendering] = useState<boolean>(true)
   const [userInfo, setUserInfo] = useState<userData>()
-  const [messages, setMessages] = useState()
+  const [messages, setMessages] = useState([])
   const [messageText, setMessageText] = useState<string>('')
 
   /**************
@@ -43,15 +45,28 @@ const MessagesDetailScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     getUserInfo()
-    const messageCollectionRef = collection(FIRESTORE_DB, `groups/${chatId}/messages`)
 
-    const unsubscribe = onSnapshot(messageCollectionRef, (groups: DocumentData) => {
-      const messages = groups.docs.map((doc) => doc.data())
+    const messagesQuery = query(
+      collection(FIRESTORE_DB, "messageRooms", chatRoom?._id, 'messages'),
+      orderBy("createdAt", "asc")
+    )
+
+    const unsubscribe = onSnapshot(messagesQuery, (querySnapShot) => {
+      const messages = querySnapShot.docs.map((doc) => doc.data())
       setMessages(messages)
     })
-
     return unsubscribe
+
+
   }, [])
+
+  /*************
+  * life cycles
+  *************/
+
+  useEffect(() => {
+    console.log(messages)
+  }, [messages])
 
   /************
    * functions
@@ -60,6 +75,7 @@ const MessagesDetailScreen = ({ navigation, route }) => {
   const getUserInfo = async () => {
     const userData = await AsyncStorageModule.GET_asyncStorage('USER_DATA')
     setUserInfo(userData)
+    console.log(userData.userId)
 
   }
 
@@ -67,14 +83,20 @@ const MessagesDetailScreen = ({ navigation, route }) => {
     const msg = messageText.trim()
     if (!msg) return
 
-    const messageCollectionRef = collection(FIRESTORE_DB, `groups/${chatId}/messages`)
-
-    addDoc(messageCollectionRef, {
+    const id = `${Date.now()}`
+    const _doc = {
+      _id: id,
+      room_id: chatRoom._id,
       message: msg,
       sender: userInfo.userId,
-      createdAt: serverTimestamp
-    })
-
+      createdAt: serverTimestamp()
+    }
+    setMessageText('')
+    try {
+      await addDoc(collection(doc(FIRESTORE_DB, 'messageRooms', chatRoom?._id), 'messages'), _doc)
+    } catch (err) {
+      console.log(err)
+    }
   }
   const onPressReturn = () => {
     TaskTerriersNavigationModule.goBack()
@@ -86,7 +108,7 @@ const MessagesDetailScreen = ({ navigation, route }) => {
    *********/
 
   const renderNavBar = () => {
-    return <NavigationBar title={'Chat'} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
+    return <NavigationBar title={chatRoom?.chatName} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
   }
 
   const renderSendBox = () => {
@@ -102,27 +124,42 @@ const MessagesDetailScreen = ({ navigation, route }) => {
             multiline
           />
         </Col>
-        <Col flexShrink ml10>
-          <UniversalButton size='small' text={{ value: 'Send', color: NeutralColor['neutral-100'] }} onPress={sendMessage} hasBorder backgroundColor={BUColor['red']} />
-        </Col>
-
+        <TouchableOpacity
+          disabled={!messageText}
+          onPress={sendMessage}>
+          <Col ml10 style={{ transform: [{ rotate: '-40deg' }] }}>
+            <Octicons name='paper-airplane' size={24} color={!messageText ? NeutralColor['neutral-50'] : BUColor['black']} />
+          </Col>
+        </TouchableOpacity>
       </Row>
     )
   }
-  const renderMyMessageBubble = (message: string) => {
+  const renderMyMessageBubble = ({ item }: { item: DocumentData }) => {
     return (
-      <Col bgBURed radiusBL12 radiusBR12 radiusTL12 p12>
-        <Span bodyM>{message}</Span>
+      <Col bgBURed radiusBL12 radiusBR12 radiusTL12 p12 maxW={deviceInfo.size.width / 2 + 30} flexShrink alignSelfEnd>
+        <Span bodyL colorNeutral100>{item?.message}</Span>
       </Col>
     )
 
   }
 
-  const renderOtherMessageBubble = (message: string) => {
+  const renderOtherMessageBubble = ({ item }: { item: DocumentData }) => {
     return (
-      <Col bgNeutral100 radiusBL12 radiusBR12 radiusTR12 p12>
-        <Span bodyM >{message}</Span>
+      <Col bgNeutral100 radiusBL12 radiusBR12 radiusTR12 p12 maxW={deviceInfo.size.width / 2 + 30} flexShrink alignSelfStart>
+        <Span bodyL>{item?.message}</Span>
       </Col>
+    )
+
+  }
+
+  const renderFlatList = () => {
+    return (
+      <FlatList
+        data={messages}
+        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => item?.sender === userInfo.userId.toString() ? renderMyMessageBubble({ item }) : renderOtherMessageBubble({ item })}
+        ItemSeparatorComponent={() => <Col mb20></Col>}
+      />
     )
 
   }
@@ -135,8 +172,9 @@ const MessagesDetailScreen = ({ navigation, route }) => {
     <TaskTerriersSafeAreaView style={{ flex: 1 }}>
       {renderNavBar()}
       <Col p16 flex>
-        {renderMyMessageBubble('afjdlasjfkdjs;kafjkdsjafkdjkfj;dlsajf;kj;dsk;afjkdsjfkjdskajfkldsjfkdsj;afjdkafjd;kjsa;fkldjsafj;djafkdjsafkdjslkfj;lj')}
-        {renderOtherMessageBubble('afjdlasjfkdjs;kafjkdsjafkdjkfj;dlsajf;kj;dsk;afjkdsjfkjdskajfkldsjfkdsj;afjdkafjd;kjsa;fkldjsafj;djafkdjsafkdjslkfj;lj')}
+        {renderFlatList()}
+        {/* {renderMyMessageBubble('afjdlasjfkdjs;kafjkdsjafkdjkfj;dlsajf;kj;dsk;afjkdsjfkjdskajfkldsjfkdsj;afjdkafjd;kjsa;fkldjsafj;djafkdjsafkdjslkfj;lj')}
+        {renderOtherMessageBubble('afjdlasjfkdjs;kafjkdsjafkdjkfj;dlsajf;kj;dsk;afjkdsjfkjdskajfkldsjfkdsj;afjdkafjd;kjsa;fkldjsafj;djafkdjsafkdjslkfj;lj')} */}
       </Col>
       {renderSendBox()}
     </TaskTerriersSafeAreaView>

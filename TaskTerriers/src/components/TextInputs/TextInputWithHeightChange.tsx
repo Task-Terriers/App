@@ -87,7 +87,6 @@ const TextInputWithHeightChange: React.FC<TextInputWithHeightChangeProps> = (pro
             setIsValid(false)
             if (props.onChangeText) props.onChangeText(text, condition)
             setCurrentText(text)
-
             return
         }
 

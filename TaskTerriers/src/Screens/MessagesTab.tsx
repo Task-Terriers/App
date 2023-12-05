@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { FlatList } from 'react-native'
+import { ActivityIndicator, FlatList } from 'react-native'
 
-import { DocumentData, addDoc, collection, onSnapshot } from 'firebase/firestore'
+import { DocumentData, addDoc, collection, onSnapshot, orderBy, query } from 'firebase/firestore'
 
 import TaskTerriersSafeAreaView from '../Views/TaskTerriersSafeAreaView'
 import { Col } from '../StyleToProps/Col'
@@ -17,7 +17,8 @@ import AsyncStorageModule from '../modules/AsyncStorageModule'
 import { userData } from '../navigation'
 import { FloatingButton } from '../components/Buttons/FloatingButton'
 import { MaterialIcons } from '@expo/vector-icons'
-import { NeutralColor } from '../Libs'
+import { BUColor, NeutralColor } from '../Libs'
+import { Span } from '../StyleToProps'
 
 interface Props { }
 
@@ -72,10 +73,9 @@ const MessagesTab = ({ navigation, route }) => {
       onPress: () => onPressCard(),
     },
   ]
-  const [isRendering, setIsRendering] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [userInfo, setUserInfo] = useState<userData>()
-  const [groupsCollectionRef, setGroupsCollectionRef] = useState(null)
-  const [groups, setGroups] = useState([])
+  const [chats, setChats] = useState([])
 
   /**************
    * life cycles
@@ -83,12 +83,12 @@ const MessagesTab = ({ navigation, route }) => {
 
   useEffect(() => {
     getUserInfo()
-    const ref = collection(FIRESTORE_DB, 'groups')
-    setGroupsCollectionRef(ref)
+    const chatQuery = query(collection(FIRESTORE_DB, "messageRooms"), orderBy("_id", "desc"))
 
-    const unsubscribe = onSnapshot(ref, (groups: DocumentData) => {
-      const groupData = groups.docs.map((doc) => doc.data())
-      setGroups(groupData)
+    const unsubscribe = onSnapshot(chatQuery, (querySnapShot) => {
+      const chatRooms = querySnapShot.docs.map((doc) => doc.data())
+      setChats(chatRooms)
+      setIsLoading(false)
     })
 
     return unsubscribe
@@ -104,23 +104,10 @@ const MessagesTab = ({ navigation, route }) => {
 
   }
 
-  const onPressCard = () => {
-    return TaskTerriersNavigationModule.navigate(Root.MessagesDetailScreen, { chatId: 1 })
+  const onPressCard = (chatRoom) => {
+    return TaskTerriersNavigationModule.navigate(Root.MessagesDetailScreen, { chatRoom: chatRoom })
   }
 
-  const startGroup = async () => {
-    try {
-      await addDoc(groupsCollectionRef, {
-        name: "Group1",
-        description: "This is group1",
-        creator: 'YJ',
-        uid: userInfo.userId,
-        chatId: 1
-      })
-    } catch (err) {
-      console.log("error creating group", err)
-    }
-  }
 
   /*********
    * render
@@ -129,30 +116,36 @@ const MessagesTab = ({ navigation, route }) => {
   const renderNavigationBar = () => {
     return <NavigationBar iconName={IconNames['Message']} title={route.name} />
   }
-
-  const renderButton = () => {
-    return <UniversalButton size="medium" text={{ value: 'Go to Chats' }} onPress={onPressCard} />
-  }
-
   const renderItem = ({ item }) => {
     return (
       <MessagesCard
-        firstName={item.name}
-        lastName={item.name}
-        messagePreview={item.description}
+        chatName={item?.chatName}
+        messagePreview={'previewwwwwwwwdfla;dfdlfsdjklfdjsl'}
         profilePicPath={''}
-        onPress={onPressCard} />
+        onPress={() => onPressCard(item)} />
     )
+  }
+  const renderListEmptyComponent = () => {
+    return (
+      <Col alignCenter>
+        <Span bodyL colorNeutral40>There are no messages yet.</Span>
+      </Col>
+    )
+
   }
 
   const renderFlatList = () => {
+    if (isLoading) return <Col mt20><ActivityIndicator size={'large'} color={BUColor['red']} /></Col>
     return (
-      <FlatList
-        data={groups}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
-        contentContainerStyle={{ padding: 16 }}
-      />
+      <Col mb35>
+        <FlatList
+          ListEmptyComponent={renderListEmptyComponent}
+          data={chats}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+          contentContainerStyle={{ padding: 16, }}
+        />
+      </Col>
     )
   }
 
@@ -163,14 +156,7 @@ const MessagesTab = ({ navigation, route }) => {
   return (
     <TaskTerriersSafeAreaView style={{ flex: 1 }}>
       {renderNavigationBar()}
-      <Col mb35>{renderFlatList()}</Col>
-      <FloatingButton
-        size={'large'}
-        onPress={startGroup}
-        text={{ value: 'Add' }}
-        hasBorder
-        icon={<MaterialIcons name="add" color={NeutralColor['neutral-100']} size={18} />}
-      />
+      {renderFlatList()}
     </TaskTerriersSafeAreaView>
   )
 }
