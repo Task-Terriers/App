@@ -130,28 +130,6 @@ const UniversalButton: React.FC<ButtonComponentProps> = ({
       onPress={onPress}>
       {renderContent()}
     </TouchableOpacity>
-    // <NewTouchableScale
-    //     disable={state === 'disabled' || isProgress}
-    //     normalColor={getBackgroundColor()}
-    //     activeColor={backgroundColor === '#ff4438' ? '#ff857d' : NeutralColor['neutral-30']}
-    //     containerStyle={[
-    //         {
-    //             flexShrink: 1,
-    //             flexDirection: 'row',
-    //             borderColor: getBorderColor(),
-    //             borderWidth: 2,
-    //             borderRadius: 12,
-    //             justifyContent: 'center',
-    //             alignItems: 'center',
-    //             width: isFullWithBtn ? '100%' : undefined,
-    //             height: getHeight(),
-    //         },
-    //         getPaddingObj(),
-    //         extractMargin(margin),
-    //     ]}
-    //     onPress={onPress}>
-    //     {renderContent()}
-    // </NewTouchableScale>
   )
 }
 
