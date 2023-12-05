@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import { deviceInfo } from '../../utilities/deviceInfo'
 
-import { Span } from '../../StyleToProps'
+import { Col, Row, Span } from '../../StyleToProps'
 import { TEXT_INPUT_SIZE_MAP } from '../types'
 import { AlertColor, NeutralColor, extractMargin } from '../../Libs'
 import { TextInputsProps } from '.'
@@ -47,7 +47,6 @@ const BasicTextInput: React.FC<TextInputsProps> = (props, ref) => {
     onPressClearButton,
     customValidation,
     borderRadius,
-    backgroundColor,
   } = props
 
   /*********
@@ -267,39 +266,21 @@ const BasicTextInput: React.FC<TextInputsProps> = (props, ref) => {
   }
 
   return (
-    <View
-      style={[
-        styles.outlineContainer,
-        extractMargin(margin),
-        { borderColor: getOuterBorderColor(), borderRadius: props.borderRadius ? borderRadius + 4 : 16 },
-      ]}>
-      <View
-        style={[
-          {
-            borderRadius: props.borderRadius ? borderRadius : 12,
-            borderColor: getInnerBorderColor(),
-            borderWidth: isFocused ? 2 : 1,
-            overflow: 'hidden',
-          },
-        ]}>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+    <Col borderW4 mv10 borderColor={getOuterBorderColor()} radius={props.borderRadius ? borderRadius + 4 : 16} style={[extractMargin(margin)]}>
+      <Col radius={props.borderRadius ? borderRadius : 12} borderColor={getInnerBorderColor()} borderW={isFocused ? 2 : 1} overflowHidden>
+        <Row alignCenter>
           {renderTextInput()}
           {renderCharacterLimit()}
           {renderClearButton()}
           {renderSecretViewButton()}
-        </View>
+        </Row>
         {renderMultilineCharacterLimit()}
-      </View>
-    </View>
+      </Col>
+    </Col>
   )
 }
 
 const styles = StyleSheet.create({
-  outlineContainer: {
-    borderWidth: 4,
-    // borderRadius:  16,
-    marginVertical: 10,
-  } as ViewStyle,
   textInput: {
     flexGrow: 1,
     flexBasis: 1,

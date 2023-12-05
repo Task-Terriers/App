@@ -22,6 +22,7 @@ export interface TextInputsProps extends OriginTextInputProps {
   customValidation?: boolean
   borderRadius?: number
   backgroundColor?: UniversalColorType.Value
+  disabled?: boolean
 }
 
 export * from './BasicTextInput'

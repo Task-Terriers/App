@@ -6,7 +6,7 @@ type SecureStorageKeyType = 'AUTH_INFO'
 const GET_asyncStorage = async (key: AsyncStorageKeyType) => {
   try {
     const value = await AsyncStorage.getItem(key)
-    if (value !== null) return key === 'USER_DATA' ? value : JSON.parse(value)
+    if (value !== null) return JSON.parse(value)
   } catch (err) {
     console.log(err)
   }

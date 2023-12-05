@@ -32,7 +32,7 @@ const WarningButton: React.FC<WarningButtonProps> = ({ isFullWithBtn, isProgress
 
   const getText = (): ReturnType<() => TypographyType.Attr> => {
     if (typeof text === 'string') return { value: `${text}`, bold: 'bold' }
-    else if (typeof text === 'object') return { value: `${text.value}`, bold: text.bold || 'bold' }
+    else if (typeof text === 'object') return { value: `${text?.value}`, bold: text?.bold || 'bold' }
   }
 
   const getHeight = () => {
@@ -48,12 +48,12 @@ const WarningButton: React.FC<WarningButtonProps> = ({ isFullWithBtn, isProgress
     if (size === 'medium')
       return (
         <Span labelL color={getTextColor()} numberOfLines={1}>
-          {getText().value}
+          {getText()?.value}
         </Span>
       )
     return (
       <Span labelM color={getTextColor()} numberOfLines={1}>
-        {getText().value}
+        {getText()?.value}
       </Span>
     )
   }
@@ -96,7 +96,6 @@ const WarningButton: React.FC<WarningButtonProps> = ({ isFullWithBtn, isProgress
       style={[
         {
           backgroundColor: getBackgroundColor(),
-          flexShrink: 1,
           flexDirection: 'row',
           borderWidth: 2,
           borderRadius: 12,
@@ -112,28 +111,6 @@ const WarningButton: React.FC<WarningButtonProps> = ({ isFullWithBtn, isProgress
       onPress={onPress}>
       {renderContent()}
     </TouchableOpacity>
-    // <NewTouchableScale
-    //     disable={state === 'disabled' || isProgress}
-    //     normalColor={getBackgroundColor()}
-    //     activeColor={backgroundColor === '#ff4438' ? '#ff857d' : NeutralColor['neutral-30']}
-    //     containerStyle={[
-    //         {
-    //             flexShrink: 1,
-    //             flexDirection: 'row',
-    //             borderColor: getBorderColor(),
-    //             borderWidth: 2,
-    //             borderRadius: 12,
-    //             justifyContent: 'center',
-    //             alignItems: 'center',
-    //             width: isFullWithBtn ? '100%' : undefined,
-    //             height: getHeight(),
-    //         },
-    //         getPaddingObj(),
-    //         extractMargin(margin),
-    //     ]}
-    //     onPress={onPress}>
-    //     {renderContent()}
-    // </NewTouchableScale>
   )
 }
 

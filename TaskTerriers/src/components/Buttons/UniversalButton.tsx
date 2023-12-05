@@ -16,6 +16,7 @@ const UniversalButton: React.FC<ButtonComponentProps> = ({
   margin,
   onPress,
   backgroundColor,
+  hasBorder,
 }) => {
   /************
    * function
@@ -28,8 +29,11 @@ const UniversalButton: React.FC<ButtonComponentProps> = ({
   }
 
   const getBorderColor = () => {
+    if (hasBorder) {
+      return NeutralColor['neutral-10']
+    }
     if (state === 'disabled') return NeutralColor['neutral-30']
-    return NeutralColor['neutral-10']
+    return 'transparent'
   }
 
   const getTextColor = (): TypographyColorType.Key => {
@@ -41,35 +45,12 @@ const UniversalButton: React.FC<ButtonComponentProps> = ({
 
   const getText = (): ReturnType<() => TypographyType.Attr> => {
     if (typeof text === 'string') return { value: `${text}`, bold: 'bold' }
-    else if (typeof text === 'object') return { value: `${text.value}`, bold: text.bold || 'bold' }
+    else if (typeof text === 'object') return { value: `${text?.value}`, bold: text?.bold || 'bold' }
   }
 
   const getHeight = () => {
     if (size === 'medium') return 40
     return 32
-  }
-
-  /*********
-   * render
-   *********/
-
-  // const renderIcon = () => {
-  //     if (!icon?.src) return null
-  //     return <Image source={icon.src} size={icon.size} state={state} padding={{ right: text ? 8 : 0 }} />
-  // }
-
-  const renderTitle = () => {
-    if (size === 'medium')
-      return (
-        <Span labelL color={getTextColor()} numberOfLines={1}>
-          {getText().value}
-        </Span>
-      )
-    return (
-      <Span labelM color={getTextColor()} numberOfLines={1}>
-        {getText().value}
-      </Span>
-    )
   }
 
   const getPaddingObj = () => {
@@ -85,6 +66,29 @@ const UniversalButton: React.FC<ButtonComponentProps> = ({
       if (size === 'medium') return { paddingHorizontal: 24 }
       return { paddingHorizontal: 16 }
     }
+  }
+
+  /*********
+   * render
+   *********/
+
+  // const renderIcon = () => {
+  //     if (!icon?.src) return null
+  //     return <Image source={icon.src} size={icon.size} state={state} padding={{ right: text ? 8 : 0 }} />
+  // }
+
+  const renderTitle = () => {
+    if (size === 'medium')
+      return (
+        <Span labelL color={getTextColor()} numberOfLines={1}>
+          {getText()?.value}
+        </Span>
+      )
+    return (
+      <Span labelM color={getTextColor()} numberOfLines={1}>
+        {getText()?.value}
+      </Span>
+    )
   }
 
   const renderContent = () => {
