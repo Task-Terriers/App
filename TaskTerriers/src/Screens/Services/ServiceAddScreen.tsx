@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { ScrollView, StyleSheet } from 'react-native'
+import Checkbox from 'expo-checkbox';
+
 import NavigationBar from '../../components/NavigationBar'
 import TaskTerriersSafeAreaView from '../../Views/TaskTerriersSafeAreaView'
 import { IconNames } from '../../components/types'
 import { TaskTerriersNavigationModule } from '../../modules/NavigationModule'
-import { Col, Span } from '../../StyleToProps'
+import { Col, Row, Span } from '../../StyleToProps'
 import { BasicTextInput, TextInputWithHeightChange } from '../../components/TextInputs'
+import { BUColor, NeutralColor } from '../../Libs';
+import { UniversalButton } from '../../components/Buttons';
+import { FloatingButton } from '../../components/Buttons/FloatingButton';
+import { Octicons } from '@expo/vector-icons';
 
 interface Props { }
 
@@ -34,8 +40,10 @@ const ServiceAddScreen = ({ navigation, route }) => {
 
     const [isRendering, setIsRendering] = useState<boolean>(true)
     const [serviceNameText, setServiceNameText] = useState<string>('')
+    const [shortServiceText, setShortServiceText] = useState<string>('')
     const [aboutText, setAboutText] = useState<string>('')
-    const [minorInputText, setMinorInputText] = useState<string>('')
+    const [serviceLocation, setServiceLocation] = useState<string>('')
+    const [isChecked, setIsChecked] = useState<boolean>(false)
 
     /**************
     * life cycles
@@ -67,7 +75,7 @@ const ServiceAddScreen = ({ navigation, route }) => {
 
     const renderInputs = () => {
         return (
-            <Col>
+            <Col >
                 <Span titleM mb10>Service Name</Span>
                 <BasicTextInput
                     autoFocus
@@ -82,10 +90,9 @@ const ServiceAddScreen = ({ navigation, route }) => {
                     size='small'
                     maxCharacter={30}
                     placeholder={'ex: Best Tutor Ever'}
-                    onChangeText={(text: string) => setAboutText(text)}
-                    value={aboutText}
+                    onChangeText={(text: string) => setShortServiceText(text)}
+                    value={shortServiceText}
                 />
-
                 <Span titleM mt20 mb10>About</Span>
                 <TextInputWithHeightChange
                     editable
@@ -95,7 +102,42 @@ const ServiceAddScreen = ({ navigation, route }) => {
                     multiline
                     hideClearButton={false}
                 />
+                <Span titleM mt20 mb10>Service Location</Span>
+                <BasicTextInput
+                    size='small'
+                    maxCharacter={10}
+                    placeholder={'ex: Boston, MA'}
+                    onChangeText={(text: string) => setServiceLocation(text)}
+                    value={serviceLocation}
+                />
             </Col>
+        )
+    }
+
+    const renderCheckBox = () => {
+        return (
+            <Row mt20 alignCenter>
+                <Span titleM mr8>Display Major</Span>
+                <Checkbox
+                    value={isChecked}
+                    onValueChange={setIsChecked}
+                    color={isChecked ? BUColor['red'] : NeutralColor['neutral-70']}
+                />
+            </Row>
+        )
+    }
+
+    const renderAddButton = () => {
+        return (
+            <FloatingButton
+                state={!serviceNameText || !shortServiceText || !serviceLocation || !aboutText ? 'disabled' : 'enabled'}
+                size={'medium'}
+                onPress={null}
+                text={{ value: 'Post Service' }}
+                hasBorder
+                isFullWithBtn
+                icon={<Octicons name="paper-airplane" color={NeutralColor['neutral-100']} size={18} />}
+            />
         )
     }
 
@@ -108,9 +150,13 @@ const ServiceAddScreen = ({ navigation, route }) => {
     return (
         <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
             {renderNavBar()}
-            <Col p16>
-                {renderInputs()}
-            </Col>
+            <ScrollView>
+                <Col p16 mb80>
+                    {renderInputs()}
+                    {renderCheckBox()}
+                </Col>
+            </ScrollView>
+            {renderAddButton()}
         </TaskTerriersSafeAreaView>
     )
 

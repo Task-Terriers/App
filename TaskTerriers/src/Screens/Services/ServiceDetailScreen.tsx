@@ -13,7 +13,7 @@ import { Divider } from '../../components/Divider'
 import { LayoutChangeEvent } from 'react-native'
 import { UniversalButton } from '../../components/Buttons'
 import { FloatingButton } from '../../components/Buttons/FloatingButton'
-import { Octicons } from '@expo/vector-icons'
+import { Ionicons, Octicons } from '@expo/vector-icons'
 
 interface ServiceDetailScreenProps {
   profilePicture?: string
@@ -160,7 +160,7 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
         text={{ value: `Message ${firstName}` }}
         hasBorder
         isFullWithBtn
-        icon={<Octicons name="paper-airplane" color={NeutralColor['neutral-100']} size={18} />}
+        icon={<Ionicons name="mail-outline" color={NeutralColor['neutral-100']} size={18} />}
       />
     )
   }
@@ -168,8 +168,6 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
   /***********
    * render()
    ***********/
-
-  //floating button not yet implemented. will need FAB implemented first.
   return (
     <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: NeutralColor['neutral-100'] }}>
       {renderNavBar()}
