@@ -154,7 +154,14 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
 
   const renderMessageButton = () => {
     return (
-      <FloatingButton size={'medium'} onPress={null} text={{ value: `Message ${firstName}`, }} hasBorder isFullWithBtn icon={<Octicons name='paper-airplane' color={NeutralColor['neutral-100']} size={18} />} />
+      <FloatingButton
+        size={'medium'}
+        onPress={null}
+        text={{ value: `Message ${firstName}` }}
+        hasBorder
+        isFullWithBtn
+        icon={<Octicons name="paper-airplane" color={NeutralColor['neutral-100']} size={18} />}
+      />
     )
   }
 
