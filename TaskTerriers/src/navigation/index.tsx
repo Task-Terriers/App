@@ -43,7 +43,7 @@ const Navigation = () => {
         lastName: parseName().lastName,
         email: currentUser.email,
         photoURL: currentUser.photoURL,
-        userId: currentUser.uid
+        userId: currentUser.uid,
       }
       console.log(userData.email)
       if (userData.email.split('@').pop() === 'bu.edu') {
@@ -109,9 +109,7 @@ const Navigation = () => {
 
   return (
     <NavigationContainer ref={TaskTerriersNavigationRef}>
-      <AuthContext.Provider value={authContext}>
-        {state.hasAuth ? <RootStack /> : <AuthStack />}
-      </AuthContext.Provider>
+      <AuthContext.Provider value={authContext}>{state.hasAuth ? <RootStack /> : <AuthStack />}</AuthContext.Provider>
     </NavigationContainer>
   )
 }

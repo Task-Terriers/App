@@ -20,7 +20,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { BUColor, NeutralColor } from '../Libs'
 import { Span } from '../StyleToProps'
 
-interface Props { }
+interface Props {}
 
 const MessagesTab = ({ navigation, route }) => {
   /*********
@@ -83,10 +83,10 @@ const MessagesTab = ({ navigation, route }) => {
 
   useEffect(() => {
     getUserInfo()
-    const chatQuery = query(collection(FIRESTORE_DB, "messageRooms"), orderBy("_id", "desc"))
+    const chatQuery = query(collection(FIRESTORE_DB, 'messageRooms'), orderBy('_id', 'desc'))
 
-    const unsubscribe = onSnapshot(chatQuery, (querySnapShot) => {
-      const chatRooms = querySnapShot.docs.map((doc) => doc.data())
+    const unsubscribe = onSnapshot(chatQuery, querySnapShot => {
+      const chatRooms = querySnapShot.docs.map(doc => doc.data())
       setChats(chatRooms)
       setIsLoading(false)
     })
@@ -101,13 +101,11 @@ const MessagesTab = ({ navigation, route }) => {
   const getUserInfo = async () => {
     const userData = await AsyncStorageModule.GET_asyncStorage('USER_DATA')
     setUserInfo(userData)
-
   }
 
-  const onPressCard = (chatRoom) => {
+  const onPressCard = chatRoom => {
     return TaskTerriersNavigationModule.navigate(Root.MessagesDetailScreen, { chatRoom: chatRoom })
   }
-
 
   /*********
    * render
@@ -122,20 +120,27 @@ const MessagesTab = ({ navigation, route }) => {
         chatName={item?.chatName}
         messagePreview={'previewwwwwwwwdfla;dfdlfsdjklfdjsl'}
         profilePicPath={''}
-        onPress={() => onPressCard(item)} />
+        onPress={() => onPressCard(item)}
+      />
     )
   }
   const renderListEmptyComponent = () => {
     return (
       <Col alignCenter>
-        <Span bodyL colorNeutral40>There are no messages yet.</Span>
+        <Span bodyL colorNeutral40>
+          There are no messages yet.
+        </Span>
       </Col>
     )
-
   }
 
   const renderFlatList = () => {
-    if (isLoading) return <Col mt20><ActivityIndicator size={'large'} color={BUColor['red']} /></Col>
+    if (isLoading)
+      return (
+        <Col mt20>
+          <ActivityIndicator size={'large'} color={BUColor['red']} />
+        </Col>
+      )
     return (
       <Col mb35>
         <FlatList
@@ -143,7 +148,7 @@ const MessagesTab = ({ navigation, route }) => {
           data={chats}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
-          contentContainerStyle={{ padding: 16, }}
+          contentContainerStyle={{ padding: 16 }}
         />
       </Col>
     )

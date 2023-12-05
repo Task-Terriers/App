@@ -64,7 +64,6 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
   const [expanded, setExpanded] = useState<boolean>(false)
   const [buttonText, setButtonText] = useState<'Read All' | 'Close'>('Read All')
 
-
   /**************
    * life cycles
    **************/
@@ -80,7 +79,6 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
   const getUserInfo = async () => {
     const userData = await AsyncStorageModule.GET_asyncStorage('USER_DATA')
     setUserInfo(userData)
-
   }
 
   const onPressReturn = () => {
@@ -102,18 +100,19 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
     const _doc = {
       _id: id,
       uid: userInfo.userId,
-      chatName: 'Youngjin Shin'
+      chatName: 'Youngjin Shin',
     }
 
-    if (chatName !== "") {
+    if (chatName !== '') {
       console.log(_doc)
-      setDoc(doc(FIRESTORE_DB, 'messageRooms', id), _doc).then(() => {
-        TaskTerriersNavigationModule.pop()
-      }).catch((err) => {
-        console.log('Error setting doc', err)
-      })
+      setDoc(doc(FIRESTORE_DB, 'messageRooms', id), _doc)
+        .then(() => {
+          TaskTerriersNavigationModule.pop()
+        })
+        .catch(err => {
+          console.log('Error setting doc', err)
+        })
     }
-
   }
 
   /*********

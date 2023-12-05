@@ -16,10 +16,9 @@ import { Ionicons, Octicons } from '@expo/vector-icons'
 import { FlatList } from 'react-native-gesture-handler'
 import { deviceInfo } from '../utilities/deviceInfo'
 
-interface Props { }
+interface Props {}
 
 const MessagesDetailScreen = ({ navigation, route }) => {
-
   /*********
    * recoil
    *********/
@@ -46,23 +45,18 @@ const MessagesDetailScreen = ({ navigation, route }) => {
   useEffect(() => {
     getUserInfo()
 
-    const messagesQuery = query(
-      collection(FIRESTORE_DB, "messageRooms", chatRoom?._id, 'messages'),
-      orderBy("createdAt", "asc")
-    )
+    const messagesQuery = query(collection(FIRESTORE_DB, 'messageRooms', chatRoom?._id, 'messages'), orderBy('createdAt', 'asc'))
 
-    const unsubscribe = onSnapshot(messagesQuery, (querySnapShot) => {
-      const messages = querySnapShot.docs.map((doc) => doc.data())
+    const unsubscribe = onSnapshot(messagesQuery, querySnapShot => {
+      const messages = querySnapShot.docs.map(doc => doc.data())
       setMessages(messages)
     })
     return unsubscribe
-
-
   }, [])
 
   /*************
-  * life cycles
-  *************/
+   * life cycles
+   *************/
 
   useEffect(() => {
     console.log(messages)
@@ -76,7 +70,6 @@ const MessagesDetailScreen = ({ navigation, route }) => {
     const userData = await AsyncStorageModule.GET_asyncStorage('USER_DATA')
     setUserInfo(userData)
     console.log(userData.userId)
-
   }
 
   const sendMessage = async () => {
@@ -89,7 +82,7 @@ const MessagesDetailScreen = ({ navigation, route }) => {
       room_id: chatRoom._id,
       message: msg,
       sender: userInfo.userId,
-      createdAt: serverTimestamp()
+      createdAt: serverTimestamp(),
     }
     setMessageText('')
     try {
@@ -103,9 +96,8 @@ const MessagesDetailScreen = ({ navigation, route }) => {
   }
 
   const displayTime = ({ item }) => {
-    return new Date(parseInt(item?.createdAt?.seconds) * 1000).toLocaleTimeString('en-US', { hour: "numeric", minute: 'numeric', hour12: true })
+    return new Date(parseInt(item?.createdAt?.seconds) * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
   }
-
 
   /*********
    * render
@@ -128,27 +120,27 @@ const MessagesDetailScreen = ({ navigation, route }) => {
             multiline
           />
         </Col>
-        <TouchableOpacity
-          disabled={!messageText}
-          onPress={sendMessage}>
+        <TouchableOpacity disabled={!messageText} onPress={sendMessage}>
           <Col ml10 style={{ transform: [{ rotate: '-40deg' }] }}>
-            <Octicons name='paper-airplane' size={24} color={!messageText ? NeutralColor['neutral-50'] : BUColor['black']} />
+            <Octicons name="paper-airplane" size={24} color={!messageText ? NeutralColor['neutral-50'] : BUColor['black']} />
           </Col>
         </TouchableOpacity>
       </Row>
     )
   }
   const renderMyMessageBubble = ({ item }: { item: DocumentData }) => {
-    // const displayTime = new Date(parseInt(item?.createdAt?.seconds) * 1000).toLocaleTimeString('en-US', { hour: "numeric", minute: 'numeric', hour12: true })
     return (
       <Col alignSelfEnd>
-        <Col bgBURed radiusBL12 radiusTL12 radiusTR12 p10 maxW={deviceInfo.size.width / 2 + 30} flexShrink >
-          <Span bodyL colorNeutral100>{item?.message}</Span>
+        <Col bgBURed radiusBL12 radiusTL12 radiusTR12 p10 maxW={deviceInfo.size.width / 2 + 30} flexShrink>
+          <Span bodyL colorNeutral100>
+            {item?.message}
+          </Span>
         </Col>
-        <Span titleS colorBUBlack>{item?.createdAt?.seconds && displayTime({ item })}</Span>
+        <Span titleS colorBUBlack>
+          {item?.createdAt?.seconds && displayTime({ item })}
+        </Span>
       </Col>
     )
-
   }
 
   const renderOtherMessageBubble = ({ item }: { item: DocumentData }) => {
@@ -157,22 +149,24 @@ const MessagesDetailScreen = ({ navigation, route }) => {
         <Col bgNeutral100 radiusBL12 radiusBR12 radiusTR12 p10 maxW={deviceInfo.size.width / 2 + 30} flexShrink>
           <Span bodyL>{item?.message}</Span>
         </Col>
-        <Span titleS colorBUBlack>{item?.createdAt?.seconds && displayTime({ item })}</Span>
+        <Span titleS colorBUBlack>
+          {item?.createdAt?.seconds && displayTime({ item })}
+        </Span>
       </Col>
     )
-
   }
 
   const renderFlatList = () => {
     return (
       <FlatList
         data={messages}
-        keyExtractor={(item) => item._id}
-        renderItem={({ item }) => item?.sender === userInfo.userId.toString() ? renderMyMessageBubble({ item }) : renderOtherMessageBubble({ item })}
+        keyExtractor={item => item._id}
+        renderItem={({ item }) =>
+          item?.sender === userInfo.userId.toString() ? renderMyMessageBubble({ item }) : renderOtherMessageBubble({ item })
+        }
         ItemSeparatorComponent={() => <Col mb20></Col>}
       />
     )
-
   }
 
   /***********
@@ -193,7 +187,3 @@ const MessagesDetailScreen = ({ navigation, route }) => {
 }
 
 export default MessagesDetailScreen
-
-
-
-

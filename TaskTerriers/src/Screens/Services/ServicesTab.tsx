@@ -14,9 +14,9 @@ import { BottomTabBarHeightContext } from '@react-navigation/bottom-tabs'
 import { FloatingButton } from '../../components/Buttons/FloatingButton'
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { NeutralColor } from '../../Libs'
-import ServiceAddScreen from './ServiceAddScreen';
+import ServiceAddScreen from './ServiceAddScreen'
 
-interface Props { }
+interface Props {}
 
 const ServicesTab = ({ route }) => {
   /*********
@@ -161,17 +161,17 @@ const ServicesTab = ({ route }) => {
       const response = await fetch(`${baseApiUrl}/api/service-user-details`, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
       })
       if (response.status === 200) {
-        return await response.json();
+        return await response.json()
       } else {
         console.log(response.status)
       }
-      return null;
+      return null
     } catch (err) {
-      console.log("Error", err);
+      console.log('Error', err)
     }
   }
 
@@ -203,13 +203,15 @@ const ServicesTab = ({ route }) => {
   }
 
   const renderFloatingButton = () => {
-    return <FloatingButton
-      size={'large'}
-      onPress={onPressFloatingButton}
-      text={{ value: 'Add' }}
-      hasBorder
-      icon={<MaterialIcons name="add" color={NeutralColor['neutral-100']} size={18} />}
-    />
+    return (
+      <FloatingButton
+        size={'large'}
+        onPress={onPressFloatingButton}
+        text={{ value: 'Add' }}
+        hasBorder
+        icon={<MaterialIcons name="add" color={NeutralColor['neutral-100']} size={18} />}
+      />
+    )
   }
 
   /***********
@@ -228,7 +230,6 @@ const ServicesTab = ({ route }) => {
         />
       </Col>
       {renderFloatingButton()}
-
     </TaskTerriersSafeAreaView>
   )
 }

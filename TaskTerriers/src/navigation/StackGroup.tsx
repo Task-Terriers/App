@@ -16,7 +16,7 @@ const StackGroup = () => {
     <Stack.Group screenOptions={{ headerShown: false }}>
       {/* Services Tab */}
       <Stack.Screen name="ServiceDetailScreen" component={ServiceDetailScreen} />
-      <Stack.Screen name='ServiceAddScreen' component={ServiceAddScreen} />
+      <Stack.Screen name="ServiceAddScreen" component={ServiceAddScreen} />
       <Stack.Screen name="MessagesDetailScreen" component={MessagesDetailScreen} />
       <Stack.Screen name="SettingsTabClassesScreen" component={SettingsTabClassesScreen} />
       <Stack.Screen name="SettingsTabMajorScreen" component={SettingsTabMajorScreen} />

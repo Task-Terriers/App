@@ -56,7 +56,6 @@ const MessagesCard: React.FC<RequestsCardProps> = ({ chatName, messagePreview, p
       <Span titleM mb2>
         {chatName}
       </Span>
-
     )
   }
 
@@ -94,7 +93,7 @@ const MessagesCard: React.FC<RequestsCardProps> = ({ chatName, messagePreview, p
             {renderMessagePreview()}
           </Col>
         </Row>
-        <Ionicons name='chevron-forward' size={25} />
+        <Ionicons name="chevron-forward" size={25} />
       </Row>
     </Col>
   )

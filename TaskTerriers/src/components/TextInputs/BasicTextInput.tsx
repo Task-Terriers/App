@@ -176,9 +176,9 @@ const BasicTextInput: React.FC<TextInputsProps> = (props, ref) => {
           props.style,
           props.multiline && maxCharacter
             ? {
-              height: isFocused ? 100 : 126,
-              marginBottom: isFocused ? 40 : 14,
-            }
+                height: isFocused ? 100 : 126,
+                marginBottom: isFocused ? 40 : 14,
+              }
             : undefined,
         ]}
       />

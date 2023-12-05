@@ -9,7 +9,7 @@ import { TaskTerriersNavigationModule } from '../../modules/NavigationModule'
 import { Root } from '../../navigation/type'
 import AsyncStorageModule from '../../modules/AsyncStorageModule'
 
-interface Props { }
+interface Props {}
 
 const AuthLoginMainScreen = () => {
   const { currentUser } = Auth()
@@ -52,17 +52,18 @@ const AuthLoginMainScreen = () => {
         lastName: parseName().lastName,
         email: currentUser.email,
         photoURL: currentUser.photoURL,
-        userId: currentUser.uid
+        userId: currentUser.uid,
       }
       if (userData.email.split('@').pop() === 'bu.edu') {
         AsyncStorageModule.SET_asyncStorage('USER_DATA', JSON.stringify(userData))
         TaskTerriersNavigationModule.navigate(Root.BottomTabNavigation)
       } else {
-        Auth().signOut().then(() => {
-          TaskTerriersNavigationModule.navigate('AuthLoginMainScreen'), console.log('User signed out!')
-        })
+        Auth()
+          .signOut()
+          .then(() => {
+            TaskTerriersNavigationModule.navigate('AuthLoginMainScreen'), console.log('User signed out!')
+          })
       }
-
     }
   }, [user])
 
@@ -126,7 +127,7 @@ const AuthLoginMainScreen = () => {
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Light}
         onPress={onGoogleButtonPress}
-      // disabled={this.state.isSigninInProgress}
+        // disabled={this.state.isSigninInProgress}
       />
     )
   }
