@@ -13,7 +13,7 @@ import { Divider } from '../../components/Divider'
 import { Ionicons } from '@expo/vector-icons'
 import Toast from '../../components/Toast/Toast'
 
-interface Props {}
+interface Props { }
 
 const SettingsTabClassesScreen = ({ navigation, route }) => {
   /*********
@@ -117,6 +117,7 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
     if (!isEditing) return null
     return (
       <BasicTextInput
+        autoCapitalize='characters'
         autoFocus
         maxCharacter={9}
         size="small"

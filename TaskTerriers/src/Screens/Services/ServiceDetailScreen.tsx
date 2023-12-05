@@ -3,16 +3,16 @@ import React, { useState, useEffect } from 'react'
 import { Image } from 'expo-image'
 // import MapView from 'react-native-maps';
 
-import NavigationBar from '../components/NavigationBar'
-import { IconNames } from '../components/types'
-import { TaskTerriersNavigationModule } from '../modules/NavigationModule'
-import TaskTerriersSafeAreaView from '../Views/TaskTerriersSafeAreaView'
-import { Col, Row, Span } from '../StyleToProps'
-import { NeutralColor } from '../Libs'
-import { Divider } from '../components/Divider'
+import NavigationBar from '../../components/NavigationBar'
+import { IconNames } from '../../components/types'
+import { TaskTerriersNavigationModule } from '../../modules/NavigationModule'
+import TaskTerriersSafeAreaView from '../../Views/TaskTerriersSafeAreaView'
+import { Col, Row, Span } from '../../StyleToProps'
+import { NeutralColor } from '../../Libs'
+import { Divider } from '../../components/Divider'
 import { LayoutChangeEvent } from 'react-native'
-import { UniversalButton } from '../components/Buttons'
-import { FloatingButton } from '../components/Buttons/FloatingButton'
+import { UniversalButton } from '../../components/Buttons'
+import { FloatingButton } from '../../components/Buttons/FloatingButton'
 import { Octicons } from '@expo/vector-icons'
 
 interface ServiceDetailScreenProps {
@@ -107,7 +107,7 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
       <Col mb20>
         <Row>
           <Col radius100 overflowHidden>
-            <Image contentFit="fill" source={require('../assets/images/defaultProfile.jpeg')} style={{ width: 80, height: 80 }} />
+            <Image contentFit="fill" source={require('../../assets/images/defaultProfile.jpeg')} style={{ width: 80, height: 80 }} />
           </Col>
           <Col ml10>
             <Span titleXL>Youngjin Shin</Span>

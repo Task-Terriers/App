@@ -151,7 +151,7 @@ const BasicTextInput: React.FC<TextInputsProps> = (props, ref) => {
         {...setNewInputProps()}
         value={value || currentText}
         placeholder={placeholder}
-        placeholderTextColor={styles.placeholderText.color}
+        placeholderTextColor={NeutralColor['neutral-60']}
         scrollEnabled={props.multiline && isFocused ? true : false}
         selection={deviceInfo.isAndroid ? selection : undefined}
         onBlur={onBlur}
@@ -172,13 +172,13 @@ const BasicTextInput: React.FC<TextInputsProps> = (props, ref) => {
             height: props.multiline ? undefined : TEXT_INPUT_SIZE_MAP[size] || TEXT_INPUT_SIZE_MAP.medium,
           },
           { paddingLeft: !!iconGroup?.length ? 0 : 16, paddingRight: !hideClearButton && isFocused ? 8 : 16 },
-          { paddingVertical: deviceInfo.isAndroid ? 0 : undefined },
+          { paddingVertical: deviceInfo.isAndroid ? 8 : undefined },
           props.style,
           props.multiline && maxCharacter
             ? {
-                height: isFocused ? 100 : 126,
-                marginBottom: isFocused ? 40 : 14,
-              }
+              height: isFocused ? 100 : 126,
+              marginBottom: isFocused ? 40 : 14,
+            }
             : undefined,
         ]}
       />
@@ -293,16 +293,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingRight: 11,
     justifyContent: 'center',
-  } as ViewStyle,
-  placeholderText: {
-    color: NeutralColor['neutral-60'],
-  } as TextStyle,
-  imageGroupContainer: {
-    marginRight: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 16,
   } as ViewStyle,
 })
 

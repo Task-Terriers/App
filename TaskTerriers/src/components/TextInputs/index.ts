@@ -26,3 +26,4 @@ export interface TextInputsProps extends OriginTextInputProps {
 }
 
 export * from './BasicTextInput'
+export * from './TextInputWithHeightChange'

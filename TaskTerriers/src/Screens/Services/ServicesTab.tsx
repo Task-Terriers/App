@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity, FlatList } from 'react-native'
-import TaskTerriersSafeAreaView from '../Views/TaskTerriersSafeAreaView'
-import { Col } from '../StyleToProps/Col'
-import { Span } from '../StyleToProps'
-import NavigationBar from '../components/NavigationBar'
-import { IconNames } from '../components/types'
-import { UniversalButton } from '../components/Buttons'
-import { TaskTerriersNavigationModule } from '../modules/NavigationModule'
-import { Root } from '../navigation/type'
-import AsyncStorageModule from '../modules/AsyncStorageModule'
-import { SerivcesCard } from '../components/Card'
+import TaskTerriersSafeAreaView from '../../Views/TaskTerriersSafeAreaView'
+import { Col } from '../../StyleToProps/Col'
+import { Span } from '../../StyleToProps'
+import NavigationBar from '../../components/NavigationBar'
+import { IconNames } from '../../components/types'
+import { UniversalButton } from '../../components/Buttons'
+import { TaskTerriersNavigationModule } from '../../modules/NavigationModule'
+import { Root } from '../../navigation/type'
+import AsyncStorageModule from '../../modules/AsyncStorageModule'
+import { SerivcesCard } from '../../components/Card'
 import { BottomTabBarHeightContext } from '@react-navigation/bottom-tabs'
-import { FloatingButton } from '../components/Buttons/FloatingButton'
+import { FloatingButton } from '../../components/Buttons/FloatingButton'
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
-import { NeutralColor } from '../Libs'
+import { NeutralColor } from '../../Libs'
+import ServiceAddScreen from './ServiceAddScreen';
 
-interface Props {}
+interface Props { }
 
 const ServicesTab = ({ route }) => {
   /*********
@@ -173,9 +174,8 @@ const ServicesTab = ({ route }) => {
   const onPressCard = () => {
     return TaskTerriersNavigationModule.navigate(Root.ServiceDetailScreen)
   }
-  const onPressToAddProfile = async () => {
-    const userData = await AsyncStorageModule.GET_asyncStorage('USER_DATA')
-    return TaskTerriersNavigationModule.navigate('AuthAddProfileScreen', JSON.parse(userData))
+  const onPressFloatingButton = async () => {
+    return TaskTerriersNavigationModule.navigate(Root.ServiceAddScreen)
   }
 
   /*********
@@ -186,8 +186,14 @@ const ServicesTab = ({ route }) => {
     return <NavigationBar iconName={IconNames['Service']} title={route.name} />
   }
 
-  const renderButton = () => {
-    return <UniversalButton size="medium" text={{ value: 'Go to Detail Screen' }} onPress={onPressCard} />
+  const renderFloatingButton = () => {
+    return <FloatingButton
+      size={'large'}
+      onPress={onPressFloatingButton}
+      text={{ value: 'Add' }}
+      hasBorder
+      icon={<MaterialIcons name="add" color={NeutralColor['neutral-100']} size={18} />}
+    />
   }
 
   /***********
@@ -205,13 +211,8 @@ const ServicesTab = ({ route }) => {
           contentContainerStyle={{ padding: 16 }}
         />
       </Col>
-      <FloatingButton
-        size={'large'}
-        onPress={null}
-        text={{ value: 'Add' }}
-        hasBorder
-        icon={<MaterialIcons name="add" color={NeutralColor['neutral-100']} size={18} />}
-      />
+      {renderFloatingButton()}
+
     </TaskTerriersSafeAreaView>
   )
 }
