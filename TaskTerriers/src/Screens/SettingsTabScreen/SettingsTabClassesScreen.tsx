@@ -13,7 +13,7 @@ import { Divider } from '../../components/Divider'
 import { Ionicons } from '@expo/vector-icons'
 import Toast from '../../components/Toast/Toast'
 
-interface Props {}
+interface Props { }
 
 const SettingsTabClassesScreen = ({ navigation, route }) => {
   /*********

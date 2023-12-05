@@ -11,8 +11,11 @@ import { Root } from '../navigation/type'
 import AsyncStorageModule from '../modules/AsyncStorageModule'
 import { SerivcesCard } from '../components/Card'
 import { BottomTabBarHeightContext } from '@react-navigation/bottom-tabs'
+import { FloatingButton } from '../components/Buttons/FloatingButton'
+import { Ionicons, MaterialIcons } from '@expo/vector-icons'
+import { NeutralColor } from '../Libs'
 
-interface Props {}
+interface Props { }
 
 const ServicesTab = ({ route }) => {
   /*********
@@ -202,6 +205,7 @@ const ServicesTab = ({ route }) => {
           contentContainerStyle={{ padding: 16 }}
         />
       </Col>
+      <FloatingButton size={'large'} onPress={null} text={{ value: 'Add', }} hasBorder icon={<MaterialIcons name='add' color={NeutralColor['neutral-100']} size={18} />} />
     </TaskTerriersSafeAreaView>
   )
 }

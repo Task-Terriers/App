@@ -12,6 +12,8 @@ import { NeutralColor } from '../Libs'
 import { Divider } from '../components/Divider'
 import { LayoutChangeEvent } from 'react-native'
 import { UniversalButton } from '../components/Buttons'
+import { FloatingButton } from '../components/Buttons/FloatingButton'
+import { Octicons } from '@expo/vector-icons'
 
 interface ServiceDetailScreenProps {
   profilePicture?: string
@@ -150,6 +152,12 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
     )
   }
 
+  const renderMessageButton = () => {
+    return (
+      <FloatingButton size={'medium'} onPress={null} text={{ value: `Message ${firstName}`, }} hasBorder isFullWithBtn icon={<Octicons name='paper-airplane' color={NeutralColor['neutral-100']} size={18} />} />
+    )
+  }
+
   /***********
    * render()
    ***********/
@@ -164,6 +172,7 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
         {renderInfo()}
         {renderLocation()}
       </Col>
+      {renderMessageButton()}
     </TaskTerriersSafeAreaView>
   )
 }
