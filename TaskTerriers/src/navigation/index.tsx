@@ -6,7 +6,13 @@ import AuthStack from './AuthStack'
 import { NavigationContainer } from '@react-navigation/native'
 import { TaskTerriersNavigationRef } from '../modules/NavigationModule'
 
-interface Props {}
+export type userData = {
+  firstName: string
+  lastName: string
+  email: string
+  photoURL: string
+  userId: string
+}
 
 const Navigation = () => {
   const { currentUser } = Auth()
@@ -36,6 +42,7 @@ const Navigation = () => {
         lastName: parseName().lastName,
         email: currentUser.email,
         photoURL: currentUser.photoURL,
+        userId: currentUser.uid
       }
       AsyncStorageModule.SET_asyncStorage('USER_DATA', JSON.stringify(userData))
     }

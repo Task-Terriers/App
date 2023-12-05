@@ -154,17 +154,33 @@ const ServicesTab = ({ route }) => {
 
   const [isRendering, setIsRendering] = useState<boolean>(true)
 
+  const baseApiUrl = process.env.EXPO_PUBLIC_API_URL
+
+  const GET_services = async () => {
+    try {
+      const response = await fetch(`${baseApiUrl}/api/service-user-details`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      if (response.status === 200) {
+        return await response.json();
+      } else {
+        console.log(response.status)
+      }
+      return null;
+    } catch (err) {
+      console.log("Error", err);
+    }
+  }
+
   /**************
    * life cycles
    **************/
 
   useEffect(() => {
-    // ComponentDidMount
-
-    // setIsRendering(false)
-    return () => {
-      // ComponentWillUnmount
-    }
+    console.log(GET_services())
   }, [])
 
   /************

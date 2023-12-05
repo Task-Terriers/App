@@ -11,11 +11,11 @@ interface RequestsCardProps {
   firstName: string
   lastName: string
   messagePreview: string
-  profilePicture: string
+  profilePicPath?: string
   onPress: () => void
 }
 
-const MessagesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, messagePreview, profilePicture, onPress }) => {
+const MessagesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, messagePreview, profilePicPath, onPress }) => {
   /*********
    * recoil
    *********/
@@ -74,7 +74,11 @@ const MessagesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, messag
   const renderProfilePicture = () => {
     return (
       <Col alignCenter radius100 mr10 overflow="hidden">
-        <Image contentFit="fill" source={profilePicture} style={{ width: 40, height: 50 }} />
+        {!profilePicPath ? (
+          <Image contentFit="fill" source={require('../../assets/images/defaultProfile.jpeg')} style={{ width: 50, height: 50 }} />
+        ) : (
+          <Image contentFit="fill" source={profilePicPath} style={{ width: 50, height: 50 }} />
+        )}
       </Col>
     )
   }

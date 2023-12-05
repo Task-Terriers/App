@@ -21,6 +21,7 @@ type userData = {
   lastName: string
   email: string
   photoURL: string
+  userId: string
 }
 
 const SettingsTab = ({ navigation, route }) => {

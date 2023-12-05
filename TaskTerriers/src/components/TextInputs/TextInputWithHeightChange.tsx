@@ -7,8 +7,10 @@ import { AlertColor, NeutralColor, extractMargin } from '../../Libs'
 import { Col, Row, Span } from '../../StyleToProps'
 import { Octicons } from '@expo/vector-icons'
 
-
-const TextInputWithHeightChange: React.FC<TextInputsProps> = (props, ref) => {
+interface TextInputWithHeightChangeProps extends TextInputsProps {
+    initialHeight?: number
+}
+const TextInputWithHeightChange: React.FC<TextInputWithHeightChangeProps> = (props, ref) => {
     const validateCondition = (text: string) => {
         if (!isFirstLoading && required && !text.length) return false
         if (maxRange && Number(text) > maxRange) return false
@@ -42,6 +44,7 @@ const TextInputWithHeightChange: React.FC<TextInputsProps> = (props, ref) => {
         value,
         onPressClearButton,
         editable,
+        initialHeight
     } = props
 
     const isFirstLoading: boolean = true
@@ -53,7 +56,7 @@ const TextInputWithHeightChange: React.FC<TextInputsProps> = (props, ref) => {
     const [currentText, setCurrentText] = useState<string>(defaultValue ? defaultValue : '')
     const [isValid, setIsValid] = useState<boolean>(validateCondition(currentText))
     const [isFocused, setIsFocused] = useState<boolean>(false)
-    const [height, setHeight] = useState<number>(140)
+    const [height, setHeight] = useState<number>(initialHeight ? initialHeight : 140)
     /*************
      * life cycles
      *************/
@@ -132,7 +135,7 @@ const TextInputWithHeightChange: React.FC<TextInputsProps> = (props, ref) => {
                         paddingVertical: 8,
                         paddingLeft: 16,
                         paddingRight: !hideClearButton && isFocused ? 8 : 16,
-                        height: height < 100 ? 100 : Math.min(200, height),
+                        height: height < 100 ? height : Math.min(200, height),
                     },
                 ]}
                 {...setNewInputProps()}

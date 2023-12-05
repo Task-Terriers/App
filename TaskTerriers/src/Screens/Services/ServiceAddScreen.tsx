@@ -15,15 +15,6 @@ import { Octicons } from '@expo/vector-icons';
 
 interface Props { }
 
-// profilePicture?: string
-// serviceName?: string
-// shortServiceDescription: string
-// aboutServiceProvider: string
-// coursesTaken?: string[]
-// major?: string
-// minor?: string
-// displayMajor: boolean
-
 const ServiceAddScreen = ({ navigation, route }) => {
 
     /*********
