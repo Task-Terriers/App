@@ -9,7 +9,7 @@ export interface ButtonComponentProps {
   isFullWithBtn?: boolean
   text?: TypographyType.Attr
   size: ButtonStyle.Size
-  icon?: IconType.AttrWithOnPress
+  icon?: React.ReactElement
   state?: ButtonStyle.State
   theme?: ButtonStyle.Theme
   margin?: SpaceStyle.Margin
@@ -23,6 +23,7 @@ export interface ButtonComponentProps {
 const ButtonSize = {
   SMALL: 'small',
   MEDIUM: 'medium',
+  LARGE: 'large',
 } as const
 
 export declare namespace ButtonStyle {
