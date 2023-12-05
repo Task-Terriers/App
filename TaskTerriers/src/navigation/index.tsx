@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer, useMemo } from 'react'
 import Auth from '@react-native-firebase/auth'
 import AsyncStorageModule from '../modules/AsyncStorageModule'
 import RootStack from './RootStack'
@@ -13,6 +13,7 @@ export type userData = {
   photoURL: string
   userId: string
 }
+const AuthContext = React.createContext(null)
 
 const Navigation = () => {
   const { currentUser } = Auth()
@@ -44,7 +45,13 @@ const Navigation = () => {
         photoURL: currentUser.photoURL,
         userId: currentUser.uid
       }
-      AsyncStorageModule.SET_asyncStorage('USER_DATA', JSON.stringify(userData))
+      console.log(userData.email)
+      if (userData.email.split('@').pop() === 'bu.edu') {
+        authContext.hasAuth()
+        AsyncStorageModule.SET_asyncStorage('USER_DATA', JSON.stringify(userData))
+      } else {
+        authContext.hasNotAuth()
+      }
     }
   }, [])
 
@@ -59,6 +66,35 @@ const Navigation = () => {
     }
   }
 
+  const authContext = useMemo(
+    () => ({
+      hasAuth: () => dispatch({ type: 'HAS_AUTH' }),
+      hasNotAuth: async () => dispatch({ type: 'HAS_NOT_AUTH' }),
+    }),
+    [],
+  )
+
+  const [state, dispatch] = useReducer(
+    (prevState, action) => {
+      switch (action.type) {
+        case 'HAS_AUTH':
+          return {
+            isLoading: false,
+            hasAuth: true,
+          }
+        case 'HAS_NOT_AUTH':
+          return {
+            isLoading: false,
+            hasAuth: false,
+          }
+      }
+    },
+    {
+      isLoading: true,
+      hasAuth: false,
+    },
+  )
+
   /*********
    * render
    *********/
@@ -71,6 +107,12 @@ const Navigation = () => {
    * render()
    ***********/
 
-  return <NavigationContainer ref={TaskTerriersNavigationRef}>{currentUser ? <RootStack /> : <AuthStack />}</NavigationContainer>
+  return (
+    <NavigationContainer ref={TaskTerriersNavigationRef}>
+      <AuthContext.Provider value={authContext}>
+        {state.hasAuth ? <RootStack /> : <AuthStack />}
+      </AuthContext.Provider>
+    </NavigationContainer>
+  )
 }
 export default Navigation

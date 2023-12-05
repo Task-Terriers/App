@@ -35,9 +35,6 @@ const AuthLoginMainScreen = () => {
   /**************
    * life cycles
    **************/
-  /*************
-   * life cycles
-   *************/
 
   useEffect(() => {
     const subscriber = Auth().onAuthStateChanged(onAuthStateChanged)
@@ -57,8 +54,15 @@ const AuthLoginMainScreen = () => {
         photoURL: currentUser.photoURL,
         userId: currentUser.uid
       }
-      AsyncStorageModule.SET_asyncStorage('USER_DATA', JSON.stringify(userData))
-      TaskTerriersNavigationModule.navigate(Root.BottomTabNavigation)
+      if (userData.email.split('@').pop() === 'bu.edu') {
+        AsyncStorageModule.SET_asyncStorage('USER_DATA', JSON.stringify(userData))
+        TaskTerriersNavigationModule.navigate(Root.BottomTabNavigation)
+      } else {
+        Auth().signOut().then(() => {
+          TaskTerriersNavigationModule.navigate('AuthLoginMainScreen'), console.log('User signed out!')
+        })
+      }
+
     }
   }, [user])
 

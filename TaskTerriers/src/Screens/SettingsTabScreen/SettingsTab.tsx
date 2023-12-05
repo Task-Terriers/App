@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { FlatList, ListRenderItemInfo } from 'react-native'
-import auth from '@react-native-firebase/auth'
+import Auth from '@react-native-firebase/auth'
 
 import { TaskTerriersNavigationModule } from '../../modules/NavigationModule'
 import { Col, Row } from '../../StyleToProps'
@@ -68,9 +68,8 @@ const SettingsTab = ({ navigation, route }) => {
     {
       title: 'Sign Out',
       leftIconElement: <Ionicons name="log-out" color={'black'} size={20} />,
-      onPress: () => onPressSignOut(),
       size: 'small',
-      button: { size: 'small', onPress: null, hasBorder: true, text: { value: 'Sign Out' }, buttonType: 'warning' },
+      button: { size: 'small', onPress: () => onPressSignOut(), hasBorder: true, text: { value: 'Sign Out' }, buttonType: 'warning' },
     },
   ]
 
@@ -88,7 +87,7 @@ const SettingsTab = ({ navigation, route }) => {
    ************/
 
   const onPressSignOut = () => {
-    return auth()
+    return Auth()
       .signOut()
       .then(() => {
         TaskTerriersNavigationModule.navigate('AuthLoginMainScreen'), console.log('User signed out!')

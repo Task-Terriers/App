@@ -1,5 +1,4 @@
-import { initializeApp } from 'firebase/app'
-import auth, { getAuth } from 'firebase/auth'
+import { getApp, getApps, initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 
 export const firebaseAppOptions = {
@@ -11,5 +10,5 @@ export const firebaseAppOptions = {
   storageBucket: 'taskterriers-39683.storage.firebase.com',
 }
 
-export const FIREBASE_APP = initializeApp(firebaseAppOptions)
-export const FIRESTORE_DB = getFirestore(FIREBASE_APP)
+export const app = getApps.length > 0 ? getApp() : initializeApp(firebaseAppOptions)
+export const FIRESTORE_DB = getFirestore(app)

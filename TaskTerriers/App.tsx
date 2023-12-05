@@ -5,7 +5,6 @@ import auth, { firebase } from '@react-native-firebase/auth'
 
 import { Col, Span } from './src/StyleToProps'
 import useFonts from './src/hooks/useFonts'
-import { FIREBASE_APP, firebaseAppOptions } from './src/utilities/firebase'
 import Navigation from './src/navigation'
 import { LogBox } from 'react-native'
 
@@ -31,8 +30,9 @@ export default function App() {
     }
 
     if (!firebase.apps.length) {
-      FIREBASE_APP
+      // FIREBASE_APP
     }
+
     prepare()
     const { currentUser } = auth()
     if (currentUser) console.log(currentUser)

@@ -8,8 +8,8 @@ import { Col, Row, Span } from '../../StyleToProps'
 export interface MenuComponentProps {
   id?: number
   size?: 'small' | 'medium'
-  title: string | TypographyType.Attr
-  subTitle?: string | TypographyType.Attr
+  title: string
+  subTitle?: string
   description?: string | TypographyType.Attr
   subDescription?: string | TypographyType.Attr
   leftIconElement?: React.ReactElement
@@ -104,11 +104,11 @@ const Menu: React.FC<MenuComponentProps> = ({
     return (
       <Col ml={leftIconElement ? 12 : 0} flexShrink flex justifyCenter>
         <Span labelL numberOfLines={1} color={disable ? 'neutral-40' : 'neutral-10'} bold>
-          {title.toString()}
+          {title}
         </Span>
         {subTitle && (
           <Span bodyM colorNeutral40>
-            {subTitle.toString()}
+            {subTitle}
           </Span>
         )}
       </Col>

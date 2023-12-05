@@ -102,6 +102,10 @@ const MessagesDetailScreen = ({ navigation, route }) => {
     TaskTerriersNavigationModule.goBack()
   }
 
+  const displayTime = ({ item }) => {
+    return new Date(parseInt(item?.createdAt?.seconds) * 1000).toLocaleTimeString('en-US', { hour: "numeric", minute: 'numeric', hour12: true })
+  }
+
 
   /*********
    * render
@@ -135,9 +139,13 @@ const MessagesDetailScreen = ({ navigation, route }) => {
     )
   }
   const renderMyMessageBubble = ({ item }: { item: DocumentData }) => {
+    // const displayTime = new Date(parseInt(item?.createdAt?.seconds) * 1000).toLocaleTimeString('en-US', { hour: "numeric", minute: 'numeric', hour12: true })
     return (
-      <Col bgBURed radiusBL12 radiusBR12 radiusTL12 p12 maxW={deviceInfo.size.width / 2 + 30} flexShrink alignSelfEnd>
-        <Span bodyL colorNeutral100>{item?.message}</Span>
+      <Col alignSelfEnd>
+        <Col bgBURed radiusBL12 radiusTL12 radiusTR12 p10 maxW={deviceInfo.size.width / 2 + 30} flexShrink >
+          <Span bodyL colorNeutral100>{item?.message}</Span>
+        </Col>
+        <Span titleS colorBUBlack>{item?.createdAt?.seconds && displayTime({ item })}</Span>
       </Col>
     )
 
@@ -145,8 +153,11 @@ const MessagesDetailScreen = ({ navigation, route }) => {
 
   const renderOtherMessageBubble = ({ item }: { item: DocumentData }) => {
     return (
-      <Col bgNeutral100 radiusBL12 radiusBR12 radiusTR12 p12 maxW={deviceInfo.size.width / 2 + 30} flexShrink alignSelfStart>
-        <Span bodyL>{item?.message}</Span>
+      <Col alignSelfStart>
+        <Col bgNeutral100 radiusBL12 radiusBR12 radiusTR12 p10 maxW={deviceInfo.size.width / 2 + 30} flexShrink>
+          <Span bodyL>{item?.message}</Span>
+        </Col>
+        <Span titleS colorBUBlack>{item?.createdAt?.seconds && displayTime({ item })}</Span>
       </Col>
     )
 
