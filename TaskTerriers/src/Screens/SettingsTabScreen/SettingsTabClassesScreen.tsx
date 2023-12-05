@@ -117,6 +117,7 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
     if (!isEditing) return null
     return (
       <BasicTextInput
+        autoCapitalize="characters"
         autoFocus
         maxCharacter={9}
         size="small"

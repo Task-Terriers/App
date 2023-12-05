@@ -4,18 +4,18 @@ import { Col, Row, Span } from '../../StyleToProps'
 import { Image } from 'expo-image'
 import { TaskTerriersNavigationModule } from '../../modules/NavigationModule'
 import { Root } from '../../navigation/type'
+import { Ionicons } from '@expo/vector-icons'
 
 interface RequestsCardProps {
   // datasource: {} this should come from the backend.
   // will use different props for now to show example.
-  firstName: string
-  lastName: string
+  chatName: string
   messagePreview: string
-  profilePicture: string
+  profilePicPath?: string
   onPress: () => void
 }
 
-const MessagesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, messagePreview, profilePicture, onPress }) => {
+const MessagesCard: React.FC<RequestsCardProps> = ({ chatName, messagePreview, profilePicPath, onPress }) => {
   /*********
    * recoil
    *********/
@@ -53,28 +53,28 @@ const MessagesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, messag
 
   const renderName = () => {
     return (
-      <Row>
-        <Span labelL>
-          {firstName} • {lastName}
-        </Span>
-      </Row>
+      <Span titleM mb2>
+        {chatName}
+      </Span>
     )
   }
 
   const renderMessagePreview = () => {
     return (
-      <Row>
-        <Span labelM colorNeutral70>
-          {messagePreview}
-        </Span>
-      </Row>
+      <Span bodyL colorNeutral50 w200 numberOfLines={1}>
+        {messagePreview}
+      </Span>
     )
   }
 
   const renderProfilePicture = () => {
     return (
-      <Col alignCenter radius100 mr10 overflow="hidden">
-        <Image contentFit="fill" source={profilePicture} style={{ width: 40, height: 50 }} />
+      <Col alignCenter radius100 mr20 overflow="hidden">
+        {!profilePicPath ? (
+          <Image contentFit="fill" source={require('../../assets/images/defaultProfile.jpeg')} style={{ width: 50, height: 50 }} />
+        ) : (
+          <Image contentFit="fill" source={profilePicPath} style={{ width: 50, height: 50 }} />
+        )}
       </Col>
     )
   }
@@ -84,12 +84,17 @@ const MessagesCard: React.FC<RequestsCardProps> = ({ firstName, lastName, messag
    ***********/
 
   return (
-    <Col bgNeutral100 h100 radius12 p12 mb10 onPress={onPress}>
-      <Row alignCenter mb10>
-        {renderProfilePicture()}
-        {renderName()}
+    <Col bgNeutral100 h80 radius12 p12 mb10 onPress={onPress}>
+      <Row alignCenter mb10 justifyBetween>
+        <Row>
+          {renderProfilePicture()}
+          <Col>
+            {renderName()}
+            {renderMessagePreview()}
+          </Col>
+        </Row>
+        <Ionicons name="chevron-forward" size={25} />
       </Row>
-      {renderMessagePreview()}
     </Col>
   )
 }

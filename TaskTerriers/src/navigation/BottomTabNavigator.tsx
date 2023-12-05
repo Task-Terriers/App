@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import RequestsTab from '../Screens/RequestsTab'
-import ServicesTab from '../Screens/ServicesTab'
+import ServicesTab from '../Screens/Services/ServicesTab'
 import MessagesTab from '../Screens/MessagesTab'
 import SettingsTab from '../Screens/SettingsTabScreen/SettingsTab'
 import { Col, Row, Span } from '../StyleToProps'

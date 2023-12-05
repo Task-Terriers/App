@@ -9,6 +9,7 @@ export type Union<T extends { [key: string]: ValueType } | ReadonlyArray<ValueTy
 export const Root = {
   BottomTabNavigation: 'BottomTabNavigation',
   ServiceDetailScreen: 'ServiceDetailScreen',
+  ServiceAddScreen: 'ServiceAddScreen',
   MessagesDetailScreen: 'MessagesDetailScreen',
   SettingsTabClassesScreen: 'SettingsTabClassesScreen',
   SettingsTabMajorScreen: 'SettingsTabMajorScreen',
@@ -19,6 +20,7 @@ export type Root = Union<typeof Root>
 export type RootStackParamList = {
   [Root.BottomTabNavigation]: object
   [Root.ServiceDetailScreen]: object
+  [Root.ServiceAddScreen]: object
   [Root.MessagesDetailScreen]: object
   [Root.SettingsTabClassesScreen]: object
   [Root.SettingsTabMajorScreen]: object

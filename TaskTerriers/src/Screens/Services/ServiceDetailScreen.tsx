@@ -3,17 +3,22 @@ import React, { useState, useEffect } from 'react'
 import { Image } from 'expo-image'
 // import MapView from 'react-native-maps';
 
-import NavigationBar from '../components/NavigationBar'
-import { IconNames } from '../components/types'
-import { TaskTerriersNavigationModule } from '../modules/NavigationModule'
-import TaskTerriersSafeAreaView from '../Views/TaskTerriersSafeAreaView'
-import { Col, Row, Span } from '../StyleToProps'
-import { NeutralColor } from '../Libs'
-import { Divider } from '../components/Divider'
+import NavigationBar from '../../components/NavigationBar'
+import { IconNames } from '../../components/types'
+import { TaskTerriersNavigationModule } from '../../modules/NavigationModule'
+import TaskTerriersSafeAreaView from '../../Views/TaskTerriersSafeAreaView'
+import { Col, Row, Span } from '../../StyleToProps'
+import { NeutralColor } from '../../Libs'
+import { Divider } from '../../components/Divider'
 import { LayoutChangeEvent } from 'react-native'
-import { UniversalButton } from '../components/Buttons'
-import { FloatingButton } from '../components/Buttons/FloatingButton'
-import { Octicons } from '@expo/vector-icons'
+import { UniversalButton } from '../../components/Buttons'
+import { FloatingButton } from '../../components/Buttons/FloatingButton'
+import { Ionicons, Octicons } from '@expo/vector-icons'
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
+import { FIRESTORE_DB } from '../../utilities/firebase'
+import { userData } from '../../navigation'
+import AsyncStorageModule from '../../modules/AsyncStorageModule'
+import { Root } from '../../navigation/type'
 
 interface ServiceDetailScreenProps {
   profilePicture?: string
@@ -55,31 +60,26 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
    *************/
 
   const [isRendering, setIsRendering] = useState<boolean>(true)
+  const [userInfo, setUserInfo] = useState<userData>()
   const [expanded, setExpanded] = useState<boolean>(false)
   const [buttonText, setButtonText] = useState<'Read All' | 'Close'>('Read All')
-  const [mapRegion, setmapRegion] = useState({
-    latitude: 37.78825,
-    longitude: -122.4324,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  })
 
   /**************
    * life cycles
    **************/
 
   useEffect(() => {
-    // ComponentDidMount
-
-    // setIsRendering(false)
-    return () => {
-      // ComponentWillUnmount
-    }
+    getUserInfo()
   }, [])
 
   /************
    * functions
    ************/
+
+  const getUserInfo = async () => {
+    const userData = await AsyncStorageModule.GET_asyncStorage('USER_DATA')
+    setUserInfo(userData)
+  }
 
   const onPressReturn = () => {
     TaskTerriersNavigationModule.goBack()
@@ -92,6 +92,27 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
       setButtonText('Read All')
     }
     setExpanded(!expanded)
+  }
+
+  const createNewChat = async () => {
+    const id = `${Date.now()}`
+    const chatName = `${firstName} ${lastName}`
+    const _doc = {
+      _id: id,
+      uid: userInfo.userId,
+      chatName: 'Youngjin Shin',
+    }
+
+    if (chatName !== '') {
+      console.log(_doc)
+      setDoc(doc(FIRESTORE_DB, 'messageRooms', id), _doc)
+        .then(() => {
+          TaskTerriersNavigationModule.pop()
+        })
+        .catch(err => {
+          console.log('Error setting doc', err)
+        })
+    }
   }
 
   /*********
@@ -107,7 +128,7 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
       <Col mb20>
         <Row>
           <Col radius100 overflowHidden>
-            <Image contentFit="fill" source={require('../assets/images/defaultProfile.jpeg')} style={{ width: 80, height: 80 }} />
+            <Image contentFit="fill" source={require('../../assets/images/defaultProfile.jpeg')} style={{ width: 80, height: 80 }} />
           </Col>
           <Col ml10>
             <Span titleXL>Youngjin Shin</Span>
@@ -156,11 +177,11 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
     return (
       <FloatingButton
         size={'medium'}
-        onPress={null}
+        onPress={createNewChat}
         text={{ value: `Message ${firstName}` }}
         hasBorder
         isFullWithBtn
-        icon={<Octicons name="paper-airplane" color={NeutralColor['neutral-100']} size={18} />}
+        icon={<Ionicons name="mail-outline" color={NeutralColor['neutral-100']} size={18} />}
       />
     )
   }
@@ -168,8 +189,6 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
   /***********
    * render()
    ***********/
-
-  //floating button not yet implemented. will need FAB implemented first.
   return (
     <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: NeutralColor['neutral-100'] }}>
       {renderNavBar()}
