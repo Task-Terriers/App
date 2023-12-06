@@ -20,7 +20,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { BUColor, NeutralColor } from '../Libs'
 import { Span } from '../StyleToProps'
 
-interface Props {}
+interface Props { }
 
 const MessagesTab = ({ navigation, route }) => {
   /*********
@@ -118,7 +118,7 @@ const MessagesTab = ({ navigation, route }) => {
     return (
       <MessagesCard
         chatName={item?.chatName}
-        messagePreview={'previewwwwwwwwdfla;dfdlfsdjklfdjsl'}
+        messagePreview={'Message Preview'}
         profilePicPath={''}
         onPress={() => onPressCard(item)}
       />

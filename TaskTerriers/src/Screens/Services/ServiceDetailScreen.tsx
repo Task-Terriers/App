@@ -8,7 +8,7 @@ import { IconNames } from '../../components/types'
 import { TaskTerriersNavigationModule } from '../../modules/NavigationModule'
 import TaskTerriersSafeAreaView from '../../Views/TaskTerriersSafeAreaView'
 import { Col, Row, Span } from '../../StyleToProps'
-import { NeutralColor } from '../../Libs'
+import { BUColor, NeutralColor } from '../../Libs'
 import { Divider } from '../../components/Divider'
 import { ActivityIndicator, LayoutChangeEvent, ScrollView } from 'react-native'
 import { UniversalButton } from '../../components/Buttons'
@@ -66,7 +66,7 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
 
   useEffect(() => {
     GET_user_details()
-    setIsLoading(false)
+
   }, [serviceDetail])
 
   /************
@@ -83,6 +83,8 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
       console.log(result)
     } catch (error) {
       console.error('Error fetching service details:', error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -203,18 +205,28 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
     )
   }
 
+  const renderActivityIndicator = () => {
+    return (
+      <Col mt20>
+        <ActivityIndicator size={'large'} color={BUColor['red']} />
+      </Col>
+    )
+  }
+
   /***********
    * render()
    ***********/
   return (
     <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: NeutralColor['neutral-100'] }}>
       {renderNavBar()}
-      <Col flex p16>
-        {renderProfileSection()}
-        <Divider />
-        {renderInfo()}
-        {renderLocation()}
-      </Col>
+      {isLoading ? renderActivityIndicator() :
+        <Col flex p16>
+          {renderProfileSection()}
+          <Divider />
+          {renderInfo()}
+          {renderLocation()}
+        </Col>
+      }
       {renderMessageButton()}
     </TaskTerriersSafeAreaView>
   )
