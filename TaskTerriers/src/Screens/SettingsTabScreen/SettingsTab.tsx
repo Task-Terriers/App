@@ -60,12 +60,6 @@ const SettingsTab = ({ navigation, route }) => {
       onPress: () => TaskTerriersNavigationModule.navigate(Root.SettingsTabMajorScreen),
     },
     {
-      title: 'Classes',
-      leftIconElement: <MaterialIcons name="class" color={'black'} size={20} />,
-      rightIconElement: <Ionicons name="chevron-forward" color={'black'} size={20} />,
-      onPress: () => TaskTerriersNavigationModule.navigate(Root.SettingsTabClassesScreen),
-    },
-    {
       title: 'Bio',
       leftIconElement: <Ionicons name="document-text-outline" color="black" size={20} />,
       rightIconElement: <Ionicons name="chevron-forward" color={'black'} size={20} />,

@@ -31,6 +31,7 @@ const Navigation = () => {
    *************/
 
   const [isRendering, setIsRendering] = useState<boolean>(true)
+  const baseApiUrl = process.env.EXPO_PUBLIC_API_URL
 
   /**************
    * life cycles
@@ -45,8 +46,10 @@ const Navigation = () => {
         photoURL: currentUser.photoURL,
         userId: currentUser.uid,
       }
-      console.log(userData.email)
       if (userData.email.split('@').pop() === 'bu.edu') {
+        if (GET_User_info_from_DB(userData?.userId)) {
+          console.log('exists???', POST_User(userData))
+        }
         authContext.hasAuth()
         AsyncStorageModule.SET_asyncStorage('USER_DATA', JSON.stringify(userData))
       } else {
@@ -58,6 +61,39 @@ const Navigation = () => {
   /************
    * functions
    ************/
+  const GET_User_info_from_DB = async (userId: string) => {
+    try {
+      const response = await fetch(`${baseApiUrl}/api/userExists/${userId}`)
+      const result = await response.json()
+      console.log(result?.exists)
+      return result?.exists
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const POST_User = async userData => {
+    const body = {
+      id: userData?.userId,
+      firstName: userData?.firstName,
+      lastName: userData?.lastName,
+      email: userData?.email,
+    }
+    try {
+      const response = await fetch(`${baseApiUrl}/api/userAdd`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      })
+      const result = await response.json()
+      console.log(result)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const parseName = () => {
     if (currentUser) {

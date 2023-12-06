@@ -10,7 +10,7 @@ import TaskTerriersSafeAreaView from '../../Views/TaskTerriersSafeAreaView'
 import { Col, Row, Span } from '../../StyleToProps'
 import { NeutralColor } from '../../Libs'
 import { Divider } from '../../components/Divider'
-import { LayoutChangeEvent } from 'react-native'
+import { ActivityIndicator, LayoutChangeEvent, ScrollView } from 'react-native'
 import { UniversalButton } from '../../components/Buttons'
 import { FloatingButton } from '../../components/Buttons/FloatingButton'
 import { Ionicons, Octicons } from '@expo/vector-icons'
@@ -34,19 +34,7 @@ interface ServiceDetailScreenProps {
   serviceId: number
 }
 
-const ServiceDetailScreen: React.FC<ServiceDetailScreenProps> = ({
-  profilePicture,
-  serviceName,
-  serviceId,
-  shortServiceDescription,
-  aboutServiceProvider,
-  coursesTaken,
-  major,
-  minor,
-  displayMajor,
-  firstName,
-  lastName,
-}) => {
+const ServiceDetailScreen = ({ navigation, route }) => {
   //later, we will only get the service ID from route.params and use it to get the info using API calls.
 
   const loremIpsum = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales.\n
@@ -55,30 +43,58 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
    * props, navigation prams
    **************************/
 
+  const serviceId = route?.params?.serviceId
+
   /*************
    * state, ref
    *************/
 
-  const [isRendering, setIsRendering] = useState<boolean>(true)
-  const [userInfo, setUserInfo] = useState<userData>()
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [expanded, setExpanded] = useState<boolean>(false)
   const [buttonText, setButtonText] = useState<'Read All' | 'Close'>('Read All')
+  const [serviceDetail, setServiceDetail] = useState<any>([])
+  const [userInfo, setUserInfo] = useState(null)
 
   /**************
    * life cycles
    **************/
 
   useEffect(() => {
-    getUserInfo()
+    GET_service_details()
+    console.log(serviceDetail?.serviceName)
   }, [])
+
+  useEffect(() => {
+    GET_user_details()
+    setIsLoading(false)
+  }, [serviceDetail])
 
   /************
    * functions
    ************/
 
-  const getUserInfo = async () => {
-    const userData = await AsyncStorageModule.GET_asyncStorage('USER_DATA')
-    setUserInfo(userData)
+  const baseApiUrl = process.env.EXPO_PUBLIC_API_URL
+
+  const GET_service_details = async () => {
+    try {
+      const response = await fetch(`${baseApiUrl}/api/serviceGet/${serviceId}`)
+      const result = await response.json()
+      setServiceDetail(result)
+      console.log(result)
+    } catch (error) {
+      console.error('Error fetching service details:', error)
+    }
+  }
+
+  const GET_user_details = async () => {
+    try {
+      const response = await fetch(`${baseApiUrl}/api/userGet/${serviceDetail?.userId}`)
+      const result = await response.json()
+      setUserInfo(result)
+      console.log(result)
+    } catch (error) {
+      console.error('Error fetching service details:', error)
+    }
   }
 
   const onPressReturn = () => {
@@ -96,11 +112,11 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
 
   const createNewChat = async () => {
     const id = `${Date.now()}`
-    const chatName = `${firstName} ${lastName}`
+    const chatName = `${serviceDetail?.serviceName}`
     const _doc = {
       _id: id,
-      uid: userInfo.userId,
-      chatName: 'Youngjin Shin',
+      uid: userInfo?.id,
+      chatName: chatName,
     }
 
     if (chatName !== '') {
@@ -120,7 +136,8 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
    *********/
 
   const renderNavBar = () => {
-    return <NavigationBar title={'detail page'} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
+    const serviceName = serviceDetail?.serviceName
+    return <NavigationBar title={serviceName} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
   }
 
   const renderProfileSection = () => {
@@ -131,11 +148,13 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
             <Image contentFit="fill" source={require('../../assets/images/defaultProfile.jpeg')} style={{ width: 80, height: 80 }} />
           </Col>
           <Col ml10>
-            <Span titleXL>Youngjin Shin</Span>
-            <Span bodyL numberOfLines={1}>
-              Great CS tutor
+            <Span titleXL>
+              {userInfo?.firstName} {userInfo?.lastName}
             </Span>
-            <Span bodyL>Boston, MA</Span>
+            <Span bodyL numberOfLines={1}>
+              {serviceDetail?.shortServiceDescription}
+            </Span>
+            <Span bodyL>{serviceDetail?.location}</Span>
           </Col>
         </Row>
       </Col>
@@ -149,10 +168,10 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
         <Span titleXL>About</Span>
         {!expanded ? (
           <Span bodyM numberOfLines={10}>
-            {loremIpsum}
+            {userInfo?.description}
           </Span>
         ) : (
-          <Span bodyM>{loremIpsum}</Span>
+          <Span bodyM>{userInfo?.description}</Span>
         )}
         <Col alignEnd mt10>
           <UniversalButton size="small" text={{ value: buttonText }} onPress={onPressButton} />
@@ -166,9 +185,7 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
     return (
       <Col mt20>
         <Span titleXL>Location</Span>
-        <Span bodyL>Boston, MA</Span>
-
-        {/* <MapView region={mapRegion} style={{ alignSelf: 'stretch', height: '100%' }} /> */}
+        <Span bodyL>{serviceDetail?.location}</Span>
       </Col>
     )
   }
@@ -178,7 +195,7 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
       <FloatingButton
         size={'medium'}
         onPress={createNewChat}
-        text={{ value: `Message ${firstName}` }}
+        text={{ value: `Message ${userInfo?.firstName} ${userInfo?.lastName}` }}
         hasBorder
         isFullWithBtn
         icon={<Ionicons name="mail-outline" color={NeutralColor['neutral-100']} size={18} />}
@@ -192,7 +209,7 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
   return (
     <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: NeutralColor['neutral-100'] }}>
       {renderNavBar()}
-      <Col p16>
+      <Col flex p16>
         {renderProfileSection()}
         <Divider />
         {renderInfo()}

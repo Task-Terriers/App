@@ -24,6 +24,7 @@ const AuthLoginMainScreen = () => {
 
   const [initializing, setInitializing] = useState(true)
   const [user, setUser] = useState()
+  const baseApiUrl = process.env.EXPO_PUBLIC_API_URL
 
   GoogleSignin.configure({
     webClientId: process.env.EXPO_PUBLIC_WEB_CLIENT_ID,
@@ -55,6 +56,9 @@ const AuthLoginMainScreen = () => {
         userId: currentUser.uid,
       }
       if (userData.email.split('@').pop() === 'bu.edu') {
+        if (!GET_User_info_from_DB(userData?.userId)) {
+          console.log('exists???', POST_User(userData))
+        }
         AsyncStorageModule.SET_asyncStorage('USER_DATA', JSON.stringify(userData))
         TaskTerriersNavigationModule.navigate(Root.BottomTabNavigation)
       } else {
@@ -74,16 +78,46 @@ const AuthLoginMainScreen = () => {
   /************
    * functions
    ************/
+  const GET_User_info_from_DB = async (userId: string) => {
+    try {
+      const response = await fetch(`${baseApiUrl}/api/userExists/${userId}`)
+      const result = await response.json()
+      return result?.exists
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const POST_User = async userData => {
+    const body = {
+      id: userData?.userId,
+      firstName: userData?.firstName,
+      lastName: userData?.lastName,
+      email: userData?.email,
+    }
+    try {
+      const response = await fetch(`${baseApiUrl}/api/userAdd`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      })
+      const result = await response.json()
+      console.log(result)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const onGoogleButtonPress = async () => {
     try {
       // Check if your device supports Google Play
       await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true })
       // Get the users ID token
       const userInfo = await GoogleSignin.signIn()
-      // setUserInfo(userInfo)
       const googleCredential = Auth.GoogleAuthProvider.credential(userInfo.idToken)
-      // console.log(userInfo)
-      // console.log(googleCredential)
 
       Auth().signInWithCredential(googleCredential)
       const { currentUser } = Auth()

@@ -8,12 +8,11 @@ interface RequestsCardProps {
   // will use different props for now to show example.
   firstName: string
   lastName: string
+  serviceName: string
   postPreview?: string
   hideKebabMenu?: boolean
   profilePicPath?: string
   major: string
-  numOfReview: number
-  reviewRate: number
   serviceRate: number
   onPress?: () => void
 }
@@ -21,12 +20,11 @@ interface RequestsCardProps {
 const SerivcesCard: React.FC<RequestsCardProps> = ({
   firstName,
   lastName,
+  serviceName,
   postPreview,
   hideKebabMenu,
   profilePicPath,
   major,
-  numOfReview,
-  reviewRate,
   serviceRate,
   onPress,
 }) => {
@@ -74,13 +72,9 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({
     )
   }
 
-  const renderMajor = () => {
-    return <Span titleS>Major : {major}</Span>
-  }
-
   const renderDescriptionPreview = () => {
     return (
-      <Span bodyM colorNeutral40 mb6 numberOfLines={1}>
+      <Span bodyL mb6 numberOfLines={1}>
         {postPreview}
       </Span>
     )
@@ -88,31 +82,25 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({
 
   const renderServiceRate = () => {
     return (
-      <Span headlineL colorBURed>
+      <Span headlineS colorBURed>
         $ {serviceRate}
+      </Span>
+    )
+  }
+
+  const renderServiceName = () => {
+    return (
+      <Span titleM maxW150 numberOfLines={1}>
+        {serviceName}
       </Span>
     )
   }
 
   const renderName = () => {
     return (
-      <Span labelL mb6>
+      <Span titleS>
         {firstName} • {lastName}
       </Span>
-    )
-  }
-
-  const renderReview = () => {
-    return (
-      <Row alignCenter>
-        <Ionicons name={'star'} size={20} color="#FFB800" />
-        <Span bodyM ml5>
-          {reviewRate}
-        </Span>
-        <Span bodyM ml5>
-          • {numOfReview} {numOfReview > 1 ? 'Reviews' : 'Review'}
-        </Span>
-      </Row>
     )
   }
 
@@ -121,21 +109,18 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({
    ***********/
 
   return (
-    <Col bgNeutral100 h150 radius12 pv14 ph16 mb12 onPress={onPress}>
+    <Col bgNeutral100 h120 radius12 pv14 ph16 mb12 onPress={onPress}>
       <Row mb12 justifyBetween>
         <Row>
           {renderProfilePic()}
-          <Col>
+          <Col justifyBetween pv5>
+            {renderServiceName()}
             {renderName()}
-            {renderMajor()}
           </Col>
         </Row>
         {renderServiceRate()}
       </Row>
-      <Col>
-        {renderDescriptionPreview()}
-        {renderReview()}
-      </Col>
+      {renderDescriptionPreview()}
     </Col>
   )
 }
