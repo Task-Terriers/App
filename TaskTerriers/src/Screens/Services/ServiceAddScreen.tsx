@@ -64,7 +64,7 @@ const ServiceAddScreen = ({ navigation, route }) => {
 
   const POST_service = async () => {
     const body = {
-      serviceId: 25,
+      serviceId: 50,
       serviceName: serviceNameText,
       shortServiceDescription: shortServiceText,
       price: servicePrice,

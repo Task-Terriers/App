@@ -23,8 +23,8 @@ const ChipMedium: React.FC<ChipMediumProps> = ({ hasHashTag, isEditing, type, ti
    ************/
 
   const getBackgroundColor = () => {
-    if (type === 'pressed') return NeutralColor['neutral-80']
-    return NeutralColor['neutral-90']
+    if (type === 'pressed') return NeutralColor['neutral-70']
+    return NeutralColor['neutral-80']
   }
 
   /*********
@@ -41,7 +41,7 @@ const ChipMedium: React.FC<ChipMediumProps> = ({ hasHashTag, isEditing, type, ti
     <Row
       bg={getBackgroundColor()}
       maxW120
-      h32
+      h30
       ph8
       radius12
       alignCenter

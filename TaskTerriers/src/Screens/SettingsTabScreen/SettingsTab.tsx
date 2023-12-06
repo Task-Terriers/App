@@ -51,12 +51,11 @@ const SettingsTab = ({ navigation, route }) => {
       leftIconElement: <Ionicons name="person" color={'black'} size={20} />,
       rightDetail: `${userData?.firstName} ${userData?.lastName}`,
     },
-    //needs change for rightDetail. get it from db
     {
       title: 'Major/Minor',
       leftIconElement: <Ionicons name="briefcase" color={'black'} size={20} />,
       rightIconElement: <Ionicons name="chevron-forward" color={'black'} size={20} />,
-      rightDetail: 'ComputerScience',
+      rightDetail: `.....`,
       onPress: () => TaskTerriersNavigationModule.navigate(Root.SettingsTabMajorScreen),
     },
     {
@@ -82,6 +81,7 @@ const SettingsTab = ({ navigation, route }) => {
     console.log(userData)
   }, [])
 
+
   /************
    * functions
    ************/
@@ -99,6 +99,7 @@ const SettingsTab = ({ navigation, route }) => {
     setUserData(userData)
     setIsRendering(true)
   }
+
 
   /*********
    * render

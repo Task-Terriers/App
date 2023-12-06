@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Col, Row, Span } from '../../StyleToProps'
 import { Image } from 'expo-image'
 import { Ionicons } from '@expo/vector-icons'
+import ChipMedium from '../Tags/MajorTags'
 
 interface RequestsCardProps {
   // datasource: {} this should come from the backend.
@@ -14,6 +15,7 @@ interface RequestsCardProps {
   profilePicPath?: string
   major: string
   serviceRate: number
+  serviceType?: string,
   onPress?: () => void
 }
 
@@ -26,6 +28,7 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({
   profilePicPath,
   major,
   serviceRate,
+  serviceType,
   onPress,
 }) => {
   /**************************
@@ -104,6 +107,15 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({
     )
   }
 
+  const renderServiceType = () => {
+    if (!serviceType) return
+    return (
+      <Col ml8>
+        <ChipMedium type={'disabled'} title={serviceType} />
+      </Col>
+    )
+  }
+
   /***********
    * render()
    ***********/
@@ -111,16 +123,23 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({
   return (
     <Col bgNeutral100 h120 radius12 pv14 ph16 mb12 onPress={onPress}>
       <Row mb12 justifyBetween>
-        <Row>
-          {renderProfilePic()}
-          <Col justifyBetween pv5>
-            {renderServiceName()}
+        <Row flexShrink>
+          <Col>
+            {renderProfilePic()}
+          </Col>
+          <Col justifyBetween pv5 >
+            <Row alignCenter justifyBetween>
+              {renderServiceName()}
+              {renderServiceType()}
+            </Row>
             {renderName()}
           </Col>
         </Row>
         {renderServiceRate()}
       </Row>
-      {renderDescriptionPreview()}
+      <Row justifyBetween>
+        {renderDescriptionPreview()}
+      </Row>
     </Col>
   )
 }

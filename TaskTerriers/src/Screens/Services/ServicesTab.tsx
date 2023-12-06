@@ -16,7 +16,7 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { NeutralColor } from '../../Libs'
 import ServiceAddScreen from './ServiceAddScreen'
 
-interface Props {}
+interface Props { }
 
 const ServicesTab = ({ route }) => {
   /*********
@@ -100,11 +100,10 @@ const ServicesTab = ({ route }) => {
         firstName={item?.firstName}
         lastName={item?.lastName}
         major={item?.major}
-        reviewRate={item?.review}
         serviceRate={item?.price}
         postPreview={item?.description}
-        onPress={() => onPressCard(item)}
-      />
+        serviceType={item?.serviceType}
+        onPress={() => onPressCard(item)} />
     )
   }
 

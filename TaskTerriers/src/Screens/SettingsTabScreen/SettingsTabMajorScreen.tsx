@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { IconNames } from '../../components/types'
 import NavigationBar from '../../components/NavigationBar'
 import { TaskTerriersNavigationModule } from '../../modules/NavigationModule'
@@ -9,8 +9,10 @@ import { UniversalButton } from '../../components/Buttons'
 import AsyncStorageModule from '../../modules/AsyncStorageModule'
 import { userData } from '../../navigation'
 import { FloatingButton } from '../../components/Buttons/FloatingButton'
+import { BUColor } from '../../Libs'
+import TaskTerriersSafeAreaView from '../../Views/TaskTerriersSafeAreaView'
 
-interface Props {}
+interface Props { }
 
 const SettingsTabMajorScreen = ({ navigation, route }) => {
   /*********
@@ -26,10 +28,11 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
    *************/
 
   const [isEditing, setIsEditing] = useState<boolean>(false)
-  //need to set from what is from the db.
   const [majorInputText, setMajorInputText] = useState<string>('')
   const [minorInputText, setMinorInputText] = useState<string>('')
   const [userInfo, setUserInfo] = useState<userData>()
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isUpdating, setIsUpdating] = useState<boolean>(false)
   const baseApiUrl = process.env.EXPO_PUBLIC_API_URL
 
   /**************
@@ -61,14 +64,18 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
       setMinorInputText(result?.minor)
     } catch (error) {
       console.error('Error fetching bio details:', error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
   const onPressReturn = () => {
     TaskTerriersNavigationModule.goBack()
   }
+
   const onPressDoneButton = async () => {
     try {
+      setIsUpdating(true)
       const response = await fetch(`${baseApiUrl}/api/userChange/${userInfo?.userId}`, {
         method: 'PUT',
         headers: {
@@ -85,6 +92,8 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
       console.log(result)
     } catch (err) {
       console.log(err)
+    } finally {
+      setIsUpdating(false)
     }
   }
 
@@ -136,7 +145,15 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
     )
   }
   const renderUpdateButton = () => {
-    return <FloatingButton size={'medium'} onPress={onPressDoneButton} text={{ value: 'Update Major/Minor' }} hasBorder isFullWithBtn />
+    return <FloatingButton size={'medium'} onPress={onPressDoneButton} text={{ value: 'Update Major/Minor' }} hasBorder isFullWithBtn isProgress={isUpdating} />
+  }
+
+  const renderActivityIndicator = () => {
+    return (
+      <Col mt20>
+        <ActivityIndicator size={'large'} color={BUColor['red']} />
+      </Col>
+    )
   }
 
   /***********
@@ -144,15 +161,16 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
    ***********/
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+    <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white', }}>
       {renderNavBar()}
-      <Col p16>
-        <Col alignSelfEnd>{renderEditButton()}</Col>
-        {renderMajorInput()}
-        {renderMinorInput()}
-      </Col>
+      {isLoading ? renderActivityIndicator() :
+        <Col p16>
+          <Col alignSelfEnd>{renderEditButton()}</Col>
+          {renderMajorInput()}
+          {renderMinorInput()}
+        </Col>}
       {renderUpdateButton()}
-    </SafeAreaView>
+    </TaskTerriersSafeAreaView>
   )
 }
 export default SettingsTabMajorScreen

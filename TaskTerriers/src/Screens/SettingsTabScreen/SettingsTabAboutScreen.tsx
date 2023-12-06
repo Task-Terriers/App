@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
 import NavigationBar from '../../components/NavigationBar'
 import { IconNames } from '../../components/types'
 import { TaskTerriersNavigationModule } from '../../modules/NavigationModule'
@@ -8,14 +8,14 @@ import { FlatList } from 'react-native-gesture-handler'
 import { UniversalButton } from '../../components/Buttons'
 import { Col, Row, Span } from '../../StyleToProps'
 import { BasicTextInput, TextInputWithHeightChange } from '../../components/TextInputs'
-import { NeutralColor } from '../../Libs'
+import { BUColor, NeutralColor } from '../../Libs'
 import { Divider } from '../../components/Divider'
 import { Ionicons } from '@expo/vector-icons'
 import { userData } from '../../navigation'
 import AsyncStorageModule from '../../modules/AsyncStorageModule'
 import { FloatingButton } from '../../components/Buttons/FloatingButton'
 
-interface Props {}
+interface Props { }
 
 const SettingsTabAboutScreen = ({ navigation, route }) => {
   /*********
@@ -31,6 +31,8 @@ const SettingsTabAboutScreen = ({ navigation, route }) => {
    *************/
 
   const [isEditing, setIsEditing] = useState<boolean>(false)
+  const [isSetting, setIsSetting] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   //need to set from what is from the db.
   const [bioInputText, setBioInputText] = useState<string>('')
   const [userInfo, setUserInfo] = useState<userData>()
@@ -68,6 +70,8 @@ const SettingsTabAboutScreen = ({ navigation, route }) => {
       setBioInputText(result?.description)
     } catch (error) {
       console.error('Error fetching bio details:', error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -77,6 +81,7 @@ const SettingsTabAboutScreen = ({ navigation, route }) => {
 
   const onPressDoneButton = async () => {
     try {
+      setIsSetting(true)
       const response = await fetch(`${baseApiUrl}/api/userChange/${userInfo?.userId}`, {
         method: 'PUT',
         headers: {
@@ -92,6 +97,8 @@ const SettingsTabAboutScreen = ({ navigation, route }) => {
       console.log(result)
     } catch (err) {
       console.log(err)
+    } finally {
+      setIsSetting(false)
     }
   }
 
@@ -108,7 +115,7 @@ const SettingsTabAboutScreen = ({ navigation, route }) => {
   }
 
   const renderUpdateButton = () => {
-    return <FloatingButton size={'medium'} onPress={onPressDoneButton} text={{ value: 'Update Bio' }} hasBorder isFullWithBtn />
+    return <FloatingButton size={'medium'} onPress={onPressDoneButton} text={{ value: 'Update Bio' }} hasBorder isFullWithBtn isProgress={isSetting} />
   }
 
   const renderBioInput = () => {
@@ -128,16 +135,24 @@ const SettingsTabAboutScreen = ({ navigation, route }) => {
       </Col>
     )
   }
+  const renderActivityIndicator = () => {
+    return (
+      <Col mt20>
+        <ActivityIndicator size={'large'} color={BUColor['red']} />
+      </Col>
+    )
+  }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+    <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       {renderNavBar()}
-      <Col p16>
-        <Col alignSelfEnd>{renderEditButton()}</Col>
-        {renderBioInput()}
-      </Col>
+      {isLoading ? renderActivityIndicator() :
+        <Col p16>
+          <Col alignSelfEnd>{renderEditButton()}</Col>
+          {renderBioInput()}
+        </Col>}
       {renderUpdateButton()}
-    </SafeAreaView>
+    </TaskTerriersSafeAreaView>
   )
 }
 
