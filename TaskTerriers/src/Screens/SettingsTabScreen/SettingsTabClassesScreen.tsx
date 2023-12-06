@@ -11,7 +11,6 @@ import { BasicTextInput } from '../../components/TextInputs'
 import { NeutralColor } from '../../Libs'
 import { Divider } from '../../components/Divider'
 import { Ionicons } from '@expo/vector-icons'
-import Toast from '../../components/Toast/Toast'
 
 interface Props {}
 
