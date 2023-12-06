@@ -66,6 +66,12 @@ const SettingsTab = ({ navigation, route }) => {
       onPress: () => TaskTerriersNavigationModule.navigate(Root.SettingsTabClassesScreen),
     },
     {
+      title: 'Bio',
+      leftIconElement: <Ionicons name="document-text-outline" color="black" size={20} />,
+      rightIconElement: <Ionicons name="chevron-forward" color={'black'} size={20} />,
+      onPress: () => TaskTerriersNavigationModule.navigate(Root.SettingsTabAboutScreen),
+    },
+    {
       title: 'Sign Out',
       leftIconElement: <Ionicons name="log-out" color={'black'} size={20} />,
       size: 'small',

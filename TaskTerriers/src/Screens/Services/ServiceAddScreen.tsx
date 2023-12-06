@@ -33,6 +33,7 @@ const ServiceAddScreen = ({ navigation, route }) => {
   const [shortServiceText, setShortServiceText] = useState<string>('')
   const [aboutText, setAboutText] = useState<string>('')
   const [serviceLocation, setServiceLocation] = useState<string>('')
+  const [servicePrice, setServicePrice] = useState<string>('')
   const [isChecked, setIsChecked] = useState<boolean>(false)
 
   /**************
@@ -88,15 +89,14 @@ const ServiceAddScreen = ({ navigation, route }) => {
           value={shortServiceText}
         />
         <Span titleM mt20 mb10>
-          About
+          Price
         </Span>
-        <TextInputWithHeightChange
-          editable
-          placeholder={'ex: explain about yourself'}
-          onChangeText={(text: string) => setAboutText(text)}
-          value={aboutText}
-          multiline
-          hideClearButton={false}
+        <BasicTextInput
+          size="small"
+          maxCharacter={10}
+          placeholder={'ex: 20'}
+          onChangeText={(text: string) => setServicePrice(text)}
+          value={servicePrice}
         />
         <Span titleM mt20 mb10>
           Service Location
