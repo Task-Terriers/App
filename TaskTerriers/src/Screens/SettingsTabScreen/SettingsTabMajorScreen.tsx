@@ -6,8 +6,11 @@ import { TaskTerriersNavigationModule } from '../../modules/NavigationModule'
 import { BasicTextInput } from '../../components/TextInputs'
 import { Col, Span } from '../../StyleToProps'
 import { UniversalButton } from '../../components/Buttons'
+import AsyncStorageModule from '../../modules/AsyncStorageModule'
+import { userData } from '../../navigation'
+import { FloatingButton } from '../../components/Buttons/FloatingButton'
 
-interface Props {}
+interface Props { }
 
 const SettingsTabMajorScreen = ({ navigation, route }) => {
   /*********
@@ -26,25 +29,67 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
   //need to set from what is from the db.
   const [majorInputText, setMajorInputText] = useState<string>('')
   const [minorInputText, setMinorInputText] = useState<string>('')
+  const [userInfo, setUserInfo] = useState<userData>()
+  const baseApiUrl = process.env.EXPO_PUBLIC_API_URL
 
   /**************
    * life cycles
    **************/
 
   useEffect(() => {
-    // ComponentDidMount
-
-    // setIsRendering(false)
-    return () => {
-      // ComponentWillUnmount
-    }
+    getUserInfo()
   }, [])
+
+
+
+  useEffect(() => {
+    GET_user_details()
+
+  }, [userInfo])
 
   /************
    * functions
    ************/
+  const getUserInfo = async () => {
+    const userData = await AsyncStorageModule.GET_asyncStorage('USER_DATA')
+    setUserInfo(userData)
+  }
+
+  const GET_user_details = async () => {
+    try {
+      const response = await fetch(`${baseApiUrl}/api/userGet/${userInfo?.userId}`);
+      const result = await response.json();
+      console.log(result)
+      setMajorInputText(result?.major)
+      setMinorInputText(result?.minor)
+
+    } catch (error) {
+      console.error('Error fetching bio details:', error);
+    }
+  };
+
   const onPressReturn = () => {
     TaskTerriersNavigationModule.goBack()
+  }
+  const onPressDoneButton = async () => {
+    try {
+      const response = await fetch(`${baseApiUrl}/api/userChange/${userInfo?.userId}`, {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        // Fields that to be updated are passed
+        body: JSON.stringify({
+          major: majorInputText,
+          minor: minorInputText
+        })
+      })
+      const result = await response.json()
+      console.log(result)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   /*********
@@ -94,6 +139,17 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
       </Col>
     )
   }
+  const renderUpdateButton = () => {
+    return (
+      <FloatingButton
+        size={'medium'}
+        onPress={onPressDoneButton}
+        text={{ value: 'Update Major/Minor' }}
+        hasBorder
+        isFullWithBtn
+      />
+    )
+  }
 
   /***********
    * render()
@@ -107,6 +163,7 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
         {renderMajorInput()}
         {renderMinorInput()}
       </Col>
+      {renderUpdateButton()}
     </SafeAreaView>
   )
 }

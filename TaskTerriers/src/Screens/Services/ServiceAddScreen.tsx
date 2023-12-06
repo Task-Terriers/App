@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, StyleSheet } from 'react-native'
+import { ScrollView, StyleSheet, Text } from 'react-native'
 import Checkbox from 'expo-checkbox'
+import { Octicons } from '@expo/vector-icons'
+import RadioButtonGroup, { RadioButtonItem } from "expo-radio-button";
 
 import NavigationBar from '../../components/NavigationBar'
 import TaskTerriersSafeAreaView from '../../Views/TaskTerriersSafeAreaView'
 import { IconNames } from '../../components/types'
 import { TaskTerriersNavigationModule } from '../../modules/NavigationModule'
 import { Col, Row, Span } from '../../StyleToProps'
-import { BasicTextInput, TextInputWithHeightChange } from '../../components/TextInputs'
+import { BasicTextInput, } from '../../components/TextInputs'
 import { BUColor, NeutralColor } from '../../Libs'
-import { UniversalButton } from '../../components/Buttons'
 import { FloatingButton } from '../../components/Buttons/FloatingButton'
-import { Octicons } from '@expo/vector-icons'
+import AsyncStorageModule from '../../modules/AsyncStorageModule';
+import { userData } from '../../navigation';
 
-interface Props {}
+
+type servicesType = 'Education' | 'Beauty' | 'Athletics' | 'Moving' | 'Music' | 'Chores' | 'Tech' | 'Tailoring' | 'Others'
 
 const ServiceAddScreen = ({ navigation, route }) => {
   /*********
@@ -23,6 +26,8 @@ const ServiceAddScreen = ({ navigation, route }) => {
   /**************************
    * props, navigation prams
    **************************/
+  const baseApiUrl = process.env.EXPO_PUBLIC_API_URL
+
 
   /*************
    * state, ref
@@ -31,29 +36,65 @@ const ServiceAddScreen = ({ navigation, route }) => {
   const [isRendering, setIsRendering] = useState<boolean>(true)
   const [serviceNameText, setServiceNameText] = useState<string>('')
   const [shortServiceText, setShortServiceText] = useState<string>('')
-  const [aboutText, setAboutText] = useState<string>('')
   const [serviceLocation, setServiceLocation] = useState<string>('')
   const [servicePrice, setServicePrice] = useState<string>('')
-  const [isChecked, setIsChecked] = useState<boolean>(false)
+  const [serviceType, setServiceType] = useState<servicesType>('Others');
+  const [userInfo, setUserInfo] = useState<userData>()
+
 
   /**************
    * life cycles
    **************/
 
   useEffect(() => {
-    // ComponentDidMount
-
-    // setIsRendering(false)
-    return () => {
-      // ComponentWillUnmount
-    }
+    getUserInfo()
+    console.log(typeof `${Date.now()}`)
   }, [])
 
   /************
    * functions
    ************/
+
+  const getUserInfo = async () => {
+    const userData = await AsyncStorageModule.GET_asyncStorage('USER_DATA')
+    setUserInfo(userData)
+    console.log(userData.userId)
+  }
+
   const onPressReturn = () => {
     TaskTerriersNavigationModule.goBack()
+  }
+
+  const POST_service = async () => {
+    const body = {
+      serviceId: 25,
+      serviceName: serviceNameText,
+      shortServiceDescription: shortServiceText,
+      price: servicePrice,
+      userId: userInfo?.userId,
+      location: serviceLocation,
+      serviceType: serviceType,
+    }
+    try {
+      const response = await fetch(`${baseApiUrl}/api/serviceAdd`, {
+        method: 'POST',
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body)
+      });
+      console.log(Date.now(), serviceNameText, shortServiceText, servicePrice, userInfo?.userId, serviceLocation, serviceType)
+      const result = await response.json();
+      console.log(result)
+    } catch (error) {
+      console.error('Error post service details:', error);
+    }
+  };
+
+  const onPressPostButton = async () => {
+    POST_service()
+    return TaskTerriersNavigationModule.goBack()
   }
 
   /*********
@@ -92,8 +133,9 @@ const ServiceAddScreen = ({ navigation, route }) => {
           Price
         </Span>
         <BasicTextInput
+          keyboardType='numeric'
           size="small"
-          maxCharacter={10}
+          maxCharacter={5}
           placeholder={'ex: 20'}
           onChangeText={(text: string) => setServicePrice(text)}
           value={servicePrice}
@@ -112,23 +154,88 @@ const ServiceAddScreen = ({ navigation, route }) => {
     )
   }
 
-  const renderCheckBox = () => {
+
+  const renderRadioButton = () => {
     return (
-      <Row mt20 alignCenter>
-        <Span titleM mr8>
-          Display Major
+      <Col>
+        <Span titleM mt20 mb10>
+          Service Type
         </Span>
-        <Checkbox value={isChecked} onValueChange={setIsChecked} color={isChecked ? BUColor['red'] : NeutralColor['neutral-70']} />
-      </Row>
+        <RadioButtonGroup
+          containerStyle={{ marginBottom: 10 }}
+          selected={serviceType}
+          onSelected={(value: servicesType) => setServiceType(value)}
+          radioBackground={BUColor['red']}
+          size={19}
+          radioStyle={{ marginBottom: 10, marginRight: 8 }}
+
+        >
+          <RadioButtonItem
+            value="Education"
+            label={
+              <Span labelL mb10>Education</Span>
+            }
+          />
+          <RadioButtonItem
+            value="Beauty"
+            label={
+              <Span labelL mb10>Beauty</Span>
+            }
+          />
+          <RadioButtonItem
+            value="Athletics"
+            label={
+              <Span labelL mb10>Athletics</Span>
+            }
+          />
+          <RadioButtonItem
+            value="Moving"
+            label={
+              <Span labelL mb10>Moving</Span>
+            }
+          />
+          <RadioButtonItem
+            value="Music"
+            label={
+              <Span labelL mb10>Music</Span>
+            }
+          />
+          <RadioButtonItem
+            value="Chores"
+            label={
+              <Span labelL mb10>Chores</Span>
+            }
+          />
+          <RadioButtonItem
+            value="Tech"
+            label={
+              <Span labelL mb10>Tech</Span>
+            }
+          />
+          <RadioButtonItem
+            value="Tailoring"
+            label={
+              <Span labelL mb10>Tailoring</Span>
+            }
+          />
+          <RadioButtonItem
+            value="Others"
+            label={
+              <Span labelL mb10>Others</Span>
+            }
+          />
+        </RadioButtonGroup>
+      </Col>
+
     )
   }
 
   const renderAddButton = () => {
     return (
       <FloatingButton
-        state={!serviceNameText || !shortServiceText || !serviceLocation || !aboutText ? 'disabled' : 'enabled'}
+        state={!serviceNameText || !shortServiceText || !serviceLocation || !servicePrice ? 'disabled' : 'enabled'}
         size={'medium'}
-        onPress={null}
+        onPress={onPressPostButton}
         text={{ value: 'Post Service' }}
         hasBorder
         isFullWithBtn
@@ -147,7 +254,8 @@ const ServiceAddScreen = ({ navigation, route }) => {
       <ScrollView>
         <Col p16 mb80>
           {renderInputs()}
-          {renderCheckBox()}
+          {renderRadioButton()}
+          {/* {renderCheckBox()} */}
         </Col>
       </ScrollView>
       {renderAddButton()}
