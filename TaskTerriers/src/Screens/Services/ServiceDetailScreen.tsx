@@ -10,7 +10,7 @@ import TaskTerriersSafeAreaView from '../../Views/TaskTerriersSafeAreaView'
 import { Col, Row, Span } from '../../StyleToProps'
 import { NeutralColor } from '../../Libs'
 import { Divider } from '../../components/Divider'
-import { ActivityIndicator, LayoutChangeEvent } from 'react-native'
+import { ActivityIndicator, LayoutChangeEvent, ScrollView } from 'react-native'
 import { UniversalButton } from '../../components/Buttons'
 import { FloatingButton } from '../../components/Buttons/FloatingButton'
 import { Ionicons, Octicons } from '@expo/vector-icons'
@@ -187,8 +187,6 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
       <Col mt20>
         <Span titleXL>Location</Span>
         <Span bodyL>{serviceDetail?.location}</Span>
-
-        {/* <MapView region={mapRegion} style={{ alignSelf: 'stretch', height: '100%' }} /> */}
       </Col>
     )
   }
@@ -211,20 +209,14 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
    ***********/
   return (
     <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: NeutralColor['neutral-100'] }}>
-      {isLoading ?
-        <Col>
-          <ActivityIndicator size={'large'} color={'grey'} />
-        </Col> :
-        <>
-          {renderNavBar()}
-          <Col p16>
-            {renderProfileSection()}
-            <Divider />
-            {renderInfo()}
-            {renderLocation()}
-          </Col>
-          {renderMessageButton()}
-        </>}
+      {renderNavBar()}
+      <Col flex p16>
+        {renderProfileSection()}
+        <Divider />
+        {renderInfo()}
+        {renderLocation()}
+      </Col>
+      {renderMessageButton()}
     </TaskTerriersSafeAreaView>
   )
 }

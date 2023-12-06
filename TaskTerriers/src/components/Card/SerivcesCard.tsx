@@ -13,7 +13,6 @@ interface RequestsCardProps {
   hideKebabMenu?: boolean
   profilePicPath?: string
   major: string
-  reviewRate: number
   serviceRate: number
   onPress?: () => void
 }
@@ -26,7 +25,6 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({
   hideKebabMenu,
   profilePicPath,
   major,
-  reviewRate,
   serviceRate,
   onPress,
 }) => {
@@ -76,7 +74,7 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({
 
   const renderDescriptionPreview = () => {
     return (
-      <Span bodyM colorNeutral40 mb6 numberOfLines={1}>
+      <Span bodyL mb6 numberOfLines={1}>
         {postPreview}
       </Span>
     )
@@ -104,16 +102,6 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({
     )
   }
 
-  const renderReview = () => {
-    return (
-      <Row alignCenter>
-        <Ionicons name={'star'} size={14} color="#FFB800" />
-        <Span titleS ml5>
-          {reviewRate}
-        </Span>
-      </Row>
-    )
-  }
 
   /***********
    * render()
@@ -126,10 +114,7 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({
           {renderProfilePic()}
           <Col justifyBetween pv5>
             {renderServiceName()}
-            <Row alignCenter>
-              {renderName()}
-              {renderReview()}
-            </Row>
+            {renderName()}
           </Col>
         </Row>
         {renderServiceRate()}
