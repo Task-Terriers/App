@@ -66,13 +66,13 @@ const NavigationBar: React.FC<PaymentBarProps> = ({ title, hasDivider, iconName,
     }
   }
 
-const renderTitle = () => {
+  const renderTitle = () => {
     return (
-        <Span titleXL ml8 style={{ flex: 1, textAlign: 'center' }}>
-            {"Pay with Stripe"}
-        </Span>
+      <Span titleXL ml8 style={{ flex: 1, textAlign: 'center' }}>
+        {'Pay with Stripe'}
+      </Span>
     )
-}
+  }
 
   const renderDivider = () => {
     if (hasDivider) return <Divider margin={{ left: -16, right: -16 }} />
