@@ -9,7 +9,7 @@ import { TaskTerriersNavigationModule } from '../../modules/NavigationModule'
 import { Root } from '../../navigation/type'
 import AsyncStorageModule from '../../modules/AsyncStorageModule'
 
-interface Props {}
+interface Props { }
 
 const AuthLoginMainScreen = () => {
   const { currentUser } = Auth()
@@ -80,10 +80,7 @@ const AuthLoginMainScreen = () => {
       await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true })
       // Get the users ID token
       const userInfo = await GoogleSignin.signIn()
-      // setUserInfo(userInfo)
       const googleCredential = Auth.GoogleAuthProvider.credential(userInfo.idToken)
-      // console.log(userInfo)
-      // console.log(googleCredential)
 
       Auth().signInWithCredential(googleCredential)
       const { currentUser } = Auth()
@@ -127,7 +124,7 @@ const AuthLoginMainScreen = () => {
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Light}
         onPress={onGoogleButtonPress}
-        // disabled={this.state.isSigninInProgress}
+      // disabled={this.state.isSigninInProgress}
       />
     )
   }

@@ -16,7 +16,7 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { NeutralColor } from '../../Libs'
 import ServiceAddScreen from './ServiceAddScreen'
 
-interface Props {}
+interface Props { }
 
 const ServicesTab = ({ route }) => {
   /*********
@@ -153,27 +153,20 @@ const ServicesTab = ({ route }) => {
   ]
 
   const [isRendering, setIsRendering] = useState<boolean>(true)
+  const [services, setServices] = useState([])
 
   const baseApiUrl = process.env.EXPO_PUBLIC_API_URL
 
   const GET_services = async () => {
     try {
-      const response = await fetch(`${baseApiUrl}/api/service-user-details`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      if (response.status === 200) {
-        return await response.json()
-      } else {
-        console.log(response.status)
-      }
-      return null
-    } catch (err) {
-      console.log('Error', err)
+      const response = await fetch(`${baseApiUrl}/api/serviceList`);
+      const result = await response.json();
+      setServices(result)
+      console.log(result)
+    } catch (error) {
+      console.error('Error fetching service user details:', error);
     }
-  }
+  };
 
   /**************
    * life cycles
@@ -187,8 +180,9 @@ const ServicesTab = ({ route }) => {
    * functions
    ************/
 
-  const onPressCard = () => {
-    return TaskTerriersNavigationModule.navigate(Root.ServiceDetailScreen)
+  const onPressCard = (item) => {
+    console.log(item)
+    return TaskTerriersNavigationModule.navigate(Root.ServiceDetailScreen, { serviceId: item?.serviceId })
   }
   const onPressFloatingButton = async () => {
     return TaskTerriersNavigationModule.navigate(Root.ServiceAddScreen)
@@ -213,6 +207,19 @@ const ServicesTab = ({ route }) => {
       />
     )
   }
+  const renderItem = ({ item }) => {
+    return (
+      <SerivcesCard
+        serviceName={item?.serviceName}
+        firstName={item?.firstName}
+        lastName={item?.lastName}
+        major={item?.major}
+        reviewRate={item?.review}
+        serviceRate={item?.price}
+        onPress={() => onPressCard(item)}
+      />
+    )
+  }
 
   /***********
    * render()
@@ -223,8 +230,8 @@ const ServicesTab = ({ route }) => {
       {renderNavigationBar()}
       <Col mb35>
         <FlatList
-          data={mockRequestsCardData}
-          renderItem={({ item }) => <SerivcesCard {...item} />}
+          data={services}
+          renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
           contentContainerStyle={{ padding: 16 }}
         />

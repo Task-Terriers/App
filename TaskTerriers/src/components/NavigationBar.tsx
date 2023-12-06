@@ -7,7 +7,7 @@ import { Divider } from './Divider'
 import { UniversalColorType } from '../Libs'
 
 interface NavigationBarProps {
-  title: TypographyType.Value
+  title: TypographyType.Attr
   hasDivider?: boolean
   iconName?: IconName.Value
   iconAction?: () => void
@@ -69,7 +69,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ title, hasDivider, iconNa
   const renderTitle = () => {
     return (
       <Span titleXL ml8>
-        {title.toString()}
+        {title?.toString()}
       </Span>
     )
   }

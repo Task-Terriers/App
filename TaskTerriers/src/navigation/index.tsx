@@ -45,7 +45,6 @@ const Navigation = () => {
         photoURL: currentUser.photoURL,
         userId: currentUser.uid,
       }
-      console.log(userData.email)
       if (userData.email.split('@').pop() === 'bu.edu') {
         authContext.hasAuth()
         AsyncStorageModule.SET_asyncStorage('USER_DATA', JSON.stringify(userData))
