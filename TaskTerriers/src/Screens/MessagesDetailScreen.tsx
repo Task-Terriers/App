@@ -15,6 +15,9 @@ import { UniversalButton } from '../components/Buttons'
 import { Ionicons, Octicons } from '@expo/vector-icons'
 import { FlatList } from 'react-native-gesture-handler'
 import { deviceInfo } from '../utilities/deviceInfo'
+import PaymentBar from '../components/PaymentBar'
+import { Linking } from 'react-native';
+
 
 interface Props {}
 
@@ -95,6 +98,20 @@ const MessagesDetailScreen = ({ navigation, route }) => {
     TaskTerriersNavigationModule.goBack()
   }
 
+  const onPressPayment = () => {
+    const url = 'https://checkout.stripe.com/c/pay/cs_test_a1fcIJaHGdrTfMjuLQss5dYStgou6iLkMifSnDiGoxuCTt5RKIlobkNBw1#fidkdWxOYHwnPyd1blpxYHZxWjA0SjFUPDdOYXA1cG9VMGZnXVFCYjddNXNSNGo1b0I3dUFnZG5GTH9wdmdwSk1XZEFCM1BjTkB8bF9MS3V3XFc2fVYzVUxcSEJcdE1vUXZgNzRkR0RVbDRVNTVjNEh%2FMTEwVCcpJ3VpbGtuQH11anZgYUxhJz8ncWB2cVphVzM0MF83azxjQ0pkYUpjXFwnKSd2cXdsdWBEZmZqcGtxJz8nZGZmcVo0Sk5CPG5PaWNmSlYwXzRrJ3gl';
+  
+    Linking.canOpenURL(url)
+      .then((supported) => {
+        if (supported) {
+          Linking.openURL(url);
+        } else {
+          console.log("Don't know how to open URI: " + url);
+        }
+      })
+      .catch((err) => console.error('An error occurred', err));
+  };
+
   const displayTime = ({ item }) => {
     return new Date(parseInt(item?.createdAt?.seconds) * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
   }
@@ -105,6 +122,16 @@ const MessagesDetailScreen = ({ navigation, route }) => {
 
   const renderNavBar = () => {
     return <NavigationBar title={chatRoom?.chatName} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
+  }
+
+  const renderPaymentBar = () => {
+    return(
+      <TouchableOpacity onPress={onPressPayment}>
+        <Col alignCenter justifyCenter pv10 borderColor={BUColor['red']} borderBW2 borderTW2 bgNeutral100>
+        <Span headlineS colorBURed>Pay with Stripe</Span>
+      </Col>
+      </TouchableOpacity>
+    )
   }
 
   const renderSendBox = () => {
@@ -176,6 +203,7 @@ const MessagesDetailScreen = ({ navigation, route }) => {
   return (
     <TaskTerriersSafeAreaView style={{ flex: 1 }}>
       {renderNavBar()}
+      {renderPaymentBar()}
       <Col p16 flex>
         {renderFlatList()}
         {/* {renderMyMessageBubble('afjdlasjfkdjs;kafjkdsjafkdjkfj;dlsajf;kj;dsk;afjkdsjfkjdskajfkldsjfkdsj;afjdkafjd;kjsa;fkldjsafj;djafkdjsafkdjslkfj;lj')}
