@@ -15,51 +15,50 @@ import { Ionicons } from '@expo/vector-icons'
 interface Props {}
 
 const SettingsTabAboutScreen = ({ navigation, route }) => {
-    /*********
-     * recoil
-     *********/
-  
-    /**************************
-     * props, navigation prams
-     **************************/
-  
-    /*************
-     * state, ref
-     *************/
-  
-    const [isEditing, setIsEditing] = useState<boolean>(false)
-    //need to set from what is from the db.
-    const [bioInputText, setBioInputText] = useState<string>('')
-  
-  
-    /**************
-     * life cycles
-     **************/
-  
-    useEffect(() => {
-        // ComponentDidMount
-    
-        // setIsRendering(false)
-        return () => {
-          // ComponentWillUnmount
-        }
-      }, [])
-  
-    /************
-     * functions
-     ************/
-    const onPressReturn = () => {
-      TaskTerriersNavigationModule.goBack()
-    }
+  /*********
+   * recoil
+   *********/
 
-    /*********
+  /**************************
+   * props, navigation prams
+   **************************/
+
+  /*************
+   * state, ref
+   *************/
+
+  const [isEditing, setIsEditing] = useState<boolean>(false)
+  //need to set from what is from the db.
+  const [bioInputText, setBioInputText] = useState<string>('')
+
+  /**************
+   * life cycles
+   **************/
+
+  useEffect(() => {
+    // ComponentDidMount
+
+    // setIsRendering(false)
+    return () => {
+      // ComponentWillUnmount
+    }
+  }, [])
+
+  /************
+   * functions
+   ************/
+  const onPressReturn = () => {
+    TaskTerriersNavigationModule.goBack()
+  }
+
+  /*********
    * render
    *********/
 
   const renderNavBar = () => {
     return <NavigationBar title={'Bio'} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
   }
-    
+
   const renderEditButton = () => {
     return <UniversalButton text={{ value: !isEditing ? 'Edit' : 'Done' }} size="small" onPress={() => setIsEditing(!isEditing)} hasBorder />
   }
@@ -91,7 +90,6 @@ const SettingsTabAboutScreen = ({ navigation, route }) => {
       </Col>
     </SafeAreaView>
   )
-
-}  
+}
 
 export default SettingsTabAboutScreen
