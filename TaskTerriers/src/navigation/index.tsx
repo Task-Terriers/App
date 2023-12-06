@@ -33,7 +33,6 @@ const Navigation = () => {
   const [isRendering, setIsRendering] = useState<boolean>(true)
   const baseApiUrl = process.env.EXPO_PUBLIC_API_URL
 
-
   /**************
    * life cycles
    **************/
@@ -49,7 +48,7 @@ const Navigation = () => {
       }
       if (userData.email.split('@').pop() === 'bu.edu') {
         if (GET_User_info_from_DB(userData?.userId)) {
-          console.log("exists???", POST_User(userData))
+          console.log('exists???', POST_User(userData))
         }
         authContext.hasAuth()
         AsyncStorageModule.SET_asyncStorage('USER_DATA', JSON.stringify(userData))
@@ -64,8 +63,8 @@ const Navigation = () => {
    ************/
   const GET_User_info_from_DB = async (userId: string) => {
     try {
-      const response = await fetch(`${baseApiUrl}/api/userExists/${userId}`);
-      const result = await response.json();
+      const response = await fetch(`${baseApiUrl}/api/userExists/${userId}`)
+      const result = await response.json()
       console.log(result?.exists)
       return result?.exists
     } catch (error) {
@@ -73,7 +72,7 @@ const Navigation = () => {
     }
   }
 
-  const POST_User = async (userData) => {
+  const POST_User = async userData => {
     const body = {
       id: userData?.userId,
       firstName: userData?.firstName,
@@ -82,14 +81,14 @@ const Navigation = () => {
     }
     try {
       const response = await fetch(`${baseApiUrl}/api/userAdd`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
       })
-      const result = await response.json();
+      const result = await response.json()
       console.log(result)
     } catch (error) {
       console.log(error)

@@ -9,7 +9,7 @@ import { TaskTerriersNavigationModule } from '../../modules/NavigationModule'
 import { Root } from '../../navigation/type'
 import AsyncStorageModule from '../../modules/AsyncStorageModule'
 
-interface Props { }
+interface Props {}
 
 const AuthLoginMainScreen = () => {
   const { currentUser } = Auth()
@@ -57,7 +57,7 @@ const AuthLoginMainScreen = () => {
       }
       if (userData.email.split('@').pop() === 'bu.edu') {
         if (!GET_User_info_from_DB(userData?.userId)) {
-          console.log("exists???", POST_User(userData))
+          console.log('exists???', POST_User(userData))
         }
         AsyncStorageModule.SET_asyncStorage('USER_DATA', JSON.stringify(userData))
         TaskTerriersNavigationModule.navigate(Root.BottomTabNavigation)
@@ -80,15 +80,15 @@ const AuthLoginMainScreen = () => {
    ************/
   const GET_User_info_from_DB = async (userId: string) => {
     try {
-      const response = await fetch(`${baseApiUrl}/api/userExists/${userId}`);
-      const result = await response.json();
+      const response = await fetch(`${baseApiUrl}/api/userExists/${userId}`)
+      const result = await response.json()
       return result?.exists
     } catch (error) {
       console.log(error)
     }
   }
 
-  const POST_User = async (userData) => {
+  const POST_User = async userData => {
     const body = {
       id: userData?.userId,
       firstName: userData?.firstName,
@@ -97,14 +97,14 @@ const AuthLoginMainScreen = () => {
     }
     try {
       const response = await fetch(`${baseApiUrl}/api/userAdd`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
       })
-      const result = await response.json();
+      const result = await response.json()
       console.log(result)
     } catch (error) {
       console.log(error)
@@ -161,7 +161,7 @@ const AuthLoginMainScreen = () => {
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Light}
         onPress={onGoogleButtonPress}
-      // disabled={this.state.isSigninInProgress}
+        // disabled={this.state.isSigninInProgress}
       />
     )
   }

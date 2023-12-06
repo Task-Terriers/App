@@ -15,7 +15,7 @@ import { userData } from '../../navigation'
 import AsyncStorageModule from '../../modules/AsyncStorageModule'
 import { FloatingButton } from '../../components/Buttons/FloatingButton'
 
-interface Props { }
+interface Props {}
 
 const SettingsTabAboutScreen = ({ navigation, route }) => {
   /*********
@@ -36,19 +36,17 @@ const SettingsTabAboutScreen = ({ navigation, route }) => {
   const [userInfo, setUserInfo] = useState<userData>()
   const baseApiUrl = process.env.EXPO_PUBLIC_API_URL
 
-
   /**************
    * life cycles
    **************/
 
   useEffect(() => {
     getUserInfo()
-
   }, [])
 
   /*************
-  * life cycles
-  *************/
+   * life cycles
+   *************/
 
   useEffect(() => {
     GET_user_details()
@@ -64,15 +62,14 @@ const SettingsTabAboutScreen = ({ navigation, route }) => {
 
   const GET_user_details = async () => {
     try {
-      const response = await fetch(`${baseApiUrl}/api/userGet/${userInfo?.userId}`);
-      const result = await response.json();
+      const response = await fetch(`${baseApiUrl}/api/userGet/${userInfo?.userId}`)
+      const result = await response.json()
       console.log(result)
       setBioInputText(result?.description)
-
     } catch (error) {
-      console.error('Error fetching bio details:', error);
+      console.error('Error fetching bio details:', error)
     }
-  };
+  }
 
   const onPressReturn = () => {
     TaskTerriersNavigationModule.goBack()
@@ -81,15 +78,15 @@ const SettingsTabAboutScreen = ({ navigation, route }) => {
   const onPressDoneButton = async () => {
     try {
       const response = await fetch(`${baseApiUrl}/api/userChange/${userInfo?.userId}`, {
-        method: "PUT",
+        method: 'PUT',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         // Fields that to be updated are passed
         body: JSON.stringify({
-          description: bioInputText
-        })
+          description: bioInputText,
+        }),
       })
       const result = await response.json()
       console.log(result)
@@ -97,7 +94,6 @@ const SettingsTabAboutScreen = ({ navigation, route }) => {
       console.log(err)
     }
   }
-
 
   /*********
    * render
@@ -112,18 +108,8 @@ const SettingsTabAboutScreen = ({ navigation, route }) => {
   }
 
   const renderUpdateButton = () => {
-    return (
-      <FloatingButton
-        size={'medium'}
-        onPress={onPressDoneButton}
-        text={{ value: 'Update Bio' }}
-        hasBorder
-        isFullWithBtn
-      />
-    )
+    return <FloatingButton size={'medium'} onPress={onPressDoneButton} text={{ value: 'Update Bio' }} hasBorder isFullWithBtn />
   }
-
-
 
   const renderBioInput = () => {
     return (

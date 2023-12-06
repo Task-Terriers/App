@@ -90,18 +90,19 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({
 
   const renderServiceName = () => {
     return (
-      <Span titleM maxW150 numberOfLines={1}>{serviceName}</Span>
+      <Span titleM maxW150 numberOfLines={1}>
+        {serviceName}
+      </Span>
     )
   }
 
   const renderName = () => {
     return (
-      <Span titleS >
+      <Span titleS>
         {firstName} • {lastName}
       </Span>
     )
   }
-
 
   /***********
    * render()

@@ -64,7 +64,6 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
     console.log(serviceDetail?.serviceName)
   }, [])
 
-
   useEffect(() => {
     GET_user_details()
     setIsLoading(false)
@@ -78,27 +77,25 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
 
   const GET_service_details = async () => {
     try {
-      const response = await fetch(`${baseApiUrl}/api/serviceGet/${serviceId}`);
-      const result = await response.json();
+      const response = await fetch(`${baseApiUrl}/api/serviceGet/${serviceId}`)
+      const result = await response.json()
       setServiceDetail(result)
       console.log(result)
-
     } catch (error) {
-      console.error('Error fetching service details:', error);
+      console.error('Error fetching service details:', error)
     }
-  };
+  }
 
   const GET_user_details = async () => {
     try {
-      const response = await fetch(`${baseApiUrl}/api/userGet/${serviceDetail?.userId}`);
-      const result = await response.json();
+      const response = await fetch(`${baseApiUrl}/api/userGet/${serviceDetail?.userId}`)
+      const result = await response.json()
       setUserInfo(result)
       console.log(result)
-
     } catch (error) {
-      console.error('Error fetching service details:', error);
+      console.error('Error fetching service details:', error)
     }
-  };
+  }
 
   const onPressReturn = () => {
     TaskTerriersNavigationModule.goBack()
@@ -151,7 +148,9 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
             <Image contentFit="fill" source={require('../../assets/images/defaultProfile.jpeg')} style={{ width: 80, height: 80 }} />
           </Col>
           <Col ml10>
-            <Span titleXL>{userInfo?.firstName} {userInfo?.lastName}</Span>
+            <Span titleXL>
+              {userInfo?.firstName} {userInfo?.lastName}
+            </Span>
             <Span bodyL numberOfLines={1}>
               {serviceDetail?.shortServiceDescription}
             </Span>

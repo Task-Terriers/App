@@ -10,7 +10,7 @@ import AsyncStorageModule from '../../modules/AsyncStorageModule'
 import { userData } from '../../navigation'
 import { FloatingButton } from '../../components/Buttons/FloatingButton'
 
-interface Props { }
+interface Props {}
 
 const SettingsTabMajorScreen = ({ navigation, route }) => {
   /*********
@@ -40,11 +40,8 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
     getUserInfo()
   }, [])
 
-
-
   useEffect(() => {
     GET_user_details()
-
   }, [userInfo])
 
   /************
@@ -57,16 +54,15 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
 
   const GET_user_details = async () => {
     try {
-      const response = await fetch(`${baseApiUrl}/api/userGet/${userInfo?.userId}`);
-      const result = await response.json();
+      const response = await fetch(`${baseApiUrl}/api/userGet/${userInfo?.userId}`)
+      const result = await response.json()
       console.log(result)
       setMajorInputText(result?.major)
       setMinorInputText(result?.minor)
-
     } catch (error) {
-      console.error('Error fetching bio details:', error);
+      console.error('Error fetching bio details:', error)
     }
-  };
+  }
 
   const onPressReturn = () => {
     TaskTerriersNavigationModule.goBack()
@@ -74,16 +70,16 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
   const onPressDoneButton = async () => {
     try {
       const response = await fetch(`${baseApiUrl}/api/userChange/${userInfo?.userId}`, {
-        method: "PUT",
+        method: 'PUT',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         // Fields that to be updated are passed
         body: JSON.stringify({
           major: majorInputText,
-          minor: minorInputText
-        })
+          minor: minorInputText,
+        }),
       })
       const result = await response.json()
       console.log(result)
@@ -140,15 +136,7 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
     )
   }
   const renderUpdateButton = () => {
-    return (
-      <FloatingButton
-        size={'medium'}
-        onPress={onPressDoneButton}
-        text={{ value: 'Update Major/Minor' }}
-        hasBorder
-        isFullWithBtn
-      />
-    )
+    return <FloatingButton size={'medium'} onPress={onPressDoneButton} text={{ value: 'Update Major/Minor' }} hasBorder isFullWithBtn />
   }
 
   /***********
