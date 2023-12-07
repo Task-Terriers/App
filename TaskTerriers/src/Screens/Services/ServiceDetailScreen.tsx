@@ -59,11 +59,13 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
    * life cycles
    **************/
 
+  // Fetching service details on component mount
   useEffect(() => {
     GET_service_details()
     console.log(serviceDetail?.serviceName)
   }, [])
 
+    // Fetching user details after getting service details
   useEffect(() => {
     GET_user_details()
 
@@ -73,8 +75,10 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
    * functions
    ************/
 
+  // Base API URL
   const baseApiUrl = process.env.EXPO_PUBLIC_API_URL
 
+  // Function to fetch service details
   const GET_service_details = async () => {
     try {
       const response = await fetch(`${baseApiUrl}/api/serviceGet/${serviceId}`)
@@ -88,6 +92,7 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
     }
   }
 
+  // Function to fetch user details
   const GET_user_details = async () => {
     try {
       const response = await fetch(`${baseApiUrl}/api/userGet/${serviceDetail?.userId}`)
@@ -99,10 +104,13 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
     }
   }
 
+  
+   // Function to handle navigation return
   const onPressReturn = () => {
     TaskTerriersNavigationModule.goBack()
   }
 
+  // Function to toggle the read more button
   const onPressButton = () => {
     if (buttonText === 'Read All') {
       setButtonText('Close')
@@ -112,6 +120,7 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
     setExpanded(!expanded)
   }
 
+  // Function to create a new chat
   const createNewChat = async () => {
     const id = `${Date.now()}`
     const chatName = `${serviceDetail?.serviceName}`
@@ -137,11 +146,13 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
    * render
    *********/
 
+  // Render the navigation bar
   const renderNavBar = () => {
     const serviceName = serviceDetail?.serviceName
     return <NavigationBar title={serviceName} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
   }
 
+   // Render the profile section
   const renderProfileSection = () => {
     return (
       <Col mb20>
@@ -182,7 +193,7 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
     )
   }
 
-  //needs further implementation with the maps. Need google maps api key.
+  // Render the location section
   const renderLocation = () => {
     return (
       <Col mt20>
@@ -192,6 +203,7 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
     )
   }
 
+  // Render the message button
   const renderMessageButton = () => {
     return (
       <FloatingButton
@@ -205,6 +217,7 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
     )
   }
 
+   // Render the loading indicator
   const renderActivityIndicator = () => {
     return (
       <Col mt20>

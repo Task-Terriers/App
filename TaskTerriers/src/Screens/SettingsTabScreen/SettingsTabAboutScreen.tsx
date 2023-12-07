@@ -42,6 +42,7 @@ const SettingsTabAboutScreen = ({ navigation, route }) => {
    * life cycles
    **************/
 
+  // Fetch user info on component mount
   useEffect(() => {
     getUserInfo()
   }, [])
@@ -50,6 +51,7 @@ const SettingsTabAboutScreen = ({ navigation, route }) => {
    * life cycles
    *************/
 
+  // Fetch user bio details once userInfo is set
   useEffect(() => {
     GET_user_details()
   }, [userInfo])
@@ -57,11 +59,14 @@ const SettingsTabAboutScreen = ({ navigation, route }) => {
   /************
    * functions
    ************/
+
+  // Function to get user data from AsyncStorage
   const getUserInfo = async () => {
     const userData = await AsyncStorageModule.GET_asyncStorage('USER_DATA')
     setUserInfo(userData)
   }
 
+  // Function to get user bio details from API
   const GET_user_details = async () => {
     try {
       const response = await fetch(`${baseApiUrl}/api/userGet/${userInfo?.userId}`)
@@ -75,12 +80,15 @@ const SettingsTabAboutScreen = ({ navigation, route }) => {
     }
   }
 
+  // Function to handle return action
   const onPressReturn = () => {
     TaskTerriersNavigationModule.goBack()
   }
 
+  // Function to handle bio update
   const onPressDoneButton = async () => {
     try {
+       // API call to update bio
       setIsSetting(true)
       const response = await fetch(`${baseApiUrl}/api/userChange/${userInfo?.userId}`, {
         method: 'PUT',

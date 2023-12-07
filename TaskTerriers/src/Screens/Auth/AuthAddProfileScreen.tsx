@@ -15,6 +15,7 @@ import { deviceInfo } from '../../utilities/deviceInfo'
 interface Props {}
 
 const AuthAddProfileScreen = ({ navigation, route }) => {
+  // Extracting parameters passed through navigation
   const firstName = route?.params?.firstName
   const lastName = route?.params?.lastName
   const email = route?.params?.email
@@ -39,6 +40,7 @@ const AuthAddProfileScreen = ({ navigation, route }) => {
    * life cycles
    **************/
 
+   // Effect hook to log route params on component mount
   useEffect(() => {
     console.log(route?.params)
     console.log(route?.params?.firstName)
@@ -48,6 +50,7 @@ const AuthAddProfileScreen = ({ navigation, route }) => {
    * functions
    ************/
 
+  // Function to handle save button press
   const onPressSaveButton = () => {
     return TaskTerriersNavigationModule.navigate(Root.BottomTabNavigation)
   }
@@ -56,10 +59,12 @@ const AuthAddProfileScreen = ({ navigation, route }) => {
    * render
    *********/
 
+  // Renders the navigation bar
   const renderNavigationBar = () => {
     return <NavigationBar title={'Add Profile'} />
   }
 
+  // Renders user information input fields
   const renderUserInfo = () => {
     return (
       <Col mt18>
@@ -83,6 +88,7 @@ const AuthAddProfileScreen = ({ navigation, route }) => {
     )
   }
 
+  // Renders profile image
   const renderProfileURL = () => {
     return (
       <Col radius100 overflowHidden h120 w120>
@@ -91,6 +97,7 @@ const AuthAddProfileScreen = ({ navigation, route }) => {
     )
   }
 
+  // Renders the save button
   const renderSaveButton = () => {
     return (
       <Col absolute bottom0 w={'100%'} ph16 pb={deviceInfo.safeAreaBottomSpace + 16}>

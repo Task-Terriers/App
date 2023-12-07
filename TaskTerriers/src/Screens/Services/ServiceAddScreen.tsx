@@ -15,6 +15,7 @@ import { FloatingButton } from '../../components/Buttons/FloatingButton'
 import AsyncStorageModule from '../../modules/AsyncStorageModule'
 import { userData } from '../../navigation'
 
+// Define the services type for clarity
 type servicesType = 'Education' | 'Beauty' | 'Athletics' | 'Moving' | 'Music' | 'Chores' | 'Tech' | 'Tailoring' | 'Others'
 
 const ServiceAddScreen = ({ navigation, route }) => {
@@ -25,6 +26,8 @@ const ServiceAddScreen = ({ navigation, route }) => {
   /**************************
    * props, navigation prams
    **************************/
+
+  // Base URL for API calls
   const baseApiUrl = process.env.EXPO_PUBLIC_API_URL
 
   /*************
@@ -43,6 +46,7 @@ const ServiceAddScreen = ({ navigation, route }) => {
    * life cycles
    **************/
 
+  // Fetch user data on component mount
   useEffect(() => {
     getUserInfo()
     console.log(typeof `${Date.now()}`)
@@ -52,16 +56,19 @@ const ServiceAddScreen = ({ navigation, route }) => {
    * functions
    ************/
 
+   // Function to retrieve user data from AsyncStorage
   const getUserInfo = async () => {
     const userData = await AsyncStorageModule.GET_asyncStorage('USER_DATA')
     setUserInfo(userData)
     console.log(userData.userId)
   }
 
+  // Function to handle navigation return
   const onPressReturn = () => {
     TaskTerriersNavigationModule.goBack()
   }
 
+  // Function to post new service
   const POST_service = async () => {
     const body = {
       serviceId: 50,
@@ -89,7 +96,9 @@ const ServiceAddScreen = ({ navigation, route }) => {
     }
   }
 
+   // Function to handle the 'Post Service' button press
   const onPressPostButton = async () => {
+     // Call the POST function and navigate back
     POST_service()
     return TaskTerriersNavigationModule.goBack()
   }
@@ -151,6 +160,7 @@ const ServiceAddScreen = ({ navigation, route }) => {
     )
   }
 
+  // Render radio buttons for selecting service type
   const renderRadioButton = () => {
     return (
       <Col>
@@ -241,6 +251,7 @@ const ServiceAddScreen = ({ navigation, route }) => {
     )
   }
 
+   // Render the 'Add Service' button
   const renderAddButton = () => {
     return (
       <FloatingButton
@@ -274,6 +285,6 @@ const ServiceAddScreen = ({ navigation, route }) => {
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({}) 
 
 export default ServiceAddScreen

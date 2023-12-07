@@ -35,8 +35,10 @@ const ServicesTab = ({ route }) => {
   const [services, setServices] = useState([])
   const [refreshing, setRefreshing] = useState(false)
 
+   // Base URL for API calls
   const baseApiUrl = process.env.EXPO_PUBLIC_API_URL
 
+  // Function to fetch services from the API
   const GET_services = async () => {
     try {
       const response = await fetch(`${baseApiUrl}/api/serviceList`)
@@ -52,6 +54,7 @@ const ServicesTab = ({ route }) => {
    * life cycles
    **************/
 
+  // Effect hook for fetching services on component mount
   useEffect(() => {
     console.log(GET_services())
   }, [])
@@ -60,14 +63,18 @@ const ServicesTab = ({ route }) => {
    * functions
    ************/
 
+  // Function to handle card press
   const onPressCard = item => {
     console.log(item)
     return TaskTerriersNavigationModule.navigate(Root.ServiceDetailScreen, { serviceId: item?.serviceId })
   }
+
+  // Function to handle adding a new service
   const onPressFloatingButton = async () => {
     return TaskTerriersNavigationModule.navigate(Root.ServiceAddScreen)
   }
 
+  // Function to handle refresh action
   const _onRefresh = async () => {
     setRefreshing(true)
     GET_services()
@@ -78,10 +85,12 @@ const ServicesTab = ({ route }) => {
    * render
    *********/
 
+   // Render the navigation bar
   const renderNavigationBar = () => {
     return <NavigationBar iconName={IconNames['Service']} title={route.name} />
   }
 
+  // Render the floating add button
   const renderFloatingButton = () => {
     return (
       <FloatingButton
@@ -93,6 +102,8 @@ const ServicesTab = ({ route }) => {
       />
     )
   }
+
+  // Render each service card
   const renderItem = ({ item }) => {
     return (
       <SerivcesCard
@@ -107,6 +118,7 @@ const ServicesTab = ({ route }) => {
     )
   }
 
+   // Render UI when there are no services
   const renderListEmptyComponent = () => {
     return (
       <Col alignCenter>

@@ -29,12 +29,14 @@ const MessagesDetailScreen = ({ navigation, route }) => {
    * props, navigation prams
    **************************/
 
+   // Extracting the chat room details from the navigation route parameters
   const { chatRoom } = route?.params
 
   /*************
    * state, ref
    *************/
 
+   // States for managing rendering, user info, messages, and message text input
   const [isRendering, setIsRendering] = useState<boolean>(true)
   const [userInfo, setUserInfo] = useState<userData>()
   const [messages, setMessages] = useState([])
@@ -44,6 +46,7 @@ const MessagesDetailScreen = ({ navigation, route }) => {
    * life cycles
    **************/
 
+  // Fetching user information and subscribing to message updates in Firestore
   useEffect(() => {
     getUserInfo()
 
@@ -60,6 +63,7 @@ const MessagesDetailScreen = ({ navigation, route }) => {
    * life cycles
    *************/
 
+  // Logging messages for debugging
   useEffect(() => {
     console.log(messages)
   }, [messages])
@@ -68,12 +72,14 @@ const MessagesDetailScreen = ({ navigation, route }) => {
    * functions
    ************/
 
+  // Fetch user information from AsyncStorage
   const getUserInfo = async () => {
     const userData = await AsyncStorageModule.GET_asyncStorage('USER_DATA')
     setUserInfo(userData)
     console.log(userData.userId)
   }
 
+   // Function to send a message
   const sendMessage = async () => {
     const msg = messageText.trim()
     if (!msg) return
@@ -93,14 +99,16 @@ const MessagesDetailScreen = ({ navigation, route }) => {
       console.log(err)
     }
   }
+
+  // Navigation back to the previous screen
   const onPressReturn = () => {
     TaskTerriersNavigationModule.goBack()
   }
 
+  // Handling payment
   const onPressPayment = () => {
     const url =
       'https://checkout.stripe.com/c/pay/cs_test_a1fcIJaHGdrTfMjuLQss5dYStgou6iLkMifSnDiGoxuCTt5RKIlobkNBw1#fidkdWxOYHwnPyd1blpxYHZxWjA0SjFUPDdOYXA1cG9VMGZnXVFCYjddNXNSNGo1b0I3dUFnZG5GTH9wdmdwSk1XZEFCM1BjTkB8bF9MS3V3XFc2fVYzVUxcSEJcdE1vUXZgNzRkR0RVbDRVNTVjNEh%2FMTEwVCcpJ3VpbGtuQH11anZgYUxhJz8ncWB2cVphVzM0MF83azxjQ0pkYUpjXFwnKSd2cXdsdWBEZmZqcGtxJz8nZGZmcVo0Sk5CPG5PaWNmSlYwXzRrJ3gl'
-
     Linking.canOpenURL(url)
       .then(supported => {
         if (supported) {
@@ -112,6 +120,7 @@ const MessagesDetailScreen = ({ navigation, route }) => {
       .catch(err => console.error('An error occurred', err))
   }
 
+   // Function to display time in a readable format
   const displayTime = ({ item }) => {
     return new Date(parseInt(item?.createdAt?.seconds) * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
   }
@@ -119,6 +128,8 @@ const MessagesDetailScreen = ({ navigation, route }) => {
   /*********
    * render
    *********/
+
+  // Render functions for different components of the UI
 
   const renderNavBar = () => {
     return <NavigationBar title={chatRoom?.chatName} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
@@ -137,6 +148,7 @@ const MessagesDetailScreen = ({ navigation, route }) => {
   }
 
   const renderSendBox = () => {
+    // Send message input and button
     return (
       <Row alignCenter borderColor={BUColor['black']} borderTW1 ph10 radius12 pv8>
         <Col flex>
@@ -157,6 +169,8 @@ const MessagesDetailScreen = ({ navigation, route }) => {
       </Row>
     )
   }
+
+  // UI for the message bubble for messages sent by the user
   const renderMyMessageBubble = ({ item }: { item: DocumentData }) => {
     return (
       <Col alignSelfEnd>
@@ -172,6 +186,7 @@ const MessagesDetailScreen = ({ navigation, route }) => {
     )
   }
 
+  // UI for the message bubble for messages received from others
   const renderOtherMessageBubble = ({ item }: { item: DocumentData }) => {
     return (
       <Col alignSelfStart>
@@ -185,7 +200,7 @@ const MessagesDetailScreen = ({ navigation, route }) => {
     )
   }
 
-  const renderFlatList = () => {
+  const renderFlatList = () => { // FlatList for displaying messages
     return (
       <FlatList
         data={messages}
@@ -202,10 +217,11 @@ const MessagesDetailScreen = ({ navigation, route }) => {
    * render()
    ***********/
 
-  return (
+  // Rendering the UI
+  return ( 
     <TaskTerriersSafeAreaView style={{ flex: 1 }}>
       {renderNavBar()}
-      {renderPaymentBar()}
+      {renderPaymentBar()} 
       <Col p16 flex>
         {renderFlatList()}
         {/* {renderMyMessageBubble('afjdlasjfkdjs;kafjkdsjafkdjkfj;dlsajf;kj;dsk;afjkdsjfkjdskajfkldsjfkdsj;afjdkafjd;kjsa;fkldjsafj;djafkdjsafkdjslkfj;lj')}
