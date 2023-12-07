@@ -29,14 +29,14 @@ const MessagesDetailScreen = ({ navigation, route }) => {
    * props, navigation prams
    **************************/
 
-   // Extracting the chat room details from the navigation route parameters
+  // Extracting the chat room details from the navigation route parameters
   const { chatRoom } = route?.params
 
   /*************
    * state, ref
    *************/
 
-   // States for managing rendering, user info, messages, and message text input
+  // States for managing rendering, user info, messages, and message text input
   const [isRendering, setIsRendering] = useState<boolean>(true)
   const [userInfo, setUserInfo] = useState<userData>()
   const [messages, setMessages] = useState([])
@@ -79,7 +79,7 @@ const MessagesDetailScreen = ({ navigation, route }) => {
     console.log(userData.userId)
   }
 
-   // Function to send a message
+  // Function to send a message
   const sendMessage = async () => {
     const msg = messageText.trim()
     if (!msg) return
@@ -120,7 +120,7 @@ const MessagesDetailScreen = ({ navigation, route }) => {
       .catch(err => console.error('An error occurred', err))
   }
 
-   // Function to display time in a readable format
+  // Function to display time in a readable format
   const displayTime = ({ item }) => {
     return new Date(parseInt(item?.createdAt?.seconds) * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
   }
@@ -200,7 +200,8 @@ const MessagesDetailScreen = ({ navigation, route }) => {
     )
   }
 
-  const renderFlatList = () => { // FlatList for displaying messages
+  const renderFlatList = () => {
+    // FlatList for displaying messages
     return (
       <FlatList
         data={messages}
@@ -218,10 +219,10 @@ const MessagesDetailScreen = ({ navigation, route }) => {
    ***********/
 
   // Rendering the UI
-  return ( 
+  return (
     <TaskTerriersSafeAreaView style={{ flex: 1 }}>
       {renderNavBar()}
-      {renderPaymentBar()} 
+      {renderPaymentBar()}
       <Col p16 flex>
         {renderFlatList()}
         {/* {renderMyMessageBubble('afjdlasjfkdjs;kafjkdsjafkdjkfj;dlsajf;kj;dsk;afjkdsjfkjdskajfkldsjfkdsj;afjdkafjd;kjsa;fkldjsafj;djafkdjsafkdjslkfj;lj')}

@@ -16,7 +16,7 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { NeutralColor } from '../../Libs'
 import ServiceAddScreen from './ServiceAddScreen'
 
-interface Props { }
+interface Props {}
 
 const ServicesTab = ({ route }) => {
   /*********
@@ -35,7 +35,7 @@ const ServicesTab = ({ route }) => {
   const [services, setServices] = useState([])
   const [refreshing, setRefreshing] = useState(false)
 
-   // Base URL for API calls
+  // Base URL for API calls
   const baseApiUrl = process.env.EXPO_PUBLIC_API_URL
 
   // Function to fetch services from the API
@@ -85,7 +85,7 @@ const ServicesTab = ({ route }) => {
    * render
    *********/
 
-   // Render the navigation bar
+  // Render the navigation bar
   const renderNavigationBar = () => {
     return <NavigationBar iconName={IconNames['Service']} title={route.name} />
   }
@@ -114,11 +114,12 @@ const ServicesTab = ({ route }) => {
         serviceRate={item?.price}
         postPreview={item?.description}
         serviceType={item?.serviceType}
-        onPress={() => onPressCard(item)} />
+        onPress={() => onPressCard(item)}
+      />
     )
   }
 
-   // Render UI when there are no services
+  // Render UI when there are no services
   const renderListEmptyComponent = () => {
     return (
       <Col alignCenter>

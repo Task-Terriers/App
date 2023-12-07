@@ -56,7 +56,7 @@ const ServiceAddScreen = ({ navigation, route }) => {
    * functions
    ************/
 
-   // Function to retrieve user data from AsyncStorage
+  // Function to retrieve user data from AsyncStorage
   const getUserInfo = async () => {
     const userData = await AsyncStorageModule.GET_asyncStorage('USER_DATA')
     setUserInfo(userData)
@@ -96,9 +96,9 @@ const ServiceAddScreen = ({ navigation, route }) => {
     }
   }
 
-   // Function to handle the 'Post Service' button press
+  // Function to handle the 'Post Service' button press
   const onPressPostButton = async () => {
-     // Call the POST function and navigate back
+    // Call the POST function and navigate back
     POST_service()
     return TaskTerriersNavigationModule.goBack()
   }
@@ -251,7 +251,7 @@ const ServiceAddScreen = ({ navigation, route }) => {
     )
   }
 
-   // Render the 'Add Service' button
+  // Render the 'Add Service' button
   const renderAddButton = () => {
     return (
       <FloatingButton
@@ -285,6 +285,6 @@ const ServiceAddScreen = ({ navigation, route }) => {
   )
 }
 
-const styles = StyleSheet.create({}) 
+const styles = StyleSheet.create({})
 
 export default ServiceAddScreen

@@ -22,7 +22,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { BUColor, NeutralColor } from '../Libs'
 import { Span } from '../StyleToProps'
 
-interface Props { }
+interface Props {}
 
 const MessagesTab = ({ navigation, route }) => {
   /*********
@@ -36,7 +36,7 @@ const MessagesTab = ({ navigation, route }) => {
   /*************
    * state, ref
    *************/
-   // Sample profile picture for mock data
+  // Sample profile picture for mock data
   const profilePicture: any = require('../assets/images/profile/aleks.png')
 
   // Mock data for messages, to be replaced with real data
@@ -89,17 +89,17 @@ const MessagesTab = ({ navigation, route }) => {
   // Effect hook for fetching user information and setting up real-time chat updates
   useEffect(() => {
     getUserInfo()
-     // Firestore query to fetch chat data
+    // Firestore query to fetch chat data
     const chatQuery = query(collection(FIRESTORE_DB, 'messageRooms'), orderBy('_id', 'desc'))
 
-     // Subscribing to chat updates
+    // Subscribing to chat updates
     const unsubscribe = onSnapshot(chatQuery, querySnapShot => {
       const chatRooms = querySnapShot.docs.map(doc => doc.data())
       setChats(chatRooms)
       setIsLoading(false)
     })
 
-     // Cleanup function to unsubscribe from the updates
+    // Cleanup function to unsubscribe from the updates
     return unsubscribe
   }, [])
 
@@ -127,16 +127,9 @@ const MessagesTab = ({ navigation, route }) => {
     return <NavigationBar iconName={IconNames['Message']} title={route.name} />
   }
 
-    // Renders each item in the FlatList
+  // Renders each item in the FlatList
   const renderItem = ({ item }) => {
-    return (
-      <MessagesCard
-        chatName={item?.chatName}
-        messagePreview={'Message Preview'}
-        profilePicPath={''}
-        onPress={() => onPressCard(item)}
-      />
-    )
+    return <MessagesCard chatName={item?.chatName} messagePreview={'Message Preview'} profilePicPath={''} onPress={() => onPressCard(item)} />
   }
 
   // Renders a message when the list is empty

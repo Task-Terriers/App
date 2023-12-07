@@ -65,10 +65,9 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
     console.log(serviceDetail?.serviceName)
   }, [])
 
-    // Fetching user details after getting service details
+  // Fetching user details after getting service details
   useEffect(() => {
     GET_user_details()
-
   }, [serviceDetail])
 
   /************
@@ -104,8 +103,7 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
     }
   }
 
-  
-   // Function to handle navigation return
+  // Function to handle navigation return
   const onPressReturn = () => {
     TaskTerriersNavigationModule.goBack()
   }
@@ -152,7 +150,7 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
     return <NavigationBar title={serviceName} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
   }
 
-   // Render the profile section
+  // Render the profile section
   const renderProfileSection = () => {
     return (
       <Col mb20>
@@ -217,7 +215,7 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
     )
   }
 
-   // Render the loading indicator
+  // Render the loading indicator
   const renderActivityIndicator = () => {
     return (
       <Col mt20>
@@ -232,14 +230,16 @@ Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
   return (
     <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: NeutralColor['neutral-100'] }}>
       {renderNavBar()}
-      {isLoading ? renderActivityIndicator() :
+      {isLoading ? (
+        renderActivityIndicator()
+      ) : (
         <Col flex p16>
           {renderProfileSection()}
           <Divider />
           {renderInfo()}
           {renderLocation()}
         </Col>
-      }
+      )}
       {renderMessageButton()}
     </TaskTerriersSafeAreaView>
   )

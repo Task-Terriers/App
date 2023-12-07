@@ -40,7 +40,7 @@ const AuthAddProfileScreen = ({ navigation, route }) => {
    * life cycles
    **************/
 
-   // Effect hook to log route params on component mount
+  // Effect hook to log route params on component mount
   useEffect(() => {
     console.log(route?.params)
     console.log(route?.params?.firstName)

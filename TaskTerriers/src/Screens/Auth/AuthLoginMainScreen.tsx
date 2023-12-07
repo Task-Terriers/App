@@ -28,7 +28,7 @@ const AuthLoginMainScreen = () => {
   const baseApiUrl = process.env.EXPO_PUBLIC_API_URL
 
   // Configuration for Google Sign-In
-  GoogleSignin.configure({ 
+  GoogleSignin.configure({
     webClientId: process.env.EXPO_PUBLIC_WEB_CLIENT_ID,
     forceCodeForRefreshToken: true,
   })
@@ -39,7 +39,7 @@ const AuthLoginMainScreen = () => {
    * life cycles
    **************/
 
-    // Subscribe to authentication state changes
+  // Subscribe to authentication state changes
   useEffect(() => {
     const subscriber = Auth().onAuthStateChanged(onAuthStateChanged)
     return subscriber // unsubscribe on unmount
@@ -49,7 +49,7 @@ const AuthLoginMainScreen = () => {
    * life cycles
    *************/
 
-   // Redirect authenticated users
+  // Redirect authenticated users
   useEffect(() => {
     if (currentUser) {
       const userData = {
@@ -83,7 +83,7 @@ const AuthLoginMainScreen = () => {
    * functions
    ************/
 
-   // Fetch user information from the database
+  // Fetch user information from the database
   const GET_User_info_from_DB = async (userId: string) => {
     try {
       const response = await fetch(`${baseApiUrl}/api/userExists/${userId}`)
@@ -138,14 +138,14 @@ const AuthLoginMainScreen = () => {
   }
 
   // Handle user state changes
-   // Update user state on authentication state change
+  // Update user state on authentication state change
   const onAuthStateChanged = user => {
     setUser(user)
     console.log(user)
     if (initializing) setInitializing(false)
   }
 
-   // Parse name implementation
+  // Parse name implementation
   const parseName = () => {
     if (currentUser) {
       const displayName = currentUser?.displayName.split(' ')
@@ -166,12 +166,12 @@ const AuthLoginMainScreen = () => {
     )
   }
 
-   // Render Google Sign-In button
+  // Render Google Sign-In button
   const renderGoogleSignIn = () => {
     return (
       <GoogleSigninButton
-        size={GoogleSigninButton.Size.Wide} 
-        color={GoogleSigninButton.Color.Light} 
+        size={GoogleSigninButton.Size.Wide}
+        color={GoogleSigninButton.Color.Light}
         onPress={onGoogleButtonPress}
         // disabled={this.state.isSigninInProgress}
       />

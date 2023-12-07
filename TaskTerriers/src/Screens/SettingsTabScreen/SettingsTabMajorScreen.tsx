@@ -12,7 +12,7 @@ import { FloatingButton } from '../../components/Buttons/FloatingButton'
 import { BUColor } from '../../Libs'
 import TaskTerriersSafeAreaView from '../../Views/TaskTerriersSafeAreaView'
 
-interface Props { }
+interface Props {}
 
 const SettingsTabMajorScreen = ({ navigation, route }) => {
   /*********
@@ -110,7 +110,7 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
    * render
    *********/
 
-   // Render functions
+  // Render functions
   const renderNavBar = () => {
     return <NavigationBar title={'Major/Minor'} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
   }
@@ -155,7 +155,16 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
     )
   }
   const renderUpdateButton = () => {
-    return <FloatingButton size={'medium'} onPress={onPressDoneButton} text={{ value: 'Update Major/Minor' }} hasBorder isFullWithBtn isProgress={isUpdating} />
+    return (
+      <FloatingButton
+        size={'medium'}
+        onPress={onPressDoneButton}
+        text={{ value: 'Update Major/Minor' }}
+        hasBorder
+        isFullWithBtn
+        isProgress={isUpdating}
+      />
+    )
   }
 
   const renderActivityIndicator = () => {
@@ -171,14 +180,17 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
    ***********/
 
   return (
-    <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white', }}>
+    <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       {renderNavBar()}
-      {isLoading ? renderActivityIndicator() :
+      {isLoading ? (
+        renderActivityIndicator()
+      ) : (
         <Col p16>
           <Col alignSelfEnd>{renderEditButton()}</Col>
           {renderMajorInput()}
           {renderMinorInput()}
-        </Col>}
+        </Col>
+      )}
       {renderUpdateButton()}
     </TaskTerriersSafeAreaView>
   )

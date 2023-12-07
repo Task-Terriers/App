@@ -15,7 +15,7 @@ import { userData } from '../../navigation'
 import AsyncStorageModule from '../../modules/AsyncStorageModule'
 import { FloatingButton } from '../../components/Buttons/FloatingButton'
 
-interface Props { }
+interface Props {}
 
 const SettingsTabAboutScreen = ({ navigation, route }) => {
   /*********
@@ -88,7 +88,7 @@ const SettingsTabAboutScreen = ({ navigation, route }) => {
   // Function to handle bio update
   const onPressDoneButton = async () => {
     try {
-       // API call to update bio
+      // API call to update bio
       setIsSetting(true)
       const response = await fetch(`${baseApiUrl}/api/userChange/${userInfo?.userId}`, {
         method: 'PUT',
@@ -123,7 +123,9 @@ const SettingsTabAboutScreen = ({ navigation, route }) => {
   }
 
   const renderUpdateButton = () => {
-    return <FloatingButton size={'medium'} onPress={onPressDoneButton} text={{ value: 'Update Bio' }} hasBorder isFullWithBtn isProgress={isSetting} />
+    return (
+      <FloatingButton size={'medium'} onPress={onPressDoneButton} text={{ value: 'Update Bio' }} hasBorder isFullWithBtn isProgress={isSetting} />
+    )
   }
 
   const renderBioInput = () => {
@@ -154,11 +156,14 @@ const SettingsTabAboutScreen = ({ navigation, route }) => {
   return (
     <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       {renderNavBar()}
-      {isLoading ? renderActivityIndicator() :
+      {isLoading ? (
+        renderActivityIndicator()
+      ) : (
         <Col p16>
           <Col alignSelfEnd>{renderEditButton()}</Col>
           {renderBioInput()}
-        </Col>}
+        </Col>
+      )}
       {renderUpdateButton()}
     </TaskTerriersSafeAreaView>
   )

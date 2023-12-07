@@ -39,7 +39,7 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
    * life cycles
    **************/
 
-   // Effect hook for component mount and unmount operations
+  // Effect hook for component mount and unmount operations
   useEffect(() => {
     // ComponentDidMount
 
@@ -74,7 +74,7 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
     setIsNotValid(false)
   }
 
-   // Function to delete a class from the list
+  // Function to delete a class from the list
   const onPressDelete = item => {
     const filterClasses = classes.filter(c => c !== item)
     setClasses(filterClasses)
@@ -84,7 +84,7 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
    * render
    *********/
 
-   // Navigation bar UI
+  // Navigation bar UI
   const renderNavBar = () => {
     return <NavigationBar title={'Classes'} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
   }

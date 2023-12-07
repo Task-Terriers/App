@@ -83,7 +83,6 @@ const SettingsTab = ({ navigation, route }) => {
     console.log(userData)
   }, [])
 
-
   /************
    * functions
    ************/
@@ -103,7 +102,6 @@ const SettingsTab = ({ navigation, route }) => {
     setUserData(userData)
     setIsRendering(true)
   }
-
 
   /*********
    * render

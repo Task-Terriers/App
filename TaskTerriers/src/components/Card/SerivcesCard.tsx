@@ -15,7 +15,7 @@ interface RequestsCardProps {
   profilePicPath?: string
   major: string
   serviceRate: number
-  serviceType?: string,
+  serviceType?: string
   onPress?: () => void
 }
 
@@ -124,10 +124,8 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({
     <Col bgNeutral100 h120 radius12 pv14 ph16 mb12 onPress={onPress}>
       <Row mb12 justifyBetween>
         <Row flexShrink>
-          <Col>
-            {renderProfilePic()}
-          </Col>
-          <Col justifyBetween pv5 >
+          <Col>{renderProfilePic()}</Col>
+          <Col justifyBetween pv5>
             <Row alignCenter justifyBetween>
               {renderServiceName()}
               {renderServiceType()}
@@ -137,9 +135,7 @@ const SerivcesCard: React.FC<RequestsCardProps> = ({
         </Row>
         {renderServiceRate()}
       </Row>
-      <Row justifyBetween>
-        {renderDescriptionPreview()}
-      </Row>
+      <Row justifyBetween>{renderDescriptionPreview()}</Row>
     </Col>
   )
 }
