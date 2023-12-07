@@ -27,6 +27,7 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
    * state, ref
    *************/
 
+  // State for managing rendering, edit mode, classes list, and validation flags
   const [isRendering, setIsRendering] = useState<boolean>(true)
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [inputText, setInputText] = useState<string>('')
@@ -38,6 +39,7 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
    * life cycles
    **************/
 
+  // Effect hook for component mount and unmount operations
   useEffect(() => {
     // ComponentDidMount
 
@@ -50,10 +52,13 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
   /************
    * functions
    ************/
+
+  // Function to navigate back to the previous screen
   const onPressReturn = () => {
     TaskTerriersNavigationModule.goBack()
   }
 
+  // Function to handle adding a new class
   const onPressAddButton = () => {
     if (classes?.includes(inputText)) {
       setIsDuplicated(true)
@@ -69,6 +74,7 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
     setIsNotValid(false)
   }
 
+  // Function to delete a class from the list
   const onPressDelete = item => {
     const filterClasses = classes.filter(c => c !== item)
     setClasses(filterClasses)
@@ -78,10 +84,12 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
    * render
    *********/
 
+  // Navigation bar UI
   const renderNavBar = () => {
     return <NavigationBar title={'Classes'} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
   }
 
+  // Edit/Add/Done button UI
   const renderEditButton = () => {
     return (
       <UniversalButton
@@ -93,6 +101,7 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
     )
   }
 
+  // Add button UI for adding a new class
   const renderAddButton = () => {
     return (
       <Col mt10 alignSelfEnd>
@@ -101,6 +110,7 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
     )
   }
 
+  // UI for each class item in the list
   const renderItem = ({ item }) => {
     return (
       <Row bgNeutral100 ph12 pv10 radius12 justifyBetween>
@@ -112,6 +122,7 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
     )
   }
 
+  // Text input for adding a new class
   const renderTextInput = () => {
     if (!isEditing) return null
     return (
@@ -127,6 +138,7 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
     )
   }
 
+  // UI to render the list of classes
   const renderClasses = () => {
     if (classes.length === 0) return null
     return (
@@ -136,6 +148,7 @@ const SettingsTabClassesScreen = ({ navigation, route }) => {
     )
   }
 
+  // UI for displaying warning messages for duplication or invalid input
   const renderWarningMessage = () => {
     if (isDuplicated) return <Span colorAlertCritical bodyM>{`${inputText} is already in the list.`}</Span>
     if (isNotValid) return <Span colorAlertCritical bodyM>{`${inputText} is not a valid course name.`}</Span>

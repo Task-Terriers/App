@@ -40,6 +40,7 @@ const SettingsTab = ({ navigation, route }) => {
   const [isRendering, setIsRendering] = useState<boolean>(true)
   const [userData, setUserData] = useState<userData>()
 
+  // Menu items for settings
   const SettingItems: MenuComponentProps[] = [
     {
       title: 'Email',
@@ -76,16 +77,17 @@ const SettingsTab = ({ navigation, route }) => {
    * life cycles
    **************/
 
+  // Fetch user data on component mount
   useEffect(() => {
     getUserData()
     console.log(userData)
   }, [])
 
-
   /************
    * functions
    ************/
 
+  // Function to handle sign-out
   const onPressSignOut = () => {
     return Auth()
       .signOut()
@@ -94,12 +96,12 @@ const SettingsTab = ({ navigation, route }) => {
       })
   }
 
+  // Function to retrieve user data from AsyncStorage
   const getUserData = async () => {
     const userData = await AsyncStorageModule.GET_asyncStorage('USER_DATA')
     setUserData(userData)
     setIsRendering(true)
   }
-
 
   /*********
    * render

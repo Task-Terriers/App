@@ -12,7 +12,7 @@ import { FloatingButton } from '../../components/Buttons/FloatingButton'
 import { BUColor } from '../../Libs'
 import TaskTerriersSafeAreaView from '../../Views/TaskTerriersSafeAreaView'
 
-interface Props { }
+interface Props {}
 
 const SettingsTabMajorScreen = ({ navigation, route }) => {
   /*********
@@ -27,6 +27,7 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
    * state, ref
    *************/
 
+  // State declarations
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [majorInputText, setMajorInputText] = useState<string>('')
   const [minorInputText, setMinorInputText] = useState<string>('')
@@ -39,10 +40,12 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
    * life cycles
    **************/
 
+  // Fetch user info on component mount
   useEffect(() => {
     getUserInfo()
   }, [])
 
+  // Fetch user major and minor details once userInfo is set
   useEffect(() => {
     GET_user_details()
   }, [userInfo])
@@ -50,11 +53,14 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
   /************
    * functions
    ************/
+
+  // Function to get user data from AsyncStorage
   const getUserInfo = async () => {
     const userData = await AsyncStorageModule.GET_asyncStorage('USER_DATA')
     setUserInfo(userData)
   }
 
+  // Function to get user major and minor details from API
   const GET_user_details = async () => {
     try {
       const response = await fetch(`${baseApiUrl}/api/userGet/${userInfo?.userId}`)
@@ -69,12 +75,15 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
     }
   }
 
+  // Function to handle return action
   const onPressReturn = () => {
     TaskTerriersNavigationModule.goBack()
   }
 
+  // Function to handle major/minor update
   const onPressDoneButton = async () => {
     try {
+      // API call to update major/minor
       setIsUpdating(true)
       const response = await fetch(`${baseApiUrl}/api/userChange/${userInfo?.userId}`, {
         method: 'PUT',
@@ -101,6 +110,7 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
    * render
    *********/
 
+  // Render functions
   const renderNavBar = () => {
     return <NavigationBar title={'Major/Minor'} iconName={IconNames['Return']} hasDivider iconAction={onPressReturn} />
   }
@@ -145,7 +155,16 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
     )
   }
   const renderUpdateButton = () => {
-    return <FloatingButton size={'medium'} onPress={onPressDoneButton} text={{ value: 'Update Major/Minor' }} hasBorder isFullWithBtn isProgress={isUpdating} />
+    return (
+      <FloatingButton
+        size={'medium'}
+        onPress={onPressDoneButton}
+        text={{ value: 'Update Major/Minor' }}
+        hasBorder
+        isFullWithBtn
+        isProgress={isUpdating}
+      />
+    )
   }
 
   const renderActivityIndicator = () => {
@@ -161,14 +180,17 @@ const SettingsTabMajorScreen = ({ navigation, route }) => {
    ***********/
 
   return (
-    <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white', }}>
+    <TaskTerriersSafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       {renderNavBar()}
-      {isLoading ? renderActivityIndicator() :
+      {isLoading ? (
+        renderActivityIndicator()
+      ) : (
         <Col p16>
           <Col alignSelfEnd>{renderEditButton()}</Col>
           {renderMajorInput()}
           {renderMinorInput()}
-        </Col>}
+        </Col>
+      )}
       {renderUpdateButton()}
     </TaskTerriersSafeAreaView>
   )
